@@ -46,3 +46,6 @@ npm-debug.log
 
 # ElixirLS extension
 .elixir_ls
+
+# Docker
+tmp
