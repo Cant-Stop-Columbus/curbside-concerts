@@ -4,6 +4,30 @@ This repository contains the source code for Curbside Concerts, a charity projec
 
 Please see the [project BaseCamp](https://3.basecamp.com/4445163/projects/16536595) or the #cause-cantstopcolumbus channel in Slack for more information.
 
+## Getting Started
+
+First time setup:
+
+```sh
+# install dependencies
+mix deps.get
+(cd assets && npm install)
+
+# initialize the database
+docker-compose up -d
+mix ecto.setup
+```
+
+To run the app locally:
+
+```sh
+# start the postgres database
+docker-compose up -d
+
+# start the elixir application
+mix phx.server
+```
+
 ## Deployment Configuration
 
 This app is currently deployed to Heroku, using the [Heroku Buildpack for Elixir](https://github.com/HashNuke/heroku-buildpack-elixir).
