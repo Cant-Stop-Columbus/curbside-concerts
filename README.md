@@ -30,11 +30,8 @@ mix phx.server
 
 ## Deployment Configuration
 
-This app is currently deployed to Heroku, using the [Heroku Buildpack for Elixir](https://github.com/HashNuke/heroku-buildpack-elixir).
-
-To deploy:
-
-1. Create a Heroku project linked to this GitHub repo
-2. Add the buildpack to the existing Heroku project: `heroku buildpacks:set hashnuke/elixir`
+This app is currently deployed to Heroku, using the following build packs:
+1. [Heroku Buildpack for Elixir](https://github.com/HashNuke/heroku-buildpack-elixir): `heroku buildpacks:add hashnuke/elixir -a <heroku_app_name>`
+2. [Phoenix Static Buildpack](https://github.com/gjaldon/heroku-buildpack-phoenix-static): `heroku buildpacks:add https://github.com/gjaldon/heroku-buildpack-phoenix-static -a <heroku_app_name`
 
 **Note**: If you get zipfile errors when building in Heroku, try setting a different Elixir / Erlang version in `elixir_buildpack.config`. At the time of this writing, we were unable to get Elixir 1.10.* to deploy successfully.
