@@ -7,16 +7,18 @@ defmodule Hello.Requests.Request do
 
   import Ecto.Changeset
 
-  @allowed_attrs ~w|nominee_name nominee_number nominee_address song special_message requester_name requester_number|a
+  @allowed_attrs ~w|nominee_name nominee_phone nominee_address song special_message requester_name requester_phone|a
 
-  schema "request" do
+  schema "requests" do
     field(:nominee_name, :string)
-    field(:nominee_number, :string)
+    field(:nominee_phone, :string)
     field(:nominee_address, :string)
     field(:song, :string)
     field(:special_message, :string)
     field(:requester_name, :string)
-    field(:requester_number, :string)
+    field(:requester_phone, :string)
+
+    timestamps()
   end
 
   def changeset(request, attrs) do

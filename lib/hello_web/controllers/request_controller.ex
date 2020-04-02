@@ -10,15 +10,15 @@ defmodule HelloWeb.RequestController do
     render(conn, "new.html", changeset: changeset, action: action)
   end
 
-  # def create(conn, %{"request" => request_params}) do
-  #   case Requests.create_request(request_params) do
-  #     {:ok, request} ->
-  #       conn
-  #       |> put_flash(:info, "Request created successfully.")
-  #       |> redirect(to: request_path(conn, :show, request))
+  def create(conn, %{"request" => request_params}) do
+    case Requests.create_request(request_params) do
+      {:ok, _request} ->
+        conn
+        |> put_flash(:info, "Thanks for submitting your request")
+        |> redirect(to: Routes.request_path(conn, :new))
 
-  #     {:error, %Ecto.Changeset{} = changeset} ->
-  #       render(conn, "new.html", changeset: changeset)
-  #   end
-  # end
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "new.html", changeset: changeset)
+    end
+  end
 end
