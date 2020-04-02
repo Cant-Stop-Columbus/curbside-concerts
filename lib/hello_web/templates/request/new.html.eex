@@ -1,82 +1,81 @@
-
 <%= form_for @changeset, @action, fn f -> %>
-	<div class="card">
-		<h1>Live pickup truck concert, for your quarantined loved ones</h1>
+<div class="card">
+  <h1>Live pickup truck concert, for your quarantined loved ones</h1>
 
-		<p>We get it. Being quarantined is hard...</p>
+  <p>We get it. Being quarantined is hard...</p>
 
-		<p>But that doesn't mean we have to miss out on all the joys in life.</p>
+  <p>But that doesn't mean we have to miss out on all the joys in life.</p>
 
-		<p>A lot of us are joining zoom concerts and Facebook Live events to be social on the internet. But our older populations - those who may not be as connected digitally, are both most at risk with this virus and isolation, too.</p>
+  <p>A lot of us are joining zoom concerts and Facebook Live events to be social on the internet. But our older populations - those who may not be as connected digitally, are both most at risk with this virus and isolation, too.</p>
 
-		<p>That's where we come in. Our concept is called "Mobile Music Request", a traveling musical performance that aims to bring joy to those who are quarantined so they can temporarily forget about the grave state of the world - neighborhood by neighborhood.</p>
+  <p>That's where we come in. Our concept is called "Mobile Music Request", a traveling musical performance that aims to bring joy to those who are quarantined so they can temporarily forget about the grave state of the world - neighborhood by neighborhood.</p>
 
-		<p>We're running our first prototype tonight, Sunday 3.29 from 5 to 630pm, and asking you to make a request*!</p>
+  <p>We're running our first prototype tonight, Sunday 3.29 from 5 to 630pm, and asking you to make a request*!</p>
 
-		<p>(*not all request will be able to happen tonight, but hopefully we'll be running these so long as the weather is nice and we're stuck at home!).</p>
+  <p>(*not all request will be able to happen tonight, but hopefully we'll be running these so long as the weather is nice and we're stuck at home!).</p>
 
-		<p>* Required</p>
-	</div>
+  <p>* Required</p>
+</div>
 
-	<div class="card">
-		<h2>Do you have an elder loved one or friend in need of a pick-me-up?</h2>
+<div class="card">
+  <h2>Do you have an elder loved one or friend in need of a pick-me-up?</h2>
 
-		<p>We want to play some music for them!</p>
+  <p>We want to play some music for them!</p>
 
-		<p>Fill out the info below to make your "musical request" for an older person who may be feeling isolated at this time.</p>
+  <p>Fill out the info below to make your "musical request" for an older person who may be feeling isolated at this time.</p>
 
-		<p>We will have an amazing singer/songwriter, Will Freed, pulling up to your loved one's home to play delightful acoustic covers with a mic and amplifier. As we get closer to their location, we'll call your favorite elder and tell them to get ready for a special surprise.</p>
+  <p>We will have an amazing singer/songwriter, Will Freed, pulling up to your loved one's home to play delightful acoustic covers with a mic and amplifier. As we get closer to their location, we'll call your favorite elder and tell them to get ready for a special surprise.</p>
 
-		<p>Once on location, we'll keep our social distance as we park the truck, read the dedication you write and play your requested tune (and we'll see... maybe a few more!).</p>
-	</div>
+  <p>Once on location, we'll keep our social distance as we park the truck, read the dedication you write and play your requested tune (and we'll see... maybe a few more!).</p>
+</div>
 
-	<div class="card">
-		<label>
-			<div>Who is this for? *</div>
-      <%= request_input f, :nominee_name %>
-		</label>
-	</div>
+<div class="card">
+  <label>
+    <div>Who is this for? *</div>
+    <%= request_input f, :nominee_name %>
+  </label>
+</div>
 
-	<div class="card">
-		<label>
-			<div>How can we contact them? (a phone number lets us call a few minutes ahead to let them know to be out in their balcony for a surprise... so they can prepare to enjoy the show :-) ) *</div>
-      <%= request_input f, :nominee_number %>
-		</label>
-	</div>
+<div class="card">
+  <label>
+    <div>How can we contact them? (a phone number lets us call a few minutes ahead to let them know to be out in their balcony for a surprise... so they can prepare to enjoy the show :-) ) *</div>
+    <%= request_input f, :nominee_number %>
+  </label>
+</div>
 
-	<div class="card">
-		<label>
-			<div>Please pick a song which you'd like tonight's artist, Will Freed, to play for the one you care about. *</div>
-      <%= select(f, :song, songs()) %>
-	</div>
+<div class="card">
+  <label>
+    <div>Please pick a song which you'd like tonight's artist, Will Freed, to play for the one you care about. *</div>
+    <%= select f, :song, songs() %>
+  </div>
 
-	<div class="card">
-		<label>
-			<div>Please provide an address for where we should play the song for your loved one: *</div>
+  <div class="card">
+    <label>
+      <div>Please provide an address for where we should play the song for your loved one: *</div>
       <%= request_input f, :nominee_address %>
-		</label>
-	</div>
+    </label>
+  </div>
 
-	<div class="card">
-		<label>
-			<div>Before the song, our performer will read your dedication and share the message you type below. Please write a little about why you're sending this request (e.g. "I appreciate you because" or "I am thinking about you and the time..."). Be sure to sign your name in the message. *</div>
+  <div class="card">
+    <label>
+      <div>Before the song, our performer will read your dedication and share the message you type below. Please write a little about why you're sending this request (e.g. "I appreciate you because" or "I am thinking about you and the time..."). Be sure to sign your name in the message. *</div>
       <%= request_input f, :special_message %>
-		</label>
-	</div>
+    </label>
+  </div>
 
-	<div class="card">
-		<label>
-			<div>Who are you? (we'd like to know a little bit about you) *</div>
+  <div class="card">
+    <label>
+      <div>Who are you? (we'd like to know a little bit about you) *</div>
       <%= request_input f, :requester_name %>
-		</label>
-	</div>
+    </label>
+  </div>
 
-	<div class="card">
-		<label>
-			<div>What is a good phone number to text you? (Since this is a prototype, we might have some follow-up questions to try and make this experience better)</div>
+  <div class="card">
+    <label>
+      <div>What is a good phone number to text you? (Since this is a prototype, we might have some follow-up questions to try and make this experience better)</div>
       <%= request_input f, :requester_number %>
-		</label>
-	</div>
+    </label>
+  </div>
 
-	<button type="submit">Submit</button>
+  <button type="submit">Submit</button>
 <% end %>
