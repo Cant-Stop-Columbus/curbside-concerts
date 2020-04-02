@@ -6,7 +6,8 @@ defmodule HelloWeb.RequestController do
 
   def new(conn, _params) do
     changeset = Requests.change_request(%Request{})
-    render(conn, "new.html", changeset: changeset)
+    action = Routes.request_path(conn, :create)
+    render(conn, "new.html", changeset: changeset, action: action)
   end
 
   # def create(conn, %{"request" => request_params}) do

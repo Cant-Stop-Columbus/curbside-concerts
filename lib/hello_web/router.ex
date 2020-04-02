@@ -17,6 +17,7 @@ defmodule HelloWeb.Router do
     pipe_through :browser
 
     get "/", RequestController, :new
+    post "/", RequestController, :create
   end
 
   # Other scopes may use custom stacks.
