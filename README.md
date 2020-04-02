@@ -1,20 +1,16 @@
-# Hello
+# Curbside Concerts
 
-To start your Phoenix server:
+This repository contains the source code for Curbside Concerts, a charity project that Test Double is working on for [Can't Stop Columbus](https://cantstopcolumbus.web.app/).
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
+Please see the [project BaseCamp](https://3.basecamp.com/4445163/projects/16536595) or the #cause-cantstopcolumbus channel in Slack for more information.
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+## Deployment Configuration
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+This app is currently deployed to Heroku, using the [Heroku Buildpack for Elixir](https://github.com/HashNuke/heroku-buildpack-elixir).
 
-## Learn more
+To deploy:
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+1. Create a Heroku project linked to this GitHub repo
+2. Add the buildpack to the existing Heroku project: `heroku buildpacks:set hashnuke/elixir`
+
+**Note**: If you get zipfile errors when building in Heroku, try setting a different Elixir / Erlang version in `elixir_buildpack.config`. At the time of this writing, we were unable to get Elixir 1.10.* to deploy successfully.
