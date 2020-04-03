@@ -11,4 +11,8 @@ defmodule Hello.Requests do
     |> Request.changeset(attrs)
     |> Repo.insert()
   end
+
+  def all do
+    Repo.all(Request)
+  end
 end

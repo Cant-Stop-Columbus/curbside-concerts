@@ -41,7 +41,7 @@
 <div class="card">
   <label>
     <div>How can we contact them? (a phone number lets us call a few minutes ahead to let them know to be out in their balcony for a surprise... so they can prepare to enjoy the show :-) ) *</div>
-    <%= request_input f, :nominee_number %>
+    <%= request_input f, :nominee_phone %>
   </label>
 </div>
 
@@ -75,7 +75,7 @@
   <div class="card">
     <label>
       <div>What is a good phone number to text you? (Since this is a prototype, we might have some follow-up questions to try and make this experience better)</div>
-      <%= request_input f, :requester_number %>
+      <%= request_input f, :requester_phone %>
     </label>
   </div>
 

@@ -1,6 +1,8 @@
 defmodule HelloWeb.RequestView do
   use HelloWeb, :view
 
+  alias Hello.Requests.Request
+
   def songs do
     [
       "Piano Man",

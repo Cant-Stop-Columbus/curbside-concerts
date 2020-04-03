@@ -18,6 +18,8 @@ defmodule HelloWeb.Router do
 
     get "/", RequestController, :new
     post "/", RequestController, :create
+
+    get "/gigs", RequestController, :index
   end
 
   # Other scopes may use custom stacks.

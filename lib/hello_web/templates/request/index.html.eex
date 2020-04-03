@@ -1,0 +1,33 @@
+<h1>All requests</h1>
+
+<%= for %Request{
+  requester_name: requester_name,
+  requester_phone: requester_phone,
+  nominee_name: nominee_name,
+  nominee_phone: nominee_phone,
+  nominee_address: nominee_address,
+  song: song,
+  special_message: special_message
+} <- @requests do %>
+  <div class="card">
+    <p>
+      To: <%= nominee_name %>
+      <% message = URI.encode("Hi there! I am coming soon to play #{song} for #{nominee_name}.") %>
+      <a href="sms:<%= nominee_phone %>&body=<%= message %>">Text <%= nominee_name %> I am coming.</a>
+      <br><br>
+      <a href="http://maps.google.com/?q=<%= URI.encode(nominee_address) %>">Map to <%= nominee_name %>'s house</a>
+    </p>
+
+    <p>
+      From: <%= requester_name %>
+      <% message = URI.encode("I am visiting soon to play #{song} for #{nominee_name}.") %>
+      <a href="sms:<%= requester_phone %>&body=<%= message %>">Text <%= requester_name %> I am coming.</a>
+    </p>
+
+    <p>Play song: <%= song %></p>
+
+    <p>Special Message:<br>
+      <%= special_message %>
+    </p>
+  </div>
+<% end %>

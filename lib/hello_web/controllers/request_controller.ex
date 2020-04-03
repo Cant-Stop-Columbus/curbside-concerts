@@ -21,4 +21,8 @@ defmodule HelloWeb.RequestController do
         render(conn, "new.html", changeset: changeset)
     end
   end
+
+  def index(conn, _) do
+    render(conn, "index.html", requests: Requests.all())
+  end
 end
