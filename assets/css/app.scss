@@ -4,9 +4,22 @@ body {
   line-height: 1.6;
 }
 
-label > div {
-  display: block;
-  margin: .25em 0;
+label {
+	div {
+		display: block;
+		margin: .25em 0;
+	}
+
+	input {
+		display: block;
+		margin: .25em 0;
+		padding: .5em .6em;
+		border: 1px solid #cccccc;
+		box-shadow: inset 0 1px 3px #dddddd;
+		border-radius: 4px;
+		box-sizing:border-box;
+		line-height: normal;
+	}
 }
 
 form {
@@ -14,17 +27,6 @@ form {
   max-width: 80%;
   margin: 12px auto;
   min-width: 200px;
-}
-
-label > input {
-  display: block;
-  margin: .25em 0;
-  padding: .5em .6em;
-  border: 1px solid #cccccc;
-  box-shadow: inset 0 1px 3px #dddddd;
-  border-radius: 4px;
-  box-sizing:border-box;
-  line-height: normal;
 }
 
 .card {
