@@ -6,9 +6,14 @@ body {
   line-height: 1.6;
 }
 
+img {
+	width: 100%;
+}
+
 form {
   display: block;
-  max-width: 80%;
+	width: 80%;
+	max-width: 900px;
   margin: 12px auto;
   min-width: 200px;
 }
