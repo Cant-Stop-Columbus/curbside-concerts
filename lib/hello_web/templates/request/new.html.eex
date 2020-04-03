@@ -74,7 +74,7 @@
 
   <div class="card">
     <label>
-      <div>What is a good phone number to text you? (Since this is a prototype, we might have some follow-up questions to try and make this experience better)</div>
+      <div>What is a good phone number to text you? (Since this is a prototype, we might have some follow-up questions to try and make this experience better) <%= required_star() %></div>
       <%= request_input f, :requester_phone %>
     </label>
   </div>
