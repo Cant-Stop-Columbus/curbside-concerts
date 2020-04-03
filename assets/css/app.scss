@@ -21,8 +21,8 @@ label {
 
 	input, textarea, select {
 		display: block;
-		margin: .25em 0;
-		padding: .5em .6em;
+		padding: 5px;
+		margin: 5px 0px;
 		border: 1px solid #cccccc;
 		box-shadow: inset 0 1px 3px #dddddd;
 		border-radius: 4px;
@@ -30,11 +30,8 @@ label {
 		line-height: normal;
 
 		&.not-valid {
-			display: inline;
 			box-shadow: 0 0 5px $error-red;
-			padding: 3px 0px 3px 3px;
-			margin: 5px 1px 3px 0px;
-			border: 1px solid $error-red;
+			border-color: $error-red;
 		}
 	}
 }
@@ -50,6 +47,10 @@ input#request_nominee_address {
 
 .required {
   color: $error-red;
+}
+
+.help-block {
+	font-size: .9em;
 }
 
 .card {
