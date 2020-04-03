@@ -50,3 +50,25 @@ input.not-valid, select.not-valid {
   margin: 5px 1px 3px 0px;
   border: 1px solid red;
 }
+
+.alert {
+	padding: 8px 10px 8px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	max-width: 80%;
+	margin: 0 auto;
+	box-sizing: border-box;
+	margin-top: 12px;
+
+	&.alert-info {
+		color: #2f855a;
+		border-color: #68d391;
+		background-color: #f0fff4;
+	}
+
+	&.alert-danger {
+		color: #c53030;
+		border-color: #fc8181;
+		background-color: #fff5f5;
+	}
+}
