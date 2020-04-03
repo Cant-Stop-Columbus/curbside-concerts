@@ -11,7 +11,7 @@
   <body>
     <header>
     </header>
-    <main role="main" class="container">
+    <main role="main" class="content">
       <!-- render flash alerts, if needed -->
       <%= if info = get_flash(@conn, :info) do %>
         <p class="alert alert-info" role="alert"><%= info %></p>

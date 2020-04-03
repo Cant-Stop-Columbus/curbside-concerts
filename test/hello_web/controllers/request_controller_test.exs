@@ -15,6 +15,7 @@ defmodule HelloWeb.RequestControllerTest do
       %{nominee_name: nominee_name} =
         valid_attrs = %{
           nominee_name: Faker.Name.name(),
+          contact_preference: "call_nominee",
           nominee_phone: Faker.Phone.EnUs.phone(),
           nominee_address: Faker.Address.street_address(),
           song: Faker.String.base64(),

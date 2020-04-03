@@ -6,16 +6,25 @@ body {
   line-height: 1.6;
 }
 
+main.content {
+	margin: 12px auto;
+	display: block;
+	box-sizing: border-box;
+	width: 80%;
+	min-width: 200px;
+	max-width: 900px;
+}
+
 img {
 	width: 100%;
 }
 
-form {
-  display: block;
-	width: 80%;
-	max-width: 900px;
-  margin: 12px auto;
-  min-width: 200px;
+.field {
+	display: block;
+
+	& + .field {
+		margin-top: 20px;
+	}
 }
 
 label {
@@ -37,6 +46,21 @@ label {
 		&.not-valid {
 			box-shadow: 0 0 5px $error-red;
 			border-color: $error-red;
+		}
+	}
+
+	&.radio-button {
+		display: block;
+		cursor: pointer;
+
+		input {
+			display: inline-block;
+			vertical-align: middle;
+		}
+
+		span {
+			vertical-align: middle;
+			margin-left: 10px;
 		}
 	}
 }
@@ -71,11 +95,8 @@ input#request_nominee_address {
 .alert {
 	padding: 8px 10px 8px;
 	border: 1px solid transparent;
-	border-radius: 4px;
-	max-width: 80%;
 	margin: 0 auto;
-	box-sizing: border-box;
-	margin-top: 12px;
+	margin-bottom: 12px;
 
 	&.alert-info {
 		color: #1E5732;
