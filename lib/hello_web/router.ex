@@ -16,8 +16,9 @@ defmodule HelloWeb.Router do
   scope "/", HelloWeb do
     pipe_through :browser
 
-    get "/", RequestController, :new
-    post "/", RequestController, :create
+    get "/", RequestController, :home
+    get "/request/:session_id", RequestController, :new
+    post "/request", RequestController, :create
 
     get "/musician_builder/new", MusicianController, :new
     post "/musician_builder/new", MusicianController, :create

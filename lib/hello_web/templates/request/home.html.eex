@@ -1,0 +1,42 @@
+<div class="card">
+  <h1>Live pickup truck concert, for your quarantined loved ones</h1>
+
+  <p>We get it. Being quarantined is hard...</p>
+
+  <p>But that doesn't mean we have to miss out on all the joys in life.</p>
+
+  <p>A lot of us are joining zoom concerts and Facebook Live events to be social on the internet. But our older populations - those who may not be as connected digitally, are both most at risk with this virus and isolation, too.</p>
+
+  <p>That's where we come in. Our concept is called "Mobile Music Request", a traveling musical performance that aims to bring joy to those who are quarantined so they can temporarily forget about the grave state of the world - neighborhood by neighborhood.</p>
+
+  <p>(* not all request will be able to happen tonight, but hopefully we'll be running these so long as the weather is nice and we're stuck at home!).</p>
+</div>
+
+<div class="card">
+  <h2>Do you have an elder loved one or friend in need of a pick-me-up?</h2>
+
+  <%= hero_image() %>
+
+  <p>We want to play some music for them!</p>
+
+  <p>Fill out the info below to make your "musical request" for an older person who may be feeling isolated at this time.</p>
+
+  <p>We will have an amazing musician like singer/songwriter, Will Freed, pulling up to your loved one's home to play. As we get closer to their location, we'll call your favorite elder and tell them to get ready for a special surprise.</p>
+
+  <p>Once on location, we'll keep our social distance as we park the truck, read the dedication you write and play your requested tune (and we'll see... maybe a few more!).</p>
+
+  <%= unless @sessions == [] do %>
+    <div class="session-cards">
+      <%= for session <- @sessions do %>
+        <div class="session-card-wrapper">
+          <a class="session-card" href="<%= Routes.request_path(@conn, :new, session.id) %>">
+            <div><%= session.musician.name %></div>
+            <div><%= session.name %></div>
+          </a>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    Currently there are no sessions available. Please check back later.
+  <% end %>
+</div>

@@ -1,21 +1,5 @@
 <%= form_for @changeset, @action, fn f -> %>
-<div class="card">
-  <h1>Live pickup truck concert, for your quarantined loved ones</h1>
-
-  <p>We get it. Being quarantined is hard...</p>
-
-  <p>But that doesn't mean we have to miss out on all the joys in life.</p>
-
-  <p>A lot of us are joining zoom concerts and Facebook Live events to be social on the internet. But our older populations - those who may not be as connected digitally, are both most at risk with this virus and isolation, too.</p>
-
-  <p>That's where we come in. Our concept is called "Mobile Music Request", a traveling musical performance that aims to bring joy to those who are quarantined so they can temporarily forget about the grave state of the world - neighborhood by neighborhood.</p>
-
-  <p>We're running our first prototype tonight, Sunday 3.29 from 5 to 630pm, and asking you to make a request! *</p>
-
-  <p>(* not all request will be able to happen tonight, but hopefully we'll be running these so long as the weather is nice and we're stuck at home!).</p>
-
-  <p><%= required_star() %> Required</p>
-</div>
+<%= hidden_input f, :session_id, value: @session.id %>
 
 <div class="card">
   <h2>Do you have an elder loved one or friend in need of a pick-me-up?</h2>
@@ -29,6 +13,12 @@
   <p>We will have an amazing singer/songwriter, Will Freed, pulling up to your loved one's home to play delightful acoustic covers with a mic and amplifier. As we get closer to their location, we'll call your favorite elder and tell them to get ready for a special surprise.</p>
 
   <p>Once on location, we'll keep our social distance as we park the truck, read the dedication you write and play your requested tune (and we'll see... maybe a few more!).</p>
+
+  <p><%= @session.musician.name %></p>
+
+  <p><%= @session.name %></p>
+
+  <p><%= required_star() %> Required</p>
 </div>
 
 <div class="card">
@@ -48,7 +38,7 @@
 <div class="card">
   <label>
     <div>Please pick a song which you'd like tonight's artist, Will Freed, to play for the one you care about. <%= required_star() %></div>
-    <%= request_select f, :song, songs() %>
+    <%= request_select f, :song, songs(@session.musician.playlist) %>
   </label>
 </div>
 

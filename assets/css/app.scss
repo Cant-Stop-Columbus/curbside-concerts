@@ -98,3 +98,23 @@ button {
 	border: 0px solid transparent;
 	cursor: pointer;
 }
+
+.session-cards {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+
+	.session-card-wrapper {
+		border-right: 16px solid rgba(0, 0, 0, 0);
+		flex-shrink: 1;
+		flex-grow: 1;
+		flex-basis: 45%;
+
+		a.session-card {
+			display: block;
+			border: 1px solid gray;
+			border-radius: 4px;
+			padding: 16px;
+		}
+	}
+}
