@@ -19,6 +19,9 @@ defmodule HelloWeb.Router do
     get "/", RequestController, :new
     post "/", RequestController, :create
 
+    get "/musician_builder/new", MusicianController, :new
+    post "/musician_builder/new", MusicianController, :create
+    get "/musician_builder", MusicianController, :index
     get "/gigs", RequestController, :index
   end
 

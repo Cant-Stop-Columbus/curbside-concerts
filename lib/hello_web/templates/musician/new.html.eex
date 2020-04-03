@@ -1,0 +1,12 @@
+<%= form_for @changeset, @action, fn f -> %>
+<%= inspect(f.errors) %>
+<div class="card">
+  <label>Name: <%= text_input f, :name %></label>
+  <label>Gigs ID: <%= text_input f, :gigs_id %></label>
+  <label>Photo: <%= text_input f, :photo %></label>
+  <label>Playlist: <%= text_input f, :playlist, value: Enum.join(@changeset.data.playlist || [], "|") %></label>
+  <label>Taking requests?: <%= checkbox f, :taking_requests %></label>
+</div>
+
+  <button type="submit">Submit</button>
+<% end %>
