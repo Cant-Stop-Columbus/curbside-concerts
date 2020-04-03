@@ -19,7 +19,13 @@ defmodule HelloWeb.RequestController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         action = Routes.request_path(conn, :create)
-        render(conn, "new.html", changeset: changeset, action: action)
+
+        conn
+        |> put_flash(
+          :error,
+          "Oops! Looks like a field is missing - please check below and try again"
+        )
+        |> render("new.html", changeset: changeset, action: action)
     end
   end
 
