@@ -20,7 +20,9 @@
 <div class="card">
   <h2>Do you have an elder loved one or friend in need of a pick-me-up?</h2>
 
-  <p>We want to play some music for them!</p>
+	<img style="width: 100%" src="./images/for_you.png"/>
+
+	<p>We want to play some music for them!</p>
 
   <p>Fill out the info below to make your "musical request" for an older person who may be feeling isolated at this time.</p>
 
