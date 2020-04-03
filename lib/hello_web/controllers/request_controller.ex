@@ -12,9 +12,9 @@ defmodule HelloWeb.RequestController do
 
   def create(conn, %{"request" => request_params}) do
     case Requests.create_request(request_params) do
-      {:ok, _request} ->
+      {:ok, %Request{nominee_name: nominee_name}} ->
         conn
-        |> put_flash(:info, "Thanks for submitting your request")
+        |> put_flash(:info, "Thank you for submitting a concert request for #{nominee_name}!")
         |> redirect(to: Routes.request_path(conn, :new))
 
       {:error, %Ecto.Changeset{} = changeset} ->
