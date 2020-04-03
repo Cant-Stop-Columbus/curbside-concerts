@@ -30,5 +30,17 @@ defmodule HelloWeb.RequestControllerTest do
       conn = get(conn, Routes.request_path(conn, :new))
       assert html_response(conn, 200) =~ "Thanks for submitting your request"
     end
+
+    test "displays error message when data is invalid", %{conn: conn} do
+      invalid_attrs = %{}
+
+      conn = post(conn, Routes.request_path(conn, :create), request: invalid_attrs)
+
+      assert html_response(conn, 200) =~
+               "Live pickup truck concert, for your quarantined loved ones"
+
+      assert html_response(conn, 200) =~
+               "Oops! Looks like a field is missing - please check below and try again"
+    end
   end
 end
