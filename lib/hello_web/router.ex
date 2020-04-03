@@ -22,6 +22,10 @@ defmodule HelloWeb.Router do
     get "/musician_builder/new", MusicianController, :new
     post "/musician_builder/new", MusicianController, :create
     get "/musician_builder", MusicianController, :index
+    get "/session_builder/new", SessionController, :new
+    post "/session_builder/new", SessionController, :create
+    get "/session_builder", SessionController, :index
+
     get "/gigs", RequestController, :index
   end
 

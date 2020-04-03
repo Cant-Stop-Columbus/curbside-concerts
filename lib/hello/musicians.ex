@@ -1,6 +1,9 @@
 defmodule Hello.Musicians do
+  import Ecto.Query, warn: false
+
   alias Hello.Repo
   alias Hello.Musicians.Musician
+  alias Hello.Musicians.Session
 
   def change_musician(%Musician{} = musician) do
     Musician.changeset(musician, %{})
@@ -25,5 +28,23 @@ defmodule Hello.Musicians do
     else
       attrs
     end
+  end
+
+  ### SESSIONS
+
+  def change_session(%Session{} = session) do
+    Session.changeset(session, %{})
+  end
+
+  def create_session(attrs \\ %{}) do
+    %Session{}
+    |> Session.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def all_sessions do
+    Session
+    |> preload([:musician])
+    |> Repo.all()
   end
 end

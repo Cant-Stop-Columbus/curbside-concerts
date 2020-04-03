@@ -18,7 +18,7 @@ defmodule HelloWeb.MusicianController do
         |> redirect(to: Routes.musician_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        action = Routes.request_path(conn, :create)
+        action = Routes.musician_path(conn, :create)
 
         conn
         |> put_flash(

@@ -7,7 +7,9 @@ defmodule Hello.Requests.Request do
 
   import Ecto.Changeset
 
-  @allowed_attrs ~w|nominee_name nominee_phone nominee_address song special_message requester_name requester_phone|a
+  alias Hello.Musicians.Session
+
+  @allowed_attrs ~w|nominee_name nominee_phone nominee_address song special_message requester_name requester_phone session_id|a
   @required_attrs @allowed_attrs
 
   schema "requests" do
@@ -18,6 +20,8 @@ defmodule Hello.Requests.Request do
     field(:special_message, :string)
     field(:requester_name, :string)
     field(:requester_phone, :string)
+
+    belongs_to :session, Session
 
     timestamps()
   end
