@@ -37,6 +37,10 @@ defmodule HelloWeb.RequestController do
     end
   end
 
+  def index(conn, %{"musician" => gigs_id}) do
+    render(conn, "index.html", requests: Requests.get_by_gigs_id(gigs_id))
+  end
+
   def index(conn, _) do
     render(conn, "index.html", requests: Requests.all())
   end

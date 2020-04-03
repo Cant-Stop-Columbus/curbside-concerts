@@ -28,6 +28,7 @@ defmodule HelloWeb.Router do
     get "/session_builder", SessionController, :index
 
     get "/gigs", RequestController, :index
+    get "/gigs/:musician", RequestController, :index
   end
 
   # Other scopes may use custom stacks.
