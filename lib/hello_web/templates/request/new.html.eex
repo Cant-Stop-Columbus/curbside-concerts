@@ -10,7 +10,7 @@
 
   <p>Fill out the info below to make your "musical request" for an older person who may be feeling isolated at this time.</p>
 
-  <p>We will have an amazing singer/songwriter, Will Freed, pulling up to your loved one's home to play delightful acoustic covers with a mic and amplifier. As we get closer to their location, we'll call your favorite elder and tell them to get ready for a special surprise.</p>
+  <p>We will have <%= @session.musician.name %>, pulling up to your loved one's home to play delightful music. As we get closer to their location, we'll call your favorite elder and tell them to get ready for a special surprise.</p>
 
   <p>Once on location, we'll keep our social distance as we park the truck, read the dedication you write and play your requested tune (and we'll see... maybe a few more!).</p>
 
