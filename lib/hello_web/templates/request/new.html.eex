@@ -49,35 +49,36 @@
   <label>
     <div>Please pick a song which you'd like tonight's artist, Will Freed, to play for the one you care about. <%= required_star() %></div>
     <%= request_select f, :song, songs() %>
-  </div>
+  </label>
+</div>
 
-  <div class="card">
-    <label>
-      <div>Please provide an address for where we should play the song for your loved one: <%= required_star() %></div>
-      <%= request_input f, :nominee_address %>
-    </label>
-  </div>
+<div class="card">
+  <label>
+    <div>Please provide an address for where we should play the song for your loved one: <%= required_star() %></div>
+    <%= request_input f, :nominee_address %>
+  </label>
+</div>
 
-  <div class="card">
-    <label>
-      <div>Before the song, our performer will read your dedication and share the message you type below. Please write a little about why you're sending this request (e.g. "I appreciate you because" or "I am thinking about you and the time..."). Be sure to sign your name in the message. <%= required_star() %></div>
-      <%= request_input f, :special_message %>
-    </label>
-  </div>
+<div class="card">
+  <label>
+    <div>Before the song, our performer will read your dedication and share the message you type below. Please write a little about why you're sending this request (e.g. "I appreciate you because" or "I am thinking about you and the time..."). Be sure to sign your name in the message. <%= required_star() %></div>
+    <%= request_input f, :special_message %>
+  </label>
+</div>
 
-  <div class="card">
-    <label>
-      <div>Who are you? (we'd like to know a little bit about you) <%= required_star() %></div>
-      <%= request_input f, :requester_name %>
-    </label>
-  </div>
+<div class="card">
+  <label>
+    <div>Who are you? (we'd like to know a little bit about you) <%= required_star() %></div>
+    <%= request_input f, :requester_name %>
+  </label>
+</div>
 
-  <div class="card">
-    <label>
-      <div>What is a good phone number to text you? (Since this is a prototype, we might have some follow-up questions to try and make this experience better) <%= required_star() %></div>
-      <%= request_input f, :requester_phone %>
-    </label>
-  </div>
+<div class="card">
+  <label>
+    <div>What is a good phone number to text you? (Since this is a prototype, we might have some follow-up questions to try and make this experience better) <%= required_star() %></div>
+    <%= request_input f, :requester_phone %>
+  </label>
+</div>
 
-  <button type="submit">Submit</button>
+<button type="submit">Submit</button>
 <% end %>
