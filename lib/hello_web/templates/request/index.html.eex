@@ -1,6 +1,7 @@
 <h1>All requests</h1>
 
 <%= for %Request{
+	contact_preference: contact_preference,
   requester_name: requester_name,
   requester_phone: requester_phone,
   nominee_name: nominee_name,
@@ -11,10 +12,13 @@
 } <- @requests do %>
   <div class="card">
     <p>
+      Contact Preference: <%= contact_preference %>
+      <br>
       To: <%= nominee_name %>
       <% message = URI.encode("Hi there! I am coming soon to play #{song} for #{nominee_name}.") %>
       <a href="sms:<%= nominee_phone %>&body=<%= message %>">Text <%= nominee_name %> I am coming.</a>
-      <br><br>
+      <br>
+      <br>
       <a href="http://maps.google.com/?q=<%= URI.encode(nominee_address) %>">Map to <%= nominee_name %>'s house</a>
     </p>
 

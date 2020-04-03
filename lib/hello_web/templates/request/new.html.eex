@@ -39,8 +39,12 @@
 </div>
 
 <div class="card">
-  <label>
-    <div>How can we contact them? (a phone number lets us call a few minutes ahead to let them know to be out in their balcony for a surprise... so they can prepare to enjoy the show :-) ) <%= required_star() %></div>
+  <div class="field">
+    <%= contact_preference_radio f %>
+  </div>
+
+  <label class="field">
+    <div>If you chose "Call the nominee" above, please provide their phone number.</div>
     <%= request_input f, :nominee_phone %>
   </label>
 </div>

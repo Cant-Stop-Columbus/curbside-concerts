@@ -9,10 +9,11 @@ defmodule Hello.Requests.Request do
 
   alias Hello.Musicians.Session
 
-  @allowed_attrs ~w|nominee_name nominee_phone nominee_address song special_message requester_name requester_phone session_id|a
-  @required_attrs @allowed_attrs
+  @allowed_attrs ~w|contact_preference nominee_name nominee_phone nominee_address song special_message requester_name requester_phone session_id|a
+  @required_attrs ~w|contact_preference nominee_name nominee_address song special_message requester_name requester_phone|a
 
   schema "requests" do
+    field(:contact_preference, :string)
     field(:nominee_name, :string)
     field(:nominee_phone, :string)
     field(:nominee_address, :string)
