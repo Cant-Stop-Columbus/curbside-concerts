@@ -38,3 +38,15 @@ label > input {
   padding-top: 22px;
   position: relative;
 }
+
+.required {
+  color: red;
+}
+
+input.not-valid, select.not-valid {
+  display: inline;
+  box-shadow: 0 0 5px red;
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid red;
+}

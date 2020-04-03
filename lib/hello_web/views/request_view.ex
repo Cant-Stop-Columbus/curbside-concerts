@@ -3,8 +3,13 @@ defmodule HelloWeb.RequestView do
 
   alias Hello.Requests.Request
 
+  def required_star do
+    ~E|<span class="required">*</span>|
+  end
+
   def songs do
     [
+      {"Please choose a song", ""},
       "Piano Man",
       "Jack and Diane",
       "Let it Be",
@@ -37,6 +42,24 @@ defmodule HelloWeb.RequestView do
   end
 
   def request_input(form, field) do
-    text_input(form, field, placeholder: "Your answer")
+    class = class(form, field)
+
+    ~E"""
+    <%= text_input(form, field, class: class, placeholder: "Your answer") %>
+    <%= error_tag form, field %>
+    """
+  end
+
+  def request_select(form, field, options) do
+    class = class(form, field)
+
+    ~E"""
+    <%= select(form, field, options, class: class) %>
+    <%= error_tag form, field %>
+    """
+  end
+
+  defp class(form, field) do
+    if form.errors[field], do: "not-valid", else: ""
   end
 end

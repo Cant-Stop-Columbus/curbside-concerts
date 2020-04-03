@@ -18,7 +18,8 @@ defmodule HelloWeb.RequestController do
         |> redirect(to: Routes.request_path(conn, :new))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        action = Routes.request_path(conn, :create)
+        render(conn, "new.html", changeset: changeset, action: action)
     end
   end
 

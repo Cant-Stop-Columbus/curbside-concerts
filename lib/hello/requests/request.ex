@@ -8,6 +8,7 @@ defmodule Hello.Requests.Request do
   import Ecto.Changeset
 
   @allowed_attrs ~w|nominee_name nominee_phone nominee_address song special_message requester_name requester_phone|a
+  @required_attrs @allowed_attrs
 
   schema "requests" do
     field(:nominee_name, :string)
@@ -24,5 +25,6 @@ defmodule Hello.Requests.Request do
   def changeset(request, attrs) do
     request
     |> cast(attrs, @allowed_attrs)
+    |> validate_required(@required_attrs, message: "Please provide an answer")
   end
 end
