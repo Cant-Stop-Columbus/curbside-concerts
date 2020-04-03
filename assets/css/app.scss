@@ -1,3 +1,5 @@
+$error-red: #c53030;
+
 body {
   background-color: rgb(238, 243, 245);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -10,7 +12,7 @@ label {
 		margin: .25em 0;
 	}
 
-	input, textarea {
+	input, textarea, select {
 		display: block;
 		margin: .25em 0;
 		padding: .5em .6em;
@@ -19,6 +21,14 @@ label {
 		border-radius: 4px;
 		box-sizing:border-box;
 		line-height: normal;
+
+		&.not-valid {
+			display: inline;
+			box-shadow: 0 0 5px $error-red;
+			padding: 3px 0px 3px 3px;
+			margin: 5px 1px 3px 0px;
+			border: 1px solid $error-red;
+		}
 	}
 }
 
@@ -40,7 +50,7 @@ form {
 }
 
 .required {
-  color: red;
+  color: $error-red;
 }
 
 textarea {
@@ -50,16 +60,6 @@ textarea {
 
 input#request_nominee_address {
   width: 100%;
-}
-
-input.not-valid,
-textarea.not-valid,
-select.not-valid {
-  display: inline;
-  box-shadow: 0 0 5px red;
-  padding: 3px 0px 3px 3px;
-  margin: 5px 1px 3px 0px;
-  border: 1px solid red;
 }
 
 .alert {
@@ -78,7 +78,7 @@ select.not-valid {
 	}
 
 	&.alert-danger {
-		color: #c53030;
+		color: $error-red;
 		border-color: #fc8181;
 		background-color: #fff5f5;
 	}
