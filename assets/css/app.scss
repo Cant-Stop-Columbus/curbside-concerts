@@ -73,14 +73,14 @@ input#request_nominee_address {
 	margin-top: 12px;
 
 	&.alert-info {
-		color: #2f855a;
+		color: #1E5732;
 		border-color: #68d391;
 		background-color: #f0fff4;
 	}
 
 	&.alert-danger {
-		color: $error-red;
-		border-color: #fc8181;
+		color: #942424;
+		border-color: $error-red;
 		background-color: #fff5f5;
 	}
 }
