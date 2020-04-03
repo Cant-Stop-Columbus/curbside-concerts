@@ -43,7 +43,18 @@ label > input {
   color: red;
 }
 
-input.not-valid, select.not-valid {
+textarea {
+  width: 100%;
+  height: 60px;
+}
+
+input#request_nominee_address {
+  width: 100%;
+}
+
+input.not-valid,
+textarea.not-valid,
+select.not-valid {
   display: inline;
   box-shadow: 0 0 5px red;
   padding: 3px 0px 3px 3px;

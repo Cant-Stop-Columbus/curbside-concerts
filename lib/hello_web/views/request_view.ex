@@ -41,6 +41,15 @@ defmodule HelloWeb.RequestView do
     ]
   end
 
+  def request_input(form, field) when field in ~w|special_message|a do
+    class = class(form, field)
+
+    ~E"""
+    <%= textarea(form, field, class: class, placeholder: "Your answer") %>
+    <%= error_tag form, field %>
+    """
+  end
+
   def request_input(form, field) do
     class = class(form, field)
 
