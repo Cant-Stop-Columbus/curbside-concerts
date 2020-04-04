@@ -50,7 +50,7 @@ defmodule HelloWeb.RequestView do
     class = class(form, :contact_preference)
 
     ~E"""
-    <div>We'll call ahead when we're on our way. We can call you, or the requestee - please choose an option below. <%= required_star() %></div>
+    <div>We'll call ahead when we're on our way (about 15 to 30 minutes before we arrive). Given that some older folks can be skeptical of calls... you have the option for us to call you, or the nominee - please choose an option below. <%= required_star() %></div>
       <label class="radio-button">
         <%= radio_button form, :contact_preference, :call_nominee, class: class %> <span>Call the nominee.</span>
       </label>

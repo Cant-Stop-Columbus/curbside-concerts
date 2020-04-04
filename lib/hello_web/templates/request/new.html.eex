@@ -29,7 +29,7 @@
 
 <div class="card">
   <label>
-    <div>Please pick a song which you'd like tonight's artist, Will Freed, to play for the one you care about. <%= required_star() %></div>
+    <div>Please pick which song you'd like to dedicate and have our artist, <%= @session.musician.name %>, play for the one you care about.</div>
     <%= request_select f, :song, songs(@session.musician.playlist) %>
   </label>
 </div>
@@ -43,14 +43,17 @@
 
 <div class="card">
   <label>
-    <div>Before the song, our performer will read your dedication and share the message you type below. Please write a little about why you're sending this request (e.g. "I appreciate you because" or "I am thinking about you and the time..."). Be sure to sign your name in the message. <%= required_star() %></div>
+    <div>
+      After the song, our performer will mention that it was dedicated by you and share the message you type below.
+      <br>Please write a little about why you're sending this request (e.g. "I appreciate you because" or "I am thinking about you and the time..."). <%= required_star() %>
+    </div>
     <%= request_input f, :special_message %>
   </label>
 </div>
 
 <div class="card">
   <label>
-    <div>Who are you? (we'd like to know a little bit about you) <%= required_star() %></div>
+    <div>Who are you? (so we know who to say the request is from) <%= required_star() %></div>
     <%= request_input f, :requester_name %>
   </label>
 </div>
