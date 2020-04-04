@@ -2,43 +2,17 @@ defmodule HelloWeb.RequestView do
   use HelloWeb, :view
 
   alias Hello.Requests.Request
+  alias Hello.Musicians.Musician
+  alias Hello.Musicians.Session
 
   def required_star do
     ~E|<span class="required">*</span>|
   end
 
-  def songs do
-    [
-      {"Please choose a song", ""},
-      "Piano Man",
-      "Jack and Diane",
-      "Let it Be",
-      "Lay Down Sally",
-      "Brick in the Wall",
-      "Carolina In My Mind",
-      "Hallelujah",
-      "Ico Ico",
-      "American Pie",
-      "Blackbird",
-      "The Times They Are A Changin'",
-      "Heart of Gold",
-      "Free Fallin'",
-      "Country Roads",
-      "Landslide",
-      "Never Going Back Again",
-      "Danny's Song",
-      "Your Song",
-      "Wish You Were Here",
-      "Southern Cross",
-      "One Way Out",
-      "Down by The River",
-      "Eleanor Rigby",
-      "Song for No One",
-      "Came in Through the Bathroom Window",
-      "Hey Jude",
-      "Gentle on My Mind",
-      "Early Morning Rain"
-    ]
+  def first_name(%Session{musician: %Musician{name: name}}) do
+    name
+    |> String.split()
+    |> List.first()
   end
 
   def songs(playlist) when is_list(playlist) do

@@ -2,21 +2,9 @@
 <%= hidden_input f, :session_id, value: @session.id %>
 
 <div class="card">
-  <h2>Do you have an elder loved one or friend in need of a pick-me-up?</h2>
+  <h2><%= @session.name %></h2>
 
-  <%= hero_image() %>
-
-  <p>We want to play some music for them!</p>
-
-  <p>Fill out the info below to make your "musical request" for an older person who may be feeling isolated at this time.</p>
-
-  <p>We will have <%= @session.musician.name %>, pulling up to your loved one's home to play delightful music. As we get closer to their location, we'll call your favorite elder and tell them to get ready for a special surprise.</p>
-
-  <p>Once on location, we'll keep our social distance as we park the truck, read the dedication you write and play your requested tune (and we'll see... maybe a few more!).</p>
-
-  <p><%= @session.musician.name %></p>
-
-  <p><%= @session.name %></p>
+  <p>Fill out the info below to have <%= first_name(@session) %> come play for your friend or loved one who may be feeling isolated at this time.</p>
 
   <p><%= required_star() %> Required</p>
 </div>
