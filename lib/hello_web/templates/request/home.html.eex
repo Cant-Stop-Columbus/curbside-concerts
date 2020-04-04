@@ -34,8 +34,8 @@
       <%= for session <- @sessions do %>
         <div class="session-card-wrapper">
           <a class="session-card" href="<%= Routes.request_path(@conn, :new, session.id) %>">
-            <div><%= session.name %></div>
-            <div><%= session.description %></div>
+            <div class="session-card-name"><%= session.name %></div>
+            <div class="session-card-description"><%= session.description %></div>
           </a>
         </div>
       <% end %>

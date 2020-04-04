@@ -127,15 +127,30 @@ button {
 
 	.session-card-wrapper {
 		border-right: 16px solid rgba(0, 0, 0, 0);
-		flex-shrink: 1;
+		border-bottom: 16px solid rgba(0, 0, 0, 0);
 		flex-grow: 1;
-		flex-basis: 45%;
+		flex-basis: 400px;
 
 		a.session-card {
 			display: block;
 			border: 1px solid gray;
 			border-radius: 4px;
 			padding: 16px;
+			text-decoration: none;
+
+			&:hover {
+				box-shadow: inset 0 1px 3px blue;
+			}
+
+			.session-card-name {
+				font-size: 20px;
+				text-decoration: underline;
+			}
+
+			.session-card-description {
+				margin-top: 16px;
+				color: black;
+			}
 		}
 	}
 }
