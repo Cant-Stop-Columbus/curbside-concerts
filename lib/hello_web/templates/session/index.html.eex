@@ -2,10 +2,15 @@
 
 <%= for %Session{
   name: name,
-  musician: musician
+  musician: musician,
+  description: description
 } <- @sessions do %>
   <div class="card">
     <div>Name: <%= name %></div>
     <div>Musician: <%= musician.name %></div>
+    <div>
+      <strong>Description:</strong>
+      <%= description %>
+    </div>
   </div>
 <% end %>

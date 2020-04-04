@@ -42,6 +42,12 @@ defmodule Hello.Musicians do
     |> Repo.insert()
   end
 
+  def update_session(%Session{} = session, attrs) do
+    session
+    |> Session.changeset(attrs)
+    |> Repo.update()
+  end
+
   def all_sessions do
     Session
     |> preload([:musician])

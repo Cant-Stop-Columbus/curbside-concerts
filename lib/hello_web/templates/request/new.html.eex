@@ -4,6 +4,8 @@
 <div class="card">
   <h2><%= @session.name %></h2>
 
+  <p><%= @session.description %></p>
+
   <p>Fill out the info below to have <%= first_name(@session) %> come play for your friend or loved one who may be feeling isolated at this time.</p>
 
   <p><%= required_star() %> Required</p>

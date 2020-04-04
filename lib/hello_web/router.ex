@@ -23,9 +23,14 @@ defmodule HelloWeb.Router do
     get "/musician_builder/new", MusicianController, :new
     post "/musician_builder/new", MusicianController, :create
     get "/musician_builder", MusicianController, :index
-    get "/session_builder/new", SessionController, :new
-    post "/session_builder/new", SessionController, :create
-    get "/session_builder", SessionController, :index
+
+    resources "/session_builder", SessionController
+
+    # get "/session_builder/new", SessionController, :new
+    # post "/session_builder/new", SessionController, :create
+    # get "/session_builder/:session_id", SessionController, :update
+    # post "/session_builder/:session_id", SessionController, :save
+    # get "/session_builder", SessionController, :index
 
     get "/gigs", RequestController, :index
     get "/gigs/:musician", RequestController, :index

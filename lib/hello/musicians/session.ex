@@ -9,11 +9,12 @@ defmodule Hello.Musicians.Session do
 
   alias Hello.Musicians.Musician
 
-  @allowed_attrs ~w|name musician_id|a
-  @required_attrs @allowed_attrs
+  @allowed_attrs ~w|name musician_id description|a
+  @required_attrs ~w|name musician_id|a
 
   schema "sessions" do
     field(:name, :string)
+    field(:description, :string)
 
     belongs_to :musician, Musician
 

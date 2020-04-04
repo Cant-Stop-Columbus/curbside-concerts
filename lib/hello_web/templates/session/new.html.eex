@@ -1,9 +1,5 @@
-<%= form_for @changeset, @action, fn f -> %>
-<%= inspect(f.errors) %>
-<div class="card">
-  <label>Name: <%= text_input f, :name %></label>
-  <label>Musician: <%= select f, :musician_id, musician_options(@musicians) %></label>
-</div>
+<h1>New Session</h1>
 
-  <button type="submit">Submit</button>
-<% end %>
+<%= render "form.html", Map.put(assigns, :action, Routes.session_path(@conn, :create)) %>
+
+<span><%= link "Back", to: Routes.session_path(@conn, :index) %></span>

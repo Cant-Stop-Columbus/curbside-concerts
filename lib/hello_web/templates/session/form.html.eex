@@ -1,0 +1,12 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= hidden_input f, :id %>
+  <%= unless f.errors == [], do: inspect(f.errors) %>
+
+  <div class="card">
+    <label>Name: <%= text_input f, :name %></label>
+    <label>Musician: <%= select f, :musician_id, musician_options(@musicians) %></label>
+    <label>Description: <%= textarea f, :description %></label>
+  </div>
+
+  <button type="submit">Submit</button>
+<% end %>

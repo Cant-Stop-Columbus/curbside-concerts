@@ -1,0 +1,22 @@
+<h1>Show Session</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @session.name %>
+  </li>
+
+  <li>
+    <strong>Musician:</strong>
+    <%= @session.musician.name %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @session.description %>
+  </li>
+</ul>
+
+<span><%= link "Edit", to: Routes.session_path(@conn, :edit, @session) %></span>
+<span><%= link "Back", to: Routes.session_path(@conn, :index) %></span>
