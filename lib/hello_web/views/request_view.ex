@@ -99,11 +99,11 @@ defmodule HelloWeb.RequestView do
         }
       }) do
     message =
-      URI.encode(
-        "Hi there, #{requester_name}! This text is to let you know #{musician_name} is coming soon to play #{
-          song
-        } for #{nominee_name}."
-      )
+      "Hi there, #{requester_name}! This text is to let you know #{musician_name} is coming soon to play #{
+        song
+      } for #{nominee_name}."
+      |> URI.encode()
+      |> String.replace("&", "%26")
 
     ~E"Text Requester (<%= requester_name %>) @ <%= text_link(phone, message) %>"
   end
