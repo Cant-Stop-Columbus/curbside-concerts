@@ -38,10 +38,18 @@ defmodule HelloWeb.RequestController do
   end
 
   def index(conn, %{"musician" => gigs_id}) do
-    render(conn, "index.html", requests: Requests.get_by_gigs_id(gigs_id))
+    musician = Musicians.find_musician_by_gigs_id(gigs_id)
+    requests = Requests.get_by_gigs_id(gigs_id)
+
+    conn
+    |> assign(:requests, requests)
+    |> assign(:musician, musician)
+    |> render("musician_gigs.html")
   end
 
   def index(conn, _) do
-    render(conn, "index.html", requests: Requests.all())
+    conn
+    |> assign(:requests, Requests.all())
+    |> render("index.html")
   end
 end

@@ -17,6 +17,10 @@ defmodule Hello.Musicians do
     |> Repo.insert()
   end
 
+  def find_musician_by_gigs_id(gigs_id) do
+    Repo.one(from m in Musician, where: m.gigs_id == ^gigs_id)
+  end
+
   def all do
     Repo.all(Musician)
   end

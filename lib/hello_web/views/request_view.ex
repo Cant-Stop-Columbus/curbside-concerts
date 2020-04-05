@@ -72,6 +72,29 @@ defmodule HelloWeb.RequestView do
     """
   end
 
+  def contact_preference(%Request{
+        contact_preference: "call_nominee",
+        nominee_name: name,
+        nominee_phone: phone
+      }),
+      do: ~E"Call Nominee (<%= name %>) @ <%= phone %>"
+
+  def contact_preference(%Request{
+        contact_preference: "call_requester",
+        requester_name: name,
+        requester_phone: phone
+      }),
+      do: ~E"Call Requester (<%= name %>) @ <%= phone %>"
+
+  def contact_preference(%Request{
+        contact_preference: "text_requester",
+        requester_name: name,
+        requester_phone: phone
+      }),
+      do: ~E"Text Requester (<%= name %>) @ <%= phone %>"
+
+  def contact_preference(_), do: "unknown"
+
   defp class(form, field) do
     if form.errors[field], do: "not-valid", else: ""
   end

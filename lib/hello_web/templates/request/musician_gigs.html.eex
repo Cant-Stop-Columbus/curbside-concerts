@@ -1,4 +1,4 @@
-<h1>All requests</h1>
+<h1>All requests for <%= @musician.name %></h1>
 
 <%= for request <- @requests do %>
   <%= render "request_card.html", request: request %>
