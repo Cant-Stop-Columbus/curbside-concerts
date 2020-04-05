@@ -77,23 +77,48 @@ defmodule HelloWeb.RequestView do
         nominee_name: name,
         nominee_phone: phone
       }),
-      do: ~E"Call Nominee (<%= name %>) @ <%= phone %>"
+      do: ~E"Call Nominee (<%= name %>) @ <%= phone_link(phone) %>"
 
   def contact_preference(%Request{
         contact_preference: "call_requester",
         requester_name: name,
         requester_phone: phone
       }),
-      do: ~E"Call Requester (<%= name %>) @ <%= phone %>"
+      do: ~E"Call Requester (<%= name %>) @ <%= phone_link(phone) %>"
 
   def contact_preference(%Request{
         contact_preference: "text_requester",
         requester_name: name,
         requester_phone: phone
       }),
-      do: ~E"Text Requester (<%= name %>) @ <%= phone %>"
+      do: ~E"Text Requester (<%= name %>) @ <%= text_link(phone) %>"
 
   def contact_preference(_), do: "unknown"
+
+  def text_link(raw_number) do
+    case simple_number(raw_number) do
+      nil ->
+        raw_number
+
+      number ->
+        ~E|<a href="sms:<%= number %>">Text <%= raw_number %></a>|
+    end
+  end
+
+  def phone_link(raw_number) do
+    case simple_number(raw_number) do
+      nil ->
+        raw_number
+
+      number ->
+        ~E|<a href="sms:<%= number %>">Text <%= raw_number %></a>|
+    end
+  end
+
+  defp simple_number(number) do
+    number = String.replace(number, ~r/\D/, "")
+    if String.length(number) >= 10, do: number, else: nil
+  end
 
   defp class(form, field) do
     if form.errors[field], do: "not-valid", else: ""
