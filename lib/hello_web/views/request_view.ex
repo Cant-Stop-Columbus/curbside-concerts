@@ -88,20 +88,35 @@ defmodule HelloWeb.RequestView do
 
   def contact_preference(%Request{
         contact_preference: "text_requester",
-        requester_name: name,
-        requester_phone: phone
-      }),
-      do: ~E"Text Requester (<%= name %>) @ <%= text_link(phone) %>"
+        requester_name: requester_name,
+        requester_phone: phone,
+        nominee_name: nominee_name,
+        song: song,
+        session: %Session{
+          musician: %Musician{
+            name: musician_name
+          }
+        }
+      }) do
+    message =
+      URI.encode(
+        "Hi there, #{requester_name}! This text is to let you know #{musician_name} is coming soon to play #{
+          song
+        } for #{nominee_name}."
+      )
 
-  def contact_preference(_), do: "unknown"
+    ~E"Text Requester (<%= requester_name %>) @ <%= text_link(phone, message) %>"
+  end
 
-  def text_link(raw_number) do
+  def contact_preference(%Request{contact_preference: preference}), do: preference
+
+  def text_link(raw_number, message) do
     case simple_number(raw_number) do
       nil ->
         raw_number
 
       number ->
-        ~E|<a href="sms:<%= number %>">Text <%= raw_number %></a>|
+        ~E|<a href="sms:<%= number %>&body=<%= message %>">Text <%= raw_number %></a>|
     end
   end
 
@@ -111,7 +126,7 @@ defmodule HelloWeb.RequestView do
         raw_number
 
       number ->
-        ~E|<a href="sms:<%= number %>">Text <%= raw_number %></a>|
+        ~E|<a href="tel:<%= number %>">Phone <%= raw_number %></a>|
     end
   end
 

@@ -17,7 +17,9 @@ defmodule Hello.Requests do
   end
 
   def all do
-    Repo.all(Request)
+    Request
+    |> preload(session: :musician)
+    |> Repo.all()
   end
 
   def get_by_gigs_id(gigs_id) do
@@ -31,6 +33,7 @@ defmodule Hello.Requests do
             session.musician_id == musician.id,
         where: musician.gigs_id == ^gigs_id
       )
+      |> preload(session: :musician)
 
     Repo.all(query)
   end
