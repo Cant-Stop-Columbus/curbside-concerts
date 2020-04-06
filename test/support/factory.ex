@@ -1,6 +1,7 @@
 defmodule HelloWeb.Factory do
   alias Hello.Repo
 
+  alias Hello.Accounts.User
   alias Hello.Musicians.Musician
   alias Hello.Musicians.Session
 
@@ -18,6 +19,13 @@ defmodule HelloWeb.Factory do
     %{
       name: "",
       description: ""
+    }
+  end
+
+  def attrs(:user) do
+    %{
+      username: Faker.Internet.user_name(),
+      password: Faker.String.base64()
     }
   end
 
@@ -40,6 +48,18 @@ defmodule HelloWeb.Factory do
 
   def build(factory_name, attributes) do
     factory_name |> build() |> struct(attributes)
+  end
+
+  def insert!(:user) do
+    %{password: password} = user_attrs = attrs(:user)
+
+    # perform the bcrypt hashing of the password field
+    inserted_user =
+      %User{}
+      |> User.changeset(user_attrs)
+      |> Repo.insert!()
+
+    %{inserted_user | password: password}
   end
 
   def insert!(factory_name, attributes \\ []) do

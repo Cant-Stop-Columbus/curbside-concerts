@@ -2,7 +2,8 @@ defmodule HelloWeb.SessionControllerTest do
   use HelloWeb.ConnCase
 
   alias Hello.Accounts.User
-  alias Hello.Repo
+
+  import HelloWeb.Factory
 
   describe "new/2" do
     test "renders form", %{conn: conn} do
@@ -13,18 +14,11 @@ defmodule HelloWeb.SessionControllerTest do
 
   describe "create/2" do
     test "redirects to admin when data is valid", %{conn: conn} do
-      user_params = %{
-        username: Faker.Internet.user_name(),
-        password: Faker.String.base64()
-      }
-
-      %User{}
-      |> User.changeset(user_params)
-      |> Repo.insert!()
+      %User{username: username, password: password} = insert!(:user)
 
       conn =
         post(conn, Routes.account_session_path(conn, :create),
-          session: %{password: user_params.password, username: user_params.username}
+          session: %{password: password, username: username}
         )
 
       assert redirected_to(conn) == Routes.admin_path(conn, :index)
@@ -45,18 +39,11 @@ defmodule HelloWeb.SessionControllerTest do
 
   describe "delete/2" do
     setup %{conn: conn} do
-      user_params = %{
-        username: Faker.Internet.user_name(),
-        password: Faker.String.base64()
-      }
-
-      %User{}
-      |> User.changeset(user_params)
-      |> Repo.insert!()
+      %User{username: username, password: password} = insert!(:user)
 
       conn =
         post(conn, Routes.account_session_path(conn, :create),
-          session: %{password: user_params.password, username: user_params.username}
+          session: %{password: password, username: username}
         )
 
       %{conn: conn}
