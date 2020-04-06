@@ -34,7 +34,7 @@ Some routes (such as "/admin") are account-protected. On local, this means you'l
 
 ```
 iex -S mix
-> Hello.Accounts.create_user(%{username: "admin", encrypted_password: "password"})
+> Hello.Accounts.create_user(%{username: "admin", password: "password"})
 ```
 
 Then, you can log in with the credentials you created.

@@ -15,7 +15,7 @@ defmodule HelloWeb.AccountSessionController do
         |> put_flash(:info, "Signed in successfully.")
         |> redirect(to: Routes.admin_path(conn, :index))
 
-      {:error, _} ->
+      {:error, _err} ->
         conn
         |> put_flash(:error, "There was a problem with your username/password")
         |> render("new.html")

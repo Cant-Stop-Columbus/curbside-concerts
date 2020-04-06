@@ -12,24 +12,24 @@ defmodule Hello.AccountsTest do
         hash: fn "some password" -> "hashed_password" end do
         assert {:ok, %User{} = user} =
                  Accounts.create_user(%{
-                   encrypted_password: "some password",
+                   password: "some password",
                    username: "some username"
                  })
 
-        assert user.encrypted_password == "hashed_password"
+        assert user.password == "hashed_password"
         assert user.username == "some username"
       end
     end
 
     test "given missing username" do
       attrs = %{
-        encrypted_password: "encrypted_password"
+        password: "password"
       }
 
       assert {:error, _} = Accounts.create_user(attrs)
     end
 
-    test "given missing encrypted_password" do
+    test "given missing password" do
       attrs = %{
         username: "username"
       }
@@ -40,7 +40,7 @@ defmodule Hello.AccountsTest do
     test "given duplicate username" do
       attrs = %{
         username: "username",
-        encrypted_password: "encrypted_password"
+        password: "password"
       }
 
       Accounts.create_user(attrs)

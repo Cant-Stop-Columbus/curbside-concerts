@@ -1,17 +1,19 @@
-<h2>Sign In</h2>
+<div class="card">
 
-<%= form_for @conn, Routes.account_session_path(@conn, :new), [as: :session], fn f -> %>
-<div class="mb-4">
-  <%= label f, :username %>
-  <%= text_input f, :username, placeholder: "username" %>
-  <%= error_tag f, :username %>
-</div>
-<div class="mb-4">
-  <%= label f, :password %>
-  <%= password_input f, :password, placeholder: "password" %>
-  <%= error_tag f, :password %>
-</div>
-<div>
+  <h2>Sign In</h2>
+
+  <%= form_for @conn, Routes.account_session_path(@conn, :new), [as: :session], fn f -> %>
+  <label class="field">
+    <%= text_input f, :username, placeholder: "username" %>
+    <%= error_tag f, :username %>
+  </label>
+
+  <label class="field">
+    <%= password_input f, :password, placeholder: "password" %>
+    <%= error_tag f, :password %>
+  </label>
+
   <%= submit "Sign In" %>
-</div>
 <% end %>
+
+</div>

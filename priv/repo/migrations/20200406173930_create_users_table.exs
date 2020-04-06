@@ -4,7 +4,7 @@ defmodule Hello.Repo.Migrations.CreateUsersTable do
   def change do
     create table(:users) do
       add(:username, :string)
-      add(:encrypted_password, :string)
+      add(:password, :string)
 
       timestamps()
     end

@@ -13,5 +13,7 @@ defmodule Hello.Accounts.Encryption do
 
   @spec password_match?(User.t(), binary) :: {:error, binary} | {:ok, User.t()}
   def password_match?(nil, _password), do: {:error, "User not found"}
-  def password_match?(%User{} = user, password), do: Bcrypt.check_pass(user, password)
+
+  def password_match?(%User{} = user, password),
+    do: Bcrypt.check_pass(user, password, hash_key: :password)
 end

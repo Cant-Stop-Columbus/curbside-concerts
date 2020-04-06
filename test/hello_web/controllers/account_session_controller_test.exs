@@ -15,7 +15,7 @@ defmodule HelloWeb.SessionControllerTest do
     test "redirects to admin when data is valid", %{conn: conn} do
       user_params = %{
         username: Faker.Internet.user_name(),
-        encrypted_password: Faker.String.base64()
+        password: Faker.String.base64()
       }
 
       %User{}
@@ -24,7 +24,7 @@ defmodule HelloWeb.SessionControllerTest do
 
       conn =
         post(conn, Routes.account_session_path(conn, :create),
-          session: %{password: user_params.encrypted_password, username: user_params.username}
+          session: %{password: user_params.password, username: user_params.username}
         )
 
       assert redirected_to(conn) == Routes.admin_path(conn, :index)
@@ -47,7 +47,7 @@ defmodule HelloWeb.SessionControllerTest do
     setup %{conn: conn} do
       user_params = %{
         username: Faker.Internet.user_name(),
-        encrypted_password: Faker.String.base64()
+        password: Faker.String.base64()
       }
 
       %User{}
@@ -56,7 +56,7 @@ defmodule HelloWeb.SessionControllerTest do
 
       conn =
         post(conn, Routes.account_session_path(conn, :create),
-          session: %{password: user_params.encrypted_password, username: user_params.username}
+          session: %{password: user_params.password, username: user_params.username}
         )
 
       %{conn: conn}
