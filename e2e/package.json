@@ -1,0 +1,14 @@
+{
+	"repository": {},
+	"license": "MIT",
+	"scripts": {
+		"cy:open": "node_modules/.bin/cypress open",
+		"cy:run": "node_modules/.bin/cypress run",
+		"test": "node_modules/.bin/wait-on http://localhost:4000 && npm run cy:run"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"cypress": "^4.3.0",
+		"faker": "^4.1.0"
+	}
+}

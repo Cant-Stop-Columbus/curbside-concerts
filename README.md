@@ -28,9 +28,22 @@ docker-compose up -d
 mix phx.server
 ```
 
-## Authentication
+### Running Tests
 
-Some routes (such as "/admin") are account-protected. On local, this means you'll need to create a user account in the database.
+To run unit tests:
+
+```sh
+mix test
+
+# or, use TDD
+mix test.watch
+```
+
+See the e2e directory README for instruction on running the end-to-end tests using Cypress.
+
+### Authentication
+
+Some routes require authentication. On local, this means you'll need to create a user account in the database.
 
 ```
 iex -S mix
