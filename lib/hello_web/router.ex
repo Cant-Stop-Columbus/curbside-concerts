@@ -26,16 +26,16 @@ defmodule HelloWeb.Router do
     post "/request", RequestController, :create
   end
 
-  scope "/admin", HelloWeb do
+  scope "/", HelloWeb do
     pipe_through [:browser]
 
-    get "/", AdminController, :index
+    get "/admin", AdminController, :index
 
     get("/sign-in", AccountSessionController, :new)
     post("/sign-in", AccountSessionController, :create)
   end
 
-  scope "/admin", HelloWeb do
+  scope "/", HelloWeb do
     pipe_through [:browser, :requires_auth]
 
     get "/musician_builder/new", MusicianController, :new

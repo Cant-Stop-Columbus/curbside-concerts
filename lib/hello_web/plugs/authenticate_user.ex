@@ -22,7 +22,7 @@ defmodule HelloWeb.Plugs.AuthenticateUser do
     else
       conn
       |> put_flash(:error, "You need to be signed in to access that page.")
-      |> redirect(to: Routes.request_path(conn, :home))
+      |> redirect(to: Routes.account_session_path(conn, :new))
       |> halt()
     end
   end
