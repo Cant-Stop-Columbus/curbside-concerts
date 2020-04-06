@@ -1,0 +1,17 @@
+<h1>Admin Page</h1>
+
+<div>
+  <%= if @user_signed_in? do %>
+    <%= link "Sign Out", to: Routes.account_session_path(@conn, :delete), method: :delete %>
+  <% else %>
+    <%= link "Sign In", to: Routes.account_session_path(@conn, :new) %>
+  <% end %>
+</div>
+
+<%= if @user_signed_in? do %>
+  <ul>
+    <li><%= link "View Gigs", to: Routes.request_path(@conn, :index) %></li>
+  </ul>
+<% else %>
+  You must be signed in to view this content.
+<% end %>

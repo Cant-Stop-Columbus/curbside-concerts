@@ -46,7 +46,9 @@ defmodule Hello.MixProject do
       {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},
       {:mock, "~> 0.3.0", only: :test},
       {:faker, "~> 0.13", only: :test},
-      {:floki, "~> 0.26.0", only: :test}
+      {:floki, "~> 0.26.0", only: :test},
+      {:comeonin, "~> 4.0"},
+      {:bcrypt_elixir, "~> 1.0"}
     ]
   end
 

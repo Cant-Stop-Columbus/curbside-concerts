@@ -28,6 +28,17 @@ docker-compose up -d
 mix phx.server
 ```
 
+## Authentication
+
+Some routes (such as "/admin") are account-protected. On local, this means you'll need to create a user account in the database.
+
+```
+iex -S mix
+> Hello.Accounts.create_user(%{username: "admin", encrypted_password: "password"})
+```
+
+Then, you can log in with the credentials you created.
+
 ## Deployment
 
 At the moment, this repository is connected directly to [the Heroku Project](https://dashboard.heroku.com/apps/sendaconcert). Pushing to master will automatically kick off a build and deploy.

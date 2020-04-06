@@ -7,10 +7,15 @@ defmodule HelloWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug(HelloWeb.Plugs.SetCurrentUser)
   end
 
   pipeline :api do
     plug :accepts, ["json"]
+  end
+
+  pipeline :requires_auth do
+    plug HelloWeb.Plugs.AuthenticateUser
   end
 
   scope "/", HelloWeb do
@@ -19,6 +24,19 @@ defmodule HelloWeb.Router do
     get "/", RequestController, :home
     get "/request/:session_id", RequestController, :new
     post "/request", RequestController, :create
+  end
+
+  scope "/admin", HelloWeb do
+    pipe_through [:browser]
+
+    get "/", AdminController, :index
+
+    get("/sign-in", AccountSessionController, :new)
+    post("/sign-in", AccountSessionController, :create)
+  end
+
+  scope "/admin", HelloWeb do
+    pipe_through [:browser, :requires_auth]
 
     get "/musician_builder/new", MusicianController, :new
     post "/musician_builder/new", MusicianController, :create
@@ -34,6 +52,8 @@ defmodule HelloWeb.Router do
 
     get "/gigs", RequestController, :index
     get "/gigs/:musician", RequestController, :index
+
+    delete("/sign-out", AccountSessionController, :delete)
   end
 
   # Other scopes may use custom stacks.
