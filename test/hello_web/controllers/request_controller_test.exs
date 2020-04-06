@@ -1,5 +1,33 @@
 defmodule HelloWeb.RequestControllerTest do
+  import HelloWeb.Factory
+
   use HelloWeb.ConnCase
+
+  describe "home/2" do
+    test "should show the landing page", %{conn: conn} do
+      html =
+        conn
+        |> get(Routes.request_path(conn, :home))
+        |> html_response(200)
+
+      assert html =~
+               "Send a live curbside concert, for your quarantined loved ones"
+    end
+
+    test "should show the session cards", %{conn: conn} do
+      # faker 2 musicians with sessions
+      insert!(:session)
+      insert!(:session)
+
+      session_cards =
+        conn
+        |> get(Routes.request_path(conn, :home))
+        |> html_response(200)
+        |> Floki.find(".session-cards .session-card")
+
+      assert length(session_cards) == 2
+    end
+  end
 
   describe "new/2" do
     test "should render the new request form", %{conn: conn} do
