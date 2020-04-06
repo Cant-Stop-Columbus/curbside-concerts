@@ -3,19 +3,26 @@ defmodule HelloWeb.RequestControllerTest do
 
   use HelloWeb.ConnCase
 
+  alias Hello.Musicians.Session
+
   describe "home/2" do
     test "should show the landing page", %{conn: conn} do
       html =
         conn
         |> get(Routes.request_path(conn, :home))
         |> html_response(200)
+        |> Floki.parse_document!()
 
-      assert html =~
+      header =
+        html
+        |> Floki.find("h1")
+        |> Floki.text()
+
+      assert header ==
                "Send a live curbside concert, for your quarantined loved ones"
     end
 
     test "should show the session cards", %{conn: conn} do
-      # faker 2 musicians with sessions
       insert!(:session)
       insert!(:session)
 
@@ -23,6 +30,7 @@ defmodule HelloWeb.RequestControllerTest do
         conn
         |> get(Routes.request_path(conn, :home))
         |> html_response(200)
+        |> Floki.parse_document!()
         |> Floki.find(".session-cards .session-card")
 
       assert length(session_cards) == 2
@@ -31,15 +39,31 @@ defmodule HelloWeb.RequestControllerTest do
 
   describe "new/2" do
     test "should render the new request form", %{conn: conn} do
-      conn = get(conn, Routes.request_path(conn, :new))
+      %Session{id: session_id} =
+        insert!(:session,
+          name: "Jamboree Spectacular!",
+          description: "You should come. It will be fun."
+        )
 
-      assert html_response(conn, 200) =~
-               "Live pickup truck concert, for your quarantined loved ones"
+      html =
+        conn
+        |> get(Routes.request_path(conn, :new, session_id))
+        |> html_response(200)
+        |> Floki.parse_document!()
+
+      title =
+        html
+        |> Floki.find("h2")
+        |> Floki.text()
+
+      assert title == "Jamboree Spectacular!"
     end
   end
 
   describe "create/2" do
     test "redirects to confirmation when data is valid", %{conn: conn} do
+      insert!(:session)
+
       %{nominee_name: nominee_name} =
         valid_attrs = %{
           nominee_name: Faker.Name.name(),
@@ -55,23 +79,49 @@ defmodule HelloWeb.RequestControllerTest do
       conn = post(conn, Routes.request_path(conn, :create), request: valid_attrs)
 
       assert %{} = redirected_params(conn)
-      assert redirected_to(conn) == Routes.request_path(conn, :new)
+      assert redirected_to(conn) == Routes.request_path(conn, :home)
 
-      conn = get(conn, Routes.request_path(conn, :new))
+      html =
+        conn
+        |> get(Routes.request_path(conn, :home))
+        |> html_response(200)
+        |> Floki.parse_document!()
 
-      assert html_response(conn, 200) =~
+      success_message =
+        html
+        |> Floki.find(".alert-info")
+        |> Floki.text()
+
+      assert success_message ==
                "Thank you for submitting a concert request for #{nominee_name}!"
     end
 
     test "displays error message when data is invalid", %{conn: conn} do
-      invalid_attrs = %{}
+      %Session{id: session_id, name: session_name} = insert!(:session)
 
-      conn = post(conn, Routes.request_path(conn, :create), request: invalid_attrs)
+      invalid_attrs = %{
+        session_id: session_id
+      }
 
-      assert html_response(conn, 200) =~
-               "Live pickup truck concert, for your quarantined loved ones"
+      html =
+        conn
+        |> post(Routes.request_path(conn, :create), request: invalid_attrs)
+        |> html_response(200)
+        |> Floki.parse_document!()
 
-      assert html_response(conn, 200) =~
+      header =
+        html
+        |> Floki.find("h2")
+        |> Floki.text()
+
+      assert header == session_name
+
+      error_message =
+        html
+        |> Floki.find(".alert-danger")
+        |> Floki.text()
+
+      assert error_message ==
                "Oops! Looks like a field is missing - please check below and try again"
     end
   end

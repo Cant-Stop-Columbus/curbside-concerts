@@ -10,7 +10,7 @@ defmodule HelloWeb.Factory do
       bio: Faker.Lorem.Shakespeare.as_you_like_it(),
       # TBD: generate fake list of songs
       playlist: [],
-      gigs_id: "tmp"
+      gigs_id: Faker.Internet.user_name()
     }
   end
 
@@ -18,7 +18,6 @@ defmodule HelloWeb.Factory do
     %{
       name: "",
       description: ""
-      # TBD: how to add a relationship??
     }
   end
 
