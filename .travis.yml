@@ -3,7 +3,7 @@ elixir:
   - 1.9.4
 
 env:
-  - MIX_ENV=test
+  - MIX_ENV=test CYPRESS_CACHE_FOLDER=.cache
 
 addons:
   postgresql: "9.4"
@@ -16,12 +16,15 @@ cache:
     - _build
     - deps
     - assets/node_modules
+    - e2e/node_modules
+    - e2e/.cache
 
 before_script:
   - cp config/travis_test.exs config/test.exs
+  - cp config/travis_prod.exs config/prod.exs
 
 script:
-  - mix compile
-  - mix do ecto.create, ecto.migrate
-  - npm install --prefix assets
+  - bin/travis/build.sh
   - mix test
+  - MIX_ENV=prod bin/travis/build.sh
+  - MIX_ENV=prod bin/travis/e2e.sh

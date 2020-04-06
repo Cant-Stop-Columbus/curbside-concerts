@@ -9,6 +9,7 @@
 	"dependencies": {},
 	"devDependencies": {
 		"cypress": "^4.3.0",
-		"faker": "^4.1.0"
+		"faker": "^4.1.0",
+		"wait-on": "^4.0.1"
 	}
 }
