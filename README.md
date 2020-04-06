@@ -1,8 +1,6 @@
 # Curbside Concerts
 
-This repository contains the source code for Curbside Concerts, a charity project that Test Double is working on for [Can't Stop Columbus](https://cantstopcolumbus.web.app/).
-
-Please see the [project BaseCamp](https://3.basecamp.com/4445163/projects/16536595) or the #cause-cantstopcolumbus channel in Slack for more information.
+This repository contains the source code for Curbside Concerts / Send a Concert, a charity project that Test Double is working on with [Can't Stop Columbus](https://cantstopcolumbus.web.app/).
 
 ## Getting Started
 
@@ -48,6 +46,14 @@ If your change also requires a database migration, be sure to run that after the
 ```sh
 heroku run "POOL_SIZE=2 mix ecto.migrate" -a <heroku_app_name>
 ```
+
+To run Elixir code on the deployed instance, you can also access `iex`:
+
+```sh
+heroku run "POOL_SIZE=2 iex -S mix" -a <heroku_app_name>
+```
+
+*Note*: The `POOL_SIZE` argument here assumes you folowed the Phoenix / Heroku docs linked below, which sets a specific pool size for the app itself.
 
 ## Deployment Configuration
 
