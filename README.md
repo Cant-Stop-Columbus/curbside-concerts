@@ -1,5 +1,7 @@
 # Curbside Concerts
 
+[![Build Status](https://travis-ci.org/testdouble/curbside-concerts.svg?branch=master)](https://travis-ci.org/testdouble/curbside-concerts)
+
 This repository contains the source code for Curbside Concerts / Send a Concert, a charity project that Test Double is working on with [Can't Stop Columbus](https://cantstopcolumbus.web.app/).
 
 ## Getting Started
@@ -53,7 +55,7 @@ To run Elixir code on the deployed instance, you can also access `iex`:
 heroku run "POOL_SIZE=2 iex -S mix" -a <heroku_app_name>
 ```
 
-*Note*: The `POOL_SIZE` argument here assumes you folowed the Phoenix / Heroku docs linked below, which sets a specific pool size for the app itself.
+_Note_: The `POOL_SIZE` argument here assumes you folowed the Phoenix / Heroku docs linked below, which sets a specific pool size for the app itself.
 
 ## Deployment Configuration
 
@@ -63,4 +65,4 @@ These are the steps needed to configure this application for a new Heroku projec
 2. [Phoenix Static Buildpack](https://github.com/gjaldon/heroku-buildpack-phoenix-static): `heroku buildpacks:add https://github.com/gjaldon/heroku-buildpack-phoenix-static -a <heroku_app_name`
 3. Follow the instructions on [the Phoenix Docs](https://hexdocs.pm/phoenix/heroku.html#making-our-project-ready-for-heroku) to set up the app with Postgres on Heroku.
 
-**Note**: If you get zipfile errors when building in Heroku, try setting a different Elixir / Erlang version in `elixir_buildpack.config`. At the time of this writing, we were unable to get Elixir 1.10.* to deploy successfully.
+**Note**: If you get zipfile errors when building in Heroku, try setting a different Elixir / Erlang version in `elixir_buildpack.config`. At the time of this writing, we were unable to get Elixir 1.10.\* to deploy successfully.

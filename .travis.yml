@@ -1,0 +1,27 @@
+language: elixir
+elixir:
+  - 1.9.4
+
+env:
+  - MIX_ENV=test
+
+addons:
+  postgresql: "9.4"
+
+services:
+  - postgresql
+
+cache:
+  directories:
+    - _build
+    - deps
+    - assets/node_modules
+
+before_script:
+  - cp config/travis_test.exs config/test.exs
+
+script:
+  - mix compile
+  - mix do ecto.create, ecto.migrate
+  - npm install --prefix assets
+  - mix test
