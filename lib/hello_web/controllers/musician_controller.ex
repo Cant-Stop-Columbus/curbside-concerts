@@ -30,6 +30,6 @@ defmodule HelloWeb.MusicianController do
   end
 
   def index(conn, _) do
-    render(conn, "index.html", musicians: Musicians.all())
+    render(conn, "index.html", musicians: Musicians.all_musicians())
   end
 end

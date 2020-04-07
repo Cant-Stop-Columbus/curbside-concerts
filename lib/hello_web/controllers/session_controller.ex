@@ -13,7 +13,7 @@ defmodule HelloWeb.SessionController do
   def new(conn, _params) do
     conn
     |> assign(:changeset, Musicians.change_session(%Session{}))
-    |> assign(:musicians, Musicians.all())
+    |> assign(:musicians, Musicians.all_musicians())
     |> render("new.html")
   end
 
@@ -27,7 +27,7 @@ defmodule HelloWeb.SessionController do
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
         |> assign(:changeset, changeset)
-        |> assign(:musicians, Musicians.all())
+        |> assign(:musicians, Musicians.all_musicians())
         |> put_flash(
           :error,
           "Oops! Looks like a field is missing - please check below and try again"
@@ -50,7 +50,7 @@ defmodule HelloWeb.SessionController do
 
     conn
     |> assign(:changeset, changeset)
-    |> assign(:musicians, Musicians.all())
+    |> assign(:musicians, Musicians.all_musicians())
     |> render("edit.html")
   end
 
@@ -66,7 +66,7 @@ defmodule HelloWeb.SessionController do
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
         |> assign(:changeset, changeset)
-        |> assign(:musicians, Musicians.all())
+        |> assign(:musicians, Musicians.all_musicians())
         |> put_flash(
           :error,
           "Oops! Looks like a field is missing - please check below and try again"

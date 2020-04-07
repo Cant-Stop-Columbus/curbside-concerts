@@ -6,20 +6,10 @@ defmodule Hello.Requests do
   alias Hello.Musicians.Musician
   alias Hello.Musicians.Session
 
-  def change_request(%Request{} = request) do
-    Request.changeset(request, %{})
-  end
+  use EctoResource
 
-  def create_request(attrs \\ %{}) do
-    %Request{}
-    |> Request.changeset(attrs)
-    |> Repo.insert()
-  end
-
-  def all do
-    Request
-    |> preload(session: :musician)
-    |> Repo.all()
+  using_repo(Repo) do
+    resource(Request, only: [:all, :change, :create])
   end
 
   def get_by_gigs_id(gigs_id) do

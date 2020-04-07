@@ -49,7 +49,7 @@ defmodule HelloWeb.RequestController do
 
   def index(conn, _) do
     conn
-    |> assign(:requests, Requests.all())
+    |> assign(:requests, Requests.all_requests())
     |> render("index.html")
   end
 end

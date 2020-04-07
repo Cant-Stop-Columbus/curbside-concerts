@@ -5,9 +5,14 @@ defmodule Hello.Musicians do
   alias Hello.Musicians.Musician
   alias Hello.Musicians.Session
 
-  def change_musician(%Musician{} = musician) do
-    Musician.changeset(musician, %{})
+  use EctoResource
+
+  using_repo(Repo) do
+    resource(Musician, only: [:all, :change])
+    resource(Session, only: [:change, :create, :update])
   end
+
+  ### Musicians
 
   def create_musician(attrs \\ %{}) do
     attrs = format_playlist(attrs)
@@ -21,10 +26,6 @@ defmodule Hello.Musicians do
     Repo.one(from m in Musician, where: m.gigs_id == ^gigs_id)
   end
 
-  def all do
-    Repo.all(Musician)
-  end
-
   defp format_playlist(attrs) do
     if is_binary(attrs["playlist"]) do
       playlist = String.split(attrs["playlist"], "|")
@@ -34,24 +35,7 @@ defmodule Hello.Musicians do
     end
   end
 
-  ### SESSIONS
-
-  def change_session(%Session{} = session) do
-    Session.changeset(session, %{})
-  end
-
-  def create_session(attrs \\ %{}) do
-    %Session{}
-    |> Session.changeset(attrs)
-    |> Repo.insert()
-  end
-
-  def update_session(%Session{} = session, attrs) do
-    session
-    |> Session.changeset(attrs)
-    |> Repo.update()
-  end
-
+  ### Sessions
   def all_sessions do
     Session
     |> preload([:musician])
