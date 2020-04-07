@@ -39,12 +39,12 @@ musician2 =
 
 Hello.Repo.insert!(%Hello.Musicians.Session{
   name: "Songs with Remington",
-  description: "",
+  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   musician: musician1
 })
 
 Hello.Repo.insert!(%Hello.Musicians.Session{
   name: "Songs with Miss Cornell",
-  description: "",
+  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   musician: musician2
 })
