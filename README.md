@@ -4,18 +4,34 @@
 
 This repository contains the source code for Curbside Concerts / Send a Concert, a charity project that Test Double is working on with [Can't Stop Columbus](https://cantstopcolumbus.web.app/).
 
+## Dependencies:
+
+1. Elixir
+
+We recommend using [exenv](https://github.com/exenv/exenv), to automatically use the local version defined in `.exenv-version`. Alternatively, follow the instructions in the [Elixir Install Page](https://elixir-lang.org/install.html).
+
+2. Erlang
+
+Erlang can be installed through homebrew:
+
+```
+brew install erlang
+```
+
+3. [Phoenix](https://hexdocs.pm/phoenix/installation.html)
+
+4. [Optional] [Docker and Docker-Compose](https://docs.docker.com/get-docker/), for running Postgres (recommended). Alternatively, you can install and run Postgres locally.
+
 ## Getting Started
 
 First time setup:
 
 ```sh
-# install dependencies
-mix deps.get
-(cd assets && npm install)
-
-# initialize the database
+# start up the database, if using docker
 docker-compose up -d
-mix ecto.setup
+
+# install dependencies and initialize the database
+bin/setup.sh
 ```
 
 To run the app locally:

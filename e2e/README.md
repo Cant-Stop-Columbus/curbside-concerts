@@ -11,13 +11,7 @@ npm install --prefix e2e
 
 ## Running the Tests
 
-Set up:
-
-```sh
-docker-compose up -d
-# seed data for the tests to use
-mix run priv/repo/seeds.exs
-```
+**Note**: These tests rely on the seed data in `priv/repo/seeds.exs`. Make sure you've run `bin/setup.sh` or `mix ecto.setup` before running the tests.
 
 Run the server:
 
