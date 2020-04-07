@@ -42,7 +42,9 @@
   <h2>Stories of hope, love, and cheer</h2>
 
 	<div class="image-wrapper">
+		<div class="image">
 		<%= hero_image() %>
+		</div>
 
 		<p>
 			"This is from your daughter:
