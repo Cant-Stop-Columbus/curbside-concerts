@@ -1,4 +1,4 @@
-defmodule Hello.Repo.Migrations.CreateSessionsTable do
+defmodule CurbsideConcerts.Repo.Migrations.CreateSessionsTable do
   use Ecto.Migration
 
   def change do

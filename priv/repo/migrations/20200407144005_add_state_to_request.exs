@@ -1,4 +1,4 @@
-defmodule Hello.Repo.Migrations.AddStateToRequest do
+defmodule CurbsideConcerts.Repo.Migrations.AddStateToRequest do
   use Ecto.Migration
 
   def change do

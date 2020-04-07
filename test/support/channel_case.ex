@@ -1,4 +1,4 @@
-defmodule HelloWeb.ChannelCase do
+defmodule CurbsideConcertsWeb.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -11,7 +11,7 @@ defmodule HelloWeb.ChannelCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use HelloWeb.ChannelCase, async: true`, although
+  by setting `use CurbsideConcertsWeb.ChannelCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -23,15 +23,15 @@ defmodule HelloWeb.ChannelCase do
       use Phoenix.ChannelTest
 
       # The default endpoint for testing
-      @endpoint HelloWeb.Endpoint
+      @endpoint CurbsideConcertsWeb.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Hello.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(CurbsideConcerts.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Hello.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(CurbsideConcerts.Repo, {:shared, self()})
     end
 
     :ok

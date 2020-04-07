@@ -1,4 +1,4 @@
-defmodule Hello.Repo.Migrations.AddContactPreferenceToRequestsTable do
+defmodule CurbsideConcerts.Repo.Migrations.AddContactPreferenceToRequestsTable do
   use Ecto.Migration
 
   def change do

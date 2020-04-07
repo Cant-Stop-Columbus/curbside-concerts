@@ -1,9 +1,9 @@
-defmodule Hello.MixProject do
+defmodule CurbsideConcerts.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :hello,
+      app: :curbside_concerts,
       version: "0.1.0",
       elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -19,7 +19,7 @@ defmodule Hello.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {Hello.Application, []},
+      mod: {CurbsideConcerts.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end
@@ -33,8 +33,8 @@ defmodule Hello.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-			{:bcrypt_elixir, "~> 1.0"},
-			{:ecto_resource, "~> 1.1.0"},
+      {:bcrypt_elixir, "~> 1.0"},
+      {:ecto_resource, "~> 1.1.0"},
       {:comeonin, "~> 4.0"},
       {:ecto_sql, "~> 3.1"},
       {:faker, "~> 0.13", only: :test},
