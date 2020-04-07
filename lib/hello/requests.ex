@@ -1,4 +1,16 @@
 defmodule Hello.Requests do
+  @moduledoc """
+  Requests start in a pending state.
+
+  They can be moved along the flow of:
+  pending > accepted > enroute > arrived > completed
+
+  They can also be moved to the following states at any time:
+    * pending
+    * canceled
+    * archived
+  """
+
   @pending "pending"
   @accepted "accepted"
   @enroute "enroute"
