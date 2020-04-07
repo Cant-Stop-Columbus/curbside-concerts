@@ -1,0 +1,71 @@
+/*
+ * Styles for the landing page.
+ */
+
+.card.story {
+	.image-wrapper {
+		@include tablet {
+			display: flex;
+		}
+
+		img {
+			margin: 10px 0 20px;
+
+			@include tablet {
+				flex: 1 1 auto;
+			}
+		}
+
+		p {
+			color: $dark-blue;
+			font-style: italic;
+			margin: 0;
+
+			@include tablet {
+				flex: 0 0 250px;
+				font-size: 1.5em;
+				padding-left: 20px;
+			}
+		}
+	}
+}
+
+.card.call-to-action {
+	text-align: center;
+
+	.session-cards {
+		box-sizing: border-box;
+		padding-right: 0;
+
+		@include tablet {
+			display: flex;
+			flex-wrap: wrap;
+		}
+
+		.session-card-wrapper {
+			box-sizing: border-box;
+			margin-bottom: 10px;
+
+			@include tablet {
+				border: 0 solid transparent;
+				border-width: 16px 16px 0 0;
+				flex: 0 0 50%;
+				max-width: 50%;
+				margin: 0;
+			}
+
+			.session-card {
+				border: 1px solid gray;
+				border-radius: 4px;
+				display: block;
+				padding: 20px;
+				text-decoration: none;
+				color: inherit;
+			}
+		}
+	}
+}
+
+.card.masthead {
+	text-align: center;
+}

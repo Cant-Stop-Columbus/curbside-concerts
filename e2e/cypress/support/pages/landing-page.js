@@ -2,16 +2,13 @@ const heading = () => cy.get("h1");
 const sessionCard = (name) => cy.get(".session-card").contains(name);
 const alertInfo = () => cy.get(".alert.alert-info");
 
-class RequestHomePage {
+class LandingPage {
 	visit() {
 		cy.visit("/");
 	}
 
 	assert() {
-		heading().should(
-			"have.text",
-			"Send a live curbside concert, for your quarantined loved ones"
-		);
+		heading().should("have.text", "Know someone feeling down?");
 	}
 
 	clickSession(sessionName) {
@@ -26,4 +23,4 @@ class RequestHomePage {
 	}
 }
 
-export default new RequestHomePage();
+export default new LandingPage();

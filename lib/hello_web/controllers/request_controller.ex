@@ -12,17 +12,12 @@ defmodule HelloWeb.RequestController do
     render(conn, "new.html", changeset: changeset, action: action, session: session)
   end
 
-  def home(conn, _) do
-    sessions = Musicians.all_sessions()
-    render(conn, "home.html", sessions: sessions)
-  end
-
   def create(conn, %{"request" => request_params}) do
     case Requests.create_request(request_params) do
       {:ok, %Request{nominee_name: nominee_name}} ->
         conn
         |> put_flash(:info, "Thank you for submitting a concert request for #{nominee_name}!")
-        |> redirect(to: Routes.request_path(conn, :home))
+        |> redirect(to: Routes.landing_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         action = Routes.request_path(conn, :create)

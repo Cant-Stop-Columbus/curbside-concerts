@@ -21,13 +21,9 @@ defmodule HelloWeb.Router do
   scope "/", HelloWeb do
     pipe_through :browser
 
-    get "/", RequestController, :home
+    get "/", LandingController, :index
     get "/request/:session_id", RequestController, :new
     post "/request", RequestController, :create
-  end
-
-  scope "/", HelloWeb do
-    pipe_through [:browser]
 
     get "/admin", AdminController, :index
 
