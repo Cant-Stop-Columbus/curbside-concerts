@@ -1,7 +1,7 @@
 defmodule HelloWeb.RequestControllerTest do
-  import HelloWeb.Factory
+  use HelloWeb.ConnCase, async: true
 
-  use HelloWeb.ConnCase
+  import HelloWeb.Factory
 
   alias Hello.Musicians.Session
 
@@ -23,8 +23,8 @@ defmodule HelloWeb.RequestControllerTest do
     end
 
     test "should show the session cards", %{conn: conn} do
-      insert!(:session)
-      insert!(:session)
+      %Session{name: first_session_name} = insert!(:session)
+      %Session{name: second_session_name} = insert!(:session)
 
       session_cards =
         conn
@@ -33,7 +33,9 @@ defmodule HelloWeb.RequestControllerTest do
         |> Floki.parse_document!()
         |> Floki.find(".session-cards .session-card")
 
-      assert length(session_cards) == 2
+      assert length(session_cards) >= 2
+      assert session_cards |> Floki.text() |> String.contains?(first_session_name)
+      assert session_cards |> Floki.text() |> String.contains?(second_session_name)
     end
   end
 

@@ -17,8 +17,8 @@ defmodule HelloWeb.Factory do
 
   def attrs(:session) do
     %{
-      name: "",
-      description: ""
+      name: Faker.Lorem.sentence(),
+      description: Faker.Lorem.paragraph()
     }
   end
 
