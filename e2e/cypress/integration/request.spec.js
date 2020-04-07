@@ -9,12 +9,12 @@ const sessionData = {
 const requestData = {
 	nomineeName: faker.name.findName(),
 	contactPreference: "call_nominee",
-	nomineePhone: faker.phone.phoneNumberFormat().replace(/-/g, ""),
+	nomineePhone: faker.phone.phoneNumberFormat(),
 	song: "Hallelujah",
 	nomineeAddress: buildFakeAddress(),
 	specialMessage: faker.lorem.paragraph(),
 	requesterName: faker.name.findName(),
-	requesterPhone: faker.phone.phoneNumberFormat().replace(/-/g, ""),
+	requesterPhone: faker.phone.phoneNumberFormat(),
 };
 
 function buildFakeAddress() {

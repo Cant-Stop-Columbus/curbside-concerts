@@ -25,7 +25,7 @@
 
   <label class="field">
     <div>If you chose "Call the nominee" above, please provide their phone number.</div>
-    <%= request_input f, :nominee_phone %>
+    <%= request_input f, :nominee_phone, type: :phone %>
   </label>
 </div>
 
@@ -47,7 +47,8 @@
   <label>
     <div>
       After the song, our performer will mention that it was dedicated by you and share the message you type below.
-      <br>Please write a little about why you're sending this request (e.g. "I appreciate you because" or "I am thinking about you and the time..."). <%= required_star() %>
+      <br>
+      Please write a little about why you're sending this request (e.g. "I appreciate you because" or "I am thinking about you and the time..."). <%= required_star() %>
     </div>
     <%= request_input f, :special_message %>
   </label>
@@ -63,7 +64,7 @@
 <div class="card">
   <label>
     <div>What is a good phone number to text you? (Since this is a prototype, we might have some follow-up questions to try and make this experience better) <%= required_star() %></div>
-    <%= request_input f, :requester_phone %>
+    <%= request_input f, :requester_phone, type: :phone %>
   </label>
 </div>
 

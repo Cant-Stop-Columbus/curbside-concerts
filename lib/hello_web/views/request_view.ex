@@ -19,6 +19,15 @@ defmodule HelloWeb.RequestView do
     [{"Please choose a song option", ""} | playlist]
   end
 
+  def request_input(form, field, type: :phone) do
+    class = class(form, field)
+
+    ~E"""
+    <%= telephone_input(form, field, class: class, placeholder: "Your answer") %>
+    <%= error_tag form, field %>
+    """
+  end
+
   def request_input(form, field) when field in ~w|special_message|a do
     class = class(form, field)
 
