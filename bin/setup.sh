@@ -7,4 +7,4 @@ mix deps.get
 npm install --prefix assets
 
 # setup database: create, migrate, and seed
-mix ecto.setup
+mix ecto.reset
