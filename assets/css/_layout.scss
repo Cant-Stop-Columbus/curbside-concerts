@@ -13,6 +13,11 @@ h2 {
 	font-weight: 500;
 }
 
+em {
+	color: $dark-blue;
+	font-style: normal;
+}
+
 button,
 a.button {
 	background-color: $dark-blue;
@@ -70,11 +75,6 @@ header {
 		font-size: 1.5em;
 	}
 
-	em {
-		color: $dark-blue;
-		font-style: normal;
-	}
-
 	p {
 		padding: 0;
 		margin: 0;
@@ -98,12 +98,5 @@ header {
 	a.button {
 		font-size: 0.6em;
 		margin-top: 20px;
-	}
-
-	.description {
-		@include tablet {
-			display: inline-block;
-			max-width: 350px;
-		}
 	}
 }

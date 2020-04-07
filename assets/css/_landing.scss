@@ -2,6 +2,40 @@
  * Styles for the landing page.
  */
 
+header.landing {
+	.content-wrapper {
+		@include desktop {
+			display: flex;
+		}
+
+		.description {
+			@include desktop {
+				flex: 1;
+			}
+		}
+
+		.images {
+			display: none;
+
+			@include tablet {
+				display: block;
+				margin-top: 20px;
+				text-align: center;
+			}
+
+			@include desktop {
+				align-self: flex-end;
+				margin: 0;
+			}
+		}
+	}
+
+	img {
+		max-height: 144px;
+		width: auto;
+	}
+}
+
 .card.story {
 	.image-wrapper {
 		@include tablet {

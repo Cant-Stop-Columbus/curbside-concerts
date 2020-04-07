@@ -3,14 +3,21 @@
 		<span class="link current">HOME</span>
 		<%= link "REQUEST", to: "#request", class: "link" %>
 	</nav>
-	<header>
+	<header class="landing">
 		<p>Hey Columbus,</p>
 		<h1>Know someone feeling down?</h1>
-		<div class="description">
-			<h2>Send a <em>live curbside concert</em>, for your quarantined love ones</h2>
-			<p>For free!</p>
+		<div class="content-wrapper">
+			<div class="description">
+				<h2>Send a <em>live curbside concert</em>, for your quarantined love ones</h2>
+				<p>For free!</p>
 
-			<%= link "REQUEST A CONCERT", to: "#request", role: "button", class: "button" %>
+				<%= link "REQUEST A CONCERT", to: "#request", role: "button", class: "button" %>
+			</div>
+			<div class="images">
+				<img src="/images/001-musician.svg" alt="Stylized drawing of a man with guitar." />
+				<img src="/images/002-singer.svg" alt="Stylized drawing of a woman with a microphone." />
+				<img src="/images/003-professions.svg" alt="Styled drawing of a woman with a guitar." />
+			</div>
 		</div>
 	</header>
 </div>
