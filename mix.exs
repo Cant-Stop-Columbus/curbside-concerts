@@ -41,6 +41,7 @@ defmodule Hello.MixProject do
       {:floki, "~> 0.26.0", only: :test},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
+      {:machinery, "~> 1.0.0"},
       {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},
       {:mock, "~> 0.3.0", only: :test},
       {:phoenix_ecto, "~> 4.0"},
