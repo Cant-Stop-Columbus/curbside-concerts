@@ -3,9 +3,9 @@ set -euo pipefail
 IFS=$'\n\t'
 
 mix compile
-mix do ecto.create, ecto.migrate
-npm install --prefix assets
+(cd apps/curbside_concerts && mix ecto.setup)
+(cd apps/curbside_concerts_web && npm install --prefix assets)
 
 if [ $MIX_ENV == "prod" ]; then
-  npm run deploy --prefix assets
+  (cd apps/curbside_concerts_web && npm run deploy --prefix assets)
 fi

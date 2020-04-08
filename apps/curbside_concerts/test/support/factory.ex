@@ -1,4 +1,4 @@
-defmodule CurbsideConcertsWeb.Factory do
+defmodule CurbsideConcerts.Factory do
   alias CurbsideConcerts.Repo
 
   alias CurbsideConcerts.Accounts.User

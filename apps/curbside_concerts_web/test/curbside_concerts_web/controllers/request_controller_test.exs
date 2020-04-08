@@ -1,7 +1,7 @@
 defmodule CurbsideConcertsWeb.RequestControllerTest do
   use CurbsideConcertsWeb.ConnCase, async: true
 
-  import CurbsideConcertsWeb.Factory
+  import CurbsideConcerts.Factory
 
   alias CurbsideConcerts.Musicians.Session
 

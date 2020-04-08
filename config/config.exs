@@ -10,8 +10,12 @@ use Mix.Config
 config :curbside_concerts,
   ecto_repos: [CurbsideConcerts.Repo]
 
+config :curbside_concerts_web,
+  ecto_repos: [CurbsideConcerts.Repo],
+  generators: [context_app: :curbside_concerts]
+
 # Configures the endpoint
-config :curbside_concerts, CurbsideConcertsWeb.Endpoint,
+config :curbside_concerts_web, CurbsideConcertsWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "Ohz+ngvE8GFpcL+uXhf86wrXuUXRbLz+++c4s08Vmvfve0YDGf4gbqvbaxbgj9j6",
   render_errors: [view: CurbsideConcertsWeb.ErrorView, accepts: ~w(html json)],

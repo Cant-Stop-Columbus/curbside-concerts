@@ -1,4 +1,4 @@
-defmodule CurbsideConcerts.Application do
+defmodule CurbsideConcertsWeb.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
@@ -8,17 +8,15 @@ defmodule CurbsideConcerts.Application do
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
-      # Start the Ecto repository
-      CurbsideConcerts.Repo,
       # Start the endpoint when the application starts
       CurbsideConcertsWeb.Endpoint
-      # Starts a worker by calling: CurbsideConcerts.Worker.start_link(arg)
-      # {CurbsideConcerts.Worker, arg},
+      # Starts a worker by calling: CurbsideConcertsWeb.Worker.start_link(arg)
+      # {CurbsideConcertsWeb.Worker, arg},
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: CurbsideConcerts.Supervisor]
+    opts = [strategy: :one_for_one, name: CurbsideConcertsWeb.Supervisor]
     Supervisor.start_link(children, opts)
   end
 

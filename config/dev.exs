@@ -15,7 +15,7 @@ config :curbside_concerts, CurbsideConcerts.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
-config :curbside_concerts, CurbsideConcertsWeb.Endpoint,
+config :curbside_concerts_web, CurbsideConcertsWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
@@ -26,7 +26,7 @@ config :curbside_concerts, CurbsideConcertsWeb.Endpoint,
       "--mode",
       "development",
       "--watch-stdin",
-      cd: Path.expand("../assets", __DIR__)
+      cd: Path.expand("../apps/curbside_concerts_web/assets", __DIR__)
     ]
   ]
 
@@ -55,7 +55,7 @@ config :curbside_concerts, CurbsideConcertsWeb.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :curbside_concerts, CurbsideConcertsWeb.Endpoint,
+config :curbside_concerts_web, CurbsideConcertsWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",

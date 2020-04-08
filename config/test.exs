@@ -10,7 +10,7 @@ config :curbside_concerts, CurbsideConcerts.Repo,
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :curbside_concerts, CurbsideConcertsWeb.Endpoint,
+config :curbside_concerts_web, CurbsideConcertsWeb.Endpoint,
   http: [port: 4002],
   server: false
 

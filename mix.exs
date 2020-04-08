@@ -1,70 +1,36 @@
-defmodule CurbsideConcerts.MixProject do
+defmodule CurbsideConcerts.Umbrella.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :curbside_concerts,
-      version: "0.1.0",
-      elixir: "~> 1.5",
-      elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      apps_path: "apps",
       start_permanent: Mix.env() == :prod,
-      aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      aliases: aliases()
     ]
   end
 
-  # Configuration for the OTP application.
+  # Dependencies can be Hex packages:
   #
-  # Type `mix help compile.app` for more information.
-  def application do
-    [
-      mod: {CurbsideConcerts.Application, []},
-      extra_applications: [:logger, :runtime_tools]
-    ]
-  end
-
-  # Specifies which paths to compile per environment.
-  defp elixirc_paths(:test), do: ["lib", "test/support"]
-  defp elixirc_paths(_), do: ["lib"]
-
-  # Specifies your project dependencies.
+  #   {:mydep, "~> 0.3.0"}
   #
-  # Type `mix help deps` for examples and options.
+  # Or git/path repositories:
+  #
+  #   {:mydep, git: "https://github.com/elixir-lang/mydep.git", tag: "0.1.0"}
+  #
+  # Type "mix help deps" for more examples and options.
+  #
+  # Dependencies listed here are available only for this project
+  # and cannot be accessed from applications inside the apps folder
   defp deps do
     [
-      {:bcrypt_elixir, "~> 1.0"},
-      {:ecto_resource, "~> 1.1.0"},
-      {:comeonin, "~> 4.0"},
-      {:ecto_sql, "~> 3.1"},
-      {:faker, "~> 0.13", only: :test},
-      {:floki, "~> 0.26.0", only: :test},
-      {:gettext, "~> 0.11"},
-      {:jason, "~> 1.0"},
-      {:machinery, "~> 1.0.0"},
-      {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},
-      {:mock, "~> 0.3.0", only: :test},
-      {:phoenix_ecto, "~> 4.0"},
-      {:phoenix_html, "~> 2.11"},
-      {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_pubsub, "~> 1.1"},
-      {:phoenix, "~> 1.4.16"},
-      {:plug_cowboy, "~> 2.0"},
-      {:postgrex, ">= 0.0.0"}
+      {:mix_test_watch, "~> 1.0", only: :dev, runtime: false}
     ]
   end
 
-  # Aliases are shortcuts or tasks specific to the current project.
-  # For example, to create, migrate and run the seeds file at once:
-  #
-  #     $ mix ecto.setup
-  #
-  # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
-      "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate", "test"]
+      compile: ["compile --force --warnings-as-errors"]
     ]
   end
 end

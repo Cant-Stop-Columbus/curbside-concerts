@@ -4,7 +4,7 @@ IFS=$'\n\t'
 
 # install dependencies
 mix deps.get
-npm install --prefix assets
+(cd apps/curbside_concerts_web && npm install --prefix assets)
 
 # setup database: create, migrate, and seed
-mix ecto.reset
+(cd apps/curbside_concerts && mix ecto.reset)

@@ -3,7 +3,7 @@ defmodule CurbsideConcertsWeb.SessionControllerTest do
 
   alias CurbsideConcerts.Accounts.User
 
-  import CurbsideConcertsWeb.Factory
+  import CurbsideConcerts.Factory
 
   describe "new/2" do
     test "renders form", %{conn: conn} do

@@ -3,7 +3,7 @@ defmodule CurbsideConcertsWeb.LandingControllerTest do
 
   alias CurbsideConcerts.Musicians.Session
 
-  import CurbsideConcertsWeb.Factory
+  import CurbsideConcerts.Factory
 
   describe "index/2" do
     test "should show the landing page", %{conn: conn} do
