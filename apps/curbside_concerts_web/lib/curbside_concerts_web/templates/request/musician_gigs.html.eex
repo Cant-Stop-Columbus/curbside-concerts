@@ -1,5 +1,9 @@
 <h1>All requests for <%= @musician.name %></h1>
 
+<div class="card">
+  <%= map_route_link(@requests) %>
+</div>
+
 <%= for request <- @requests do %>
   <%= render "request_card.html", request: request %>
 <% end %>

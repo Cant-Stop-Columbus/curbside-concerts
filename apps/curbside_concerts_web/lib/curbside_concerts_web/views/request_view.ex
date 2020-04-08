@@ -50,6 +50,15 @@ defmodule CurbsideConcertsWeb.RequestView do
     ]
   end
 
+  def map_route_link(requests) do
+    addresses =
+      requests
+      |> Enum.map(fn %Request{nominee_address: address} -> address end)
+      |> Enum.join("/")
+
+    link("Map this route", to: "https://www.google.com/maps/dir/#{addresses}", target: "_blank")
+  end
+
   def first_name(%Session{musician: %Musician{name: name}}) do
     name
     |> String.split()
@@ -171,10 +180,12 @@ defmodule CurbsideConcertsWeb.RequestView do
     end
   end
 
-  defp simple_number(number) do
+  defp simple_number(number) when is_binary(number) do
     number = String.replace(number, ~r/\D/, "")
     if String.length(number) >= 10, do: number, else: nil
   end
+
+  defp simple_number(_), do: nil
 
   defp class(form, field) do
     if form.errors[field], do: "not-valid", else: ""
