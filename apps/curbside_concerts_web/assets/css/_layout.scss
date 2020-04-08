@@ -35,10 +35,19 @@ a.button {
 		border-color: $dark-blue;
 		color: $dark-blue;
 	}
+
+	&:hover {
+		background-color: $dark-blue-lighter;
+	}
+}
+
+button[type="submit"] {
+	min-width: 150px;
+	margin: 10px 0;
 }
 
 main.content {
-	margin: 12px auto;
+	margin: 12px auto 0;
 	display: block;
 	box-sizing: border-box;
 	width: 90%;
@@ -99,4 +108,41 @@ header {
 		font-size: 0.6em;
 		margin-top: 20px;
 	}
+}
+
+.card {
+	background-color: #fff;
+	border: 1px solid #dadce0;
+	border-radius: 8px;
+	padding: 24px;
+	padding-top: 22px;
+	position: relative;
+
+	& + & {
+		margin-top: 12px;
+	}
+}
+
+.alert {
+	padding: 8px 10px 8px;
+	border: 1px solid transparent;
+	margin: 0 auto;
+	margin-bottom: 12px;
+
+	&.alert-info {
+		color: #1e5732;
+		border-color: #68d391;
+		background-color: #f0fff4;
+	}
+
+	&.alert-danger {
+		color: #942424;
+		border-color: $error-red;
+		background-color: #fff5f5;
+	}
+}
+
+.card.masthead {
+	margin: 20px 0 0;
+	text-align: center;
 }

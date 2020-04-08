@@ -1,40 +1,29 @@
 defmodule CurbsideConcertsWeb.RequestControllerTest do
   use CurbsideConcertsWeb.ConnCase, async: true
 
-  import CurbsideConcerts.Factory
-
-  alias CurbsideConcerts.Musicians.Session
   alias CurbsideConcerts.Requests
   alias CurbsideConcerts.Requests.Request
   alias CurbsideConcertsWeb.TrackerCypher
 
   describe "new/2" do
     test "should render the new request form", %{conn: conn} do
-      %Session{id: session_id} =
-        insert!(:session,
-          name: "Jamboree Spectacular!",
-          description: "You should come. It will be fun."
-        )
-
       html =
         conn
-        |> get(Routes.request_path(conn, :new, session_id))
+        |> get(Routes.request_path(conn, :new))
         |> html_response(200)
         |> Floki.parse_document!()
 
       title =
         html
-        |> Floki.find("h2")
+        |> Floki.find("h1")
         |> Floki.text()
 
-      assert title == "Jamboree Spectacular!"
+      assert title == "Request a concert"
     end
   end
 
   describe "create/2" do
     test "redirects to tracker confirmation when data is valid", %{conn: conn} do
-      insert!(:session)
-
       %{nominee_name: nominee_name} =
         valid_attrs = %{
           nominee_name: Faker.Name.name(),
@@ -70,11 +59,7 @@ defmodule CurbsideConcertsWeb.RequestControllerTest do
     end
 
     test "displays error message when data is invalid", %{conn: conn} do
-      %Session{id: session_id, name: session_name} = insert!(:session)
-
-      invalid_attrs = %{
-        session_id: session_id
-      }
+      invalid_attrs = %{}
 
       html =
         conn
@@ -84,10 +69,10 @@ defmodule CurbsideConcertsWeb.RequestControllerTest do
 
       header =
         html
-        |> Floki.find("h2")
+        |> Floki.find("h1")
         |> Floki.text()
 
-      assert header == session_name
+      assert header == "Request a concert"
 
       error_message =
         html

@@ -1,25 +1,25 @@
 <div class="card">
   <nav>
-		<span class="link current">HOME</span>
-		<%= link "REQUEST", to: "#request", class: "link" %>
-	</nav>
-	<header class="landing">
-		<p>Hey Columbus,</p>
-		<h1>Know someone feeling down?</h1>
-		<div class="content-wrapper">
-			<div class="description">
-				<h2>Send a <em>live curbside concert</em>, for your quarantined love ones</h2>
-				<p>For free!</p>
+    <span class="link current">HOME</span>
+    <%= link "REQUEST", to: Routes.request_path(@conn, :new), class: "link" %>
+  </nav>
+  <header class="landing">
+    <p>Hey Columbus,</p>
+    <h1>Know someone feeling down?</h1>
+    <div class="content-wrapper">
+      <div class="description">
+        <h2>Send a <em>live curbside concert</em>, for your quarantined love ones</h2>
+        <p>For free!</p>
 
-				<%= link "REQUEST A CONCERT", to: "#request", role: "button", class: "button" %>
-			</div>
-			<div class="images">
-				<img src="/images/001-musician.svg" alt="Stylized drawing of a man with guitar." />
-				<img src="/images/002-singer.svg" alt="Stylized drawing of a woman with a microphone." />
-				<img src="/images/003-professions.svg" alt="Styled drawing of a woman with a guitar." />
-			</div>
-		</div>
-	</header>
+        <%= link "REQUEST A CONCERT", to: Routes.request_path(@conn, :new), role: "button", class: "button" %>
+      </div>
+      <div class="images">
+        <img src="/images/001-musician.svg" alt="Stylized drawing of a man with guitar." />
+        <img src="/images/002-singer.svg" alt="Stylized drawing of a woman with a microphone." />
+        <img src="/images/003-professions.svg" alt="Styled drawing of a woman with a guitar." />
+      </div>
+    </div>
+  </header>
 </div>
 
 <div class="card">
@@ -35,46 +35,28 @@
     We're helping you to reach out and connect to those you care about. Through your request, we'll bring a musical performance to the curbside of their home, bringing joy to those in quarantine and helping them temporarily forget about the grave state of the world.
   </p>
 
-	<%= link "REQUEST A CONCERT", to: "#request", role: "button", class: "button inverted" %>
+  <%= link "REQUEST A CONCERT", to: Routes.request_path(@conn, :new), role: "button", class: "button inverted" %>
 </div>
 
 <div class="card story">
   <h2>Stories of hope, love, and cheer</h2>
 
-	<div class="image-wrapper">
-		<div class="image">
-		<%= hero_image() %>
-		</div>
+  <div class="image-wrapper">
+    <div class="image">
+      <%= hero_image() %>
+    </div>
 
-		<p>
-			"This is from your daughter:
-			<br/>
-			<br/>
-			Mom , we know how hard it is to be alone but we wanted you to be safe. We hope this song brightens your day. We love you!"
-		</p>
-	</div>
+    <p>
+      "This is from your daughter:
+      <br/>
+      <br/>
+      Mom , we know how hard it is to be alone but we wanted you to be safe. We hope this song brightens your day. We love you!"
+    </p>
+  </div>
 </div>
 
 <div class="card call-to-action" id="request">
-	<h2>Ready to send a song to a loved one?</h2>
-	<p>Please choose one of these upcoming sessions.</h2>
+  <h2>Ready to send a song to a loved one?</h2>
 
-	<%= unless @sessions == [] do %>
-    <div class="session-cards">
-      <%= for session <- @sessions do %>
-				<div class="session-card-wrapper">
-          <a class="session-card" href="<%= Routes.request_path(@conn, :new, session.id) %>">
-            <h3><%= session.name %></h3>
-            <div><%= session.description %></div>
-					</a>
-				</div>
-      <% end %>
-    </div>
-  <% else %>
-    Currently there are no sessions available. Please check back later.
-  <% end %>
-</div>
-
-<div class="card masthead">
-	Made with 💜 by <%= link "volunteers", to: "https://airtable.com/shrDrTCZQmDlCN8sg" %> as part of <%= link "Can't Stop Columbus", to: "https://cantstopcolumbus.com/" %> in Columbus, Ohio.
+  <%= link "REQUEST A CONCERT", to: Routes.request_path(@conn, :new), role: "button", class: "button" %>
 </div>

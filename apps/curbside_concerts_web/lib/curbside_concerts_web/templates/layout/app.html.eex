@@ -21,6 +21,9 @@
       <% end %>
       <!-- render page content -->
       <%= render @view_module, @view_template, assigns %>
+			<div class="card masthead">
+				Made with 💜 by <%= link "volunteers", to: "https://airtable.com/shrDrTCZQmDlCN8sg" %> as part of <%= link "Can't Stop Columbus", to: "https://cantstopcolumbus.com/" %> in Columbus, Ohio.
+			</div>
     </main>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </body>

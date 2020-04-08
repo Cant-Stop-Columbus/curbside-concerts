@@ -1,6 +1,6 @@
 const heading = () => cy.get("h1");
-const sessionCard = (name) => cy.get(".session-card").contains(name);
 const alertInfo = () => cy.get(".alert.alert-info");
+const requestConcertButton = () => cy.contains("REQUEST A CONCERT");
 
 class LandingPage {
 	visit() {
@@ -11,8 +11,8 @@ class LandingPage {
 		heading().should("have.text", "Know someone feeling down?");
 	}
 
-	clickSession(sessionName) {
-		sessionCard(sessionName).click();
+	clickRequestConcertButton() {
+		requestConcertButton().click();
 	}
 
 	assertRequestSuccessAlert(nomineeName) {

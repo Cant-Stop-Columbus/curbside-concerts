@@ -1,4 +1,4 @@
-const heading = () => cy.get("h2");
+const heading = () => cy.get("h1");
 const nomineeNameField = () => cy.get('input[name="request[nominee_name]"]');
 const nomineeContactPreferenceRadio = () =>
 	cy.get('input[name="request[contact_preference]"]');
@@ -12,15 +12,15 @@ const requesterNameField = () =>
 	cy.get('input[name="request[requester_name]"]');
 const requesterPhoneField = () =>
 	cy.get('input[name="request[requester_phone]"]');
-const submitButton = () => cy.contains("Submit");
+const submitButton = () => cy.contains("SUBMIT");
 
 class RequestFormPage {
 	visit() {
 		cy.visit("/");
 	}
 
-	assert(sessionName) {
-		heading().should("have.text", sessionName);
+	assert() {
+		heading().should("have.text", "Request a concert");
 	}
 
 	fillInNomineeName(name) {

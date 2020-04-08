@@ -1,11 +1,6 @@
 import faker from "faker";
 import { gigsPage, landingPage, requestFormPage } from "./../support/pages";
 
-// See priv/repo/seeds.exs for the seeded musician / session data
-const sessionData = {
-	name: "Songs with Remington",
-};
-
 const requestData = {
 	nomineeName: faker.name.findName(),
 	contactPreference: "call_nominee",
@@ -26,13 +21,12 @@ describe("Submit a request for a concert.", () => {
 		landingPage.visit();
 		landingPage.assert();
 
-		landingPage.clickSession(sessionData.name);
-		requestFormPage.assert(sessionData.name);
+		landingPage.clickRequestConcertButton();
+		requestFormPage.assert();
 
 		requestFormPage.fillInNomineeName(requestData.nomineeName);
 		requestFormPage.clickContactPreferenceOption(requestData.contactPreference);
 		requestFormPage.fillInNomineePhone(requestData.nomineePhone);
-		requestFormPage.selectSong(requestData.song);
 		requestFormPage.fillInNomineeAddress(requestData.nomineeAddress);
 		requestFormPage.fillInSpecialMessage(requestData.specialMessage);
 		requestFormPage.fillInRequesterName(requestData.requesterName);

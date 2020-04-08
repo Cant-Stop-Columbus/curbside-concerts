@@ -23,7 +23,7 @@ defmodule CurbsideConcertsWeb.Router do
 
     get "/", LandingController, :index
     get "/tracker/:tracker_id", RequestController, :tracker
-    get "/request/:session_id", RequestController, :new
+    get "/request", RequestController, :new
     post "/request", RequestController, :create
 
     get "/admin", AdminController, :index

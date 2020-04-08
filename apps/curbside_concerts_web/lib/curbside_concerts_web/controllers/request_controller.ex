@@ -6,11 +6,9 @@ defmodule CurbsideConcertsWeb.RequestController do
   alias CurbsideConcerts.Musicians
   alias CurbsideConcertsWeb.TrackerCypher
 
-  def new(conn, %{"session_id" => session_id}) do
-    session = Musicians.find_session(session_id)
+  def new(conn, _params) do
     changeset = Requests.change_request(%Request{})
-    action = Routes.request_path(conn, :create)
-    render(conn, "new.html", changeset: changeset, action: action, session: session)
+    render(conn, "new.html", changeset: changeset)
   end
 
   def create(conn, %{"request" => request_params}) do
@@ -26,15 +24,12 @@ defmodule CurbsideConcertsWeb.RequestController do
         |> redirect(to: Routes.request_path(conn, :tracker, tracker_id))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        action = Routes.request_path(conn, :create)
-        session = Musicians.find_session(request_params["session_id"])
-
         conn
         |> put_flash(
           :error,
           "Oops! Looks like a field is missing - please check below and try again"
         )
-        |> render("new.html", changeset: changeset, action: action, session: session)
+        |> render("new.html", changeset: changeset)
     end
   end
 

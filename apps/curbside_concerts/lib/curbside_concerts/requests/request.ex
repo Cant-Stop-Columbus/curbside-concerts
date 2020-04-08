@@ -9,8 +9,8 @@ defmodule CurbsideConcerts.Requests.Request do
 
   alias CurbsideConcerts.Musicians.Session
 
-  @allowed_attrs ~w|state contact_preference nominee_name nominee_phone nominee_address song special_message requester_name requester_phone session_id|a
-  @required_attrs ~w|state contact_preference nominee_name nominee_address song special_message requester_name requester_phone|a
+  @allowed_attrs ~w|state contact_preference nominee_name nominee_phone nominee_address special_message requester_name requester_phone session_id|a
+  @required_attrs ~w|state contact_preference nominee_name nominee_address special_message requester_name requester_phone|a
 
   schema "requests" do
     field(:state, :string, default: "pending")
@@ -18,10 +18,12 @@ defmodule CurbsideConcerts.Requests.Request do
     field(:nominee_name, :string)
     field(:nominee_phone, :string)
     field(:nominee_address, :string)
-    field(:song, :string)
     field(:special_message, :string)
     field(:requester_name, :string)
     field(:requester_phone, :string)
+
+    # deprecated fields
+    field(:song, :string)
 
     belongs_to :session, Session
 
