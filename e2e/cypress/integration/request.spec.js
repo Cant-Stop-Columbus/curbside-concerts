@@ -1,5 +1,10 @@
 import faker from "faker";
-import { gigsPage, landingPage, requestFormPage } from "./../support/pages";
+import {
+	gigsPage,
+	landingPage,
+	requestFormPage,
+	requestTrackerPage,
+} from "./../support/pages";
 
 const requestData = {
 	nomineeName: faker.name.findName(),
@@ -34,8 +39,8 @@ describe("Submit a request for a concert.", () => {
 
 		requestFormPage.clickSubmit();
 
-		landingPage.assert();
-		landingPage.assertRequestSuccessAlert(requestData.nomineeName);
+		requestTrackerPage.assert(requestData.requesterName);
+		requestTrackerPage.assertRequestSuccessAlert(requestData.nomineeName);
 	});
 
 	it("should see request appear on /gigs page when logged in as admin", () => {

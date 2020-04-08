@@ -1,5 +1,4 @@
 const heading = () => cy.get("h1");
-const alertInfo = () => cy.get(".alert.alert-info");
 const requestConcertButton = () => cy.contains("REQUEST A CONCERT");
 
 class LandingPage {
@@ -13,13 +12,6 @@ class LandingPage {
 
 	clickRequestConcertButton() {
 		requestConcertButton().click();
-	}
-
-	assertRequestSuccessAlert(nomineeName) {
-		alertInfo().should(
-			"contain.text",
-			`Thank you for submitting a concert request for ${nomineeName}!`
-		);
 	}
 }
 
