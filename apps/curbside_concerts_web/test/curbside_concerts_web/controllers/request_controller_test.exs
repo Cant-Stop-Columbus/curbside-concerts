@@ -4,6 +4,9 @@ defmodule CurbsideConcertsWeb.RequestControllerTest do
   import CurbsideConcerts.Factory
 
   alias CurbsideConcerts.Musicians.Session
+  alias CurbsideConcerts.Requests
+  alias CurbsideConcerts.Requests.Request
+  alias CurbsideConcertsWeb.TrackerCypher
 
   describe "new/2" do
     test "should render the new request form", %{conn: conn} do
@@ -29,7 +32,7 @@ defmodule CurbsideConcertsWeb.RequestControllerTest do
   end
 
   describe "create/2" do
-    test "redirects to confirmation when data is valid", %{conn: conn} do
+    test "redirects to tracker confirmation when data is valid", %{conn: conn} do
       insert!(:session)
 
       %{nominee_name: nominee_name} =
@@ -45,13 +48,15 @@ defmodule CurbsideConcertsWeb.RequestControllerTest do
         }
 
       conn = post(conn, Routes.request_path(conn, :create), request: valid_attrs)
+      %Request{id: request_id} = Requests.all_requests() |> List.first()
+      tracker_id = TrackerCypher.encode(request_id)
 
       assert %{} = redirected_params(conn)
-      assert redirected_to(conn) == Routes.landing_path(conn, :index)
+      assert redirected_to(conn) == Routes.request_path(conn, :tracker, tracker_id)
 
       html =
         conn
-        |> get(Routes.landing_path(conn, :index))
+        |> get(Routes.request_path(conn, :tracker, tracker_id))
         |> html_response(200)
         |> Floki.parse_document!()
 
@@ -61,7 +66,7 @@ defmodule CurbsideConcertsWeb.RequestControllerTest do
         |> Floki.text()
 
       assert success_message ==
-               "Thank you for submitting a concert request for #{nominee_name}!"
+               "Thank you for submitting a concert request for #{nominee_name}! Please bookmark this page to track its progress."
     end
 
     test "displays error message when data is invalid", %{conn: conn} do
