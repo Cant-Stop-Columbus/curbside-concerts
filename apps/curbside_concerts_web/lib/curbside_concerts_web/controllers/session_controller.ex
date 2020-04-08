@@ -19,10 +19,10 @@ defmodule CurbsideConcertsWeb.SessionController do
 
   def create(conn, %{"session" => session_params}) do
     case Musicians.create_session(session_params) do
-      {:ok, _session} ->
+      {:ok, session} ->
         conn
-        |> put_flash(:info, "Thanks for adding a session")
-        |> redirect(to: Routes.session_path(conn, :index))
+        |> put_flash(:info, "Session created successfully.")
+        |> redirect(to: Routes.session_path(conn, :show, session))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
@@ -58,10 +58,10 @@ defmodule CurbsideConcertsWeb.SessionController do
     session = Musicians.find_session(id)
 
     case Musicians.update_session(session, session_params) do
-      {:ok, _session} ->
+      {:ok, session} ->
         conn
-        |> put_flash(:info, "Thanks for updating a session")
-        |> redirect(to: Routes.session_path(conn, :index))
+        |> put_flash(:info, "Session updated successfully.")
+        |> redirect(to: Routes.session_path(conn, :show, session))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         conn

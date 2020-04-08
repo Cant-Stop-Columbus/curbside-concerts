@@ -1,4 +1,4 @@
-const alertInfo = () => cy.get(".alert.alert-info");
+import layout from "./layout";
 
 class RequestTrackerPage {
 	assert(requesterName) {
@@ -6,8 +6,7 @@ class RequestTrackerPage {
 	}
 
 	assertRequestSuccessAlert(nomineeName) {
-		alertInfo().should(
-			"contain.text",
+		layout.assertInfoAlert(
 			`Thank you for submitting a concert request for ${nomineeName}!`
 		);
 	}

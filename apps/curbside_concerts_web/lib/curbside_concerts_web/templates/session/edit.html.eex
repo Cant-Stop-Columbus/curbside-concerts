@@ -1,5 +1,8 @@
-<h1>Edit Session</h1>
+<div class="card">
+  <h1>Edit Session</h1>
+  <span><%= link "Back", to: Routes.session_path(@conn, :index) %></span>
+</div>
 
-<%= render "form.html", Map.put(assigns, :action, Routes.session_path(@conn, :update, @changeset.data)) %>
-
-<span><%= link "Back", to: Routes.session_path(@conn, :index) %></span>
+<div class="card">
+  <%= render "form.html", Map.put(assigns, :action, Routes.session_path(@conn, :update, @changeset.data)) %>
+</div>

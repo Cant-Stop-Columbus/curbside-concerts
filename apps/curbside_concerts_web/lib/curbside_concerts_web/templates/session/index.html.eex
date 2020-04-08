@@ -1,16 +1,24 @@
-<h1>All sessions</h1>
+<div class="card">
+  <h1>Sessions</h1>
+  <%= link "Back to Admin", to: Routes.admin_path(@conn, :index) %>
+  | <%= link "Create a new session", to: Routes.session_path(@conn, :new) %>
+</div>
 
 <%= for %Session{
   name: name,
   musician: musician,
   description: description
-} <- @sessions do %>
+} = session <- @sessions do %>
   <div class="card">
     <div>Name: <%= name %></div>
     <div>Musician: <%= musician.name %></div>
     <div>
       <strong>Description:</strong>
       <%= description %>
+    </div>
+    <div>
+      <%= link "View", to: Routes.session_path(@conn, :show, session) %>
+      | <%= link "Edit", to: Routes.session_path(@conn, :edit, session) %>
     </div>
   </div>
 <% end %>
