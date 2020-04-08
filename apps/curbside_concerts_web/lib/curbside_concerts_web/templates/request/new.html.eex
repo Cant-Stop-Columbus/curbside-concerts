@@ -1,14 +1,13 @@
-<%= form_for @changeset, @action, fn f -> %>
-<%= hidden_input f, :session_id, value: @session.id %>
-
+<%= form_for @changeset, Routes.request_path(@conn, :create), fn f -> %>
 <div class="card">
-  <h2><%= @session.name %></h2>
-
-  <p><%= @session.description %></p>
-
-  <p>Fill out the info below to have <%= first_name(@session) %> come play for your friend or loved one who may be feeling isolated at this time.</p>
-
-  <p><%= required_star() %> Required</p>
+  <nav>
+    <%= link "HOME", to: Routes.landing_path(@conn, :index), class: "link" %>
+    <span class="link current">REQUEST</span>
+  </nav>
+  <header class="request-form">
+    <h1>Request a concert</h1>
+    <p><strong>Note</strong>: priority will be given to elderly and vulnerable populations.</p>
+  </header>
 </div>
 
 <div class="card">
@@ -26,13 +25,6 @@
   <label class="field">
     <div>If you chose "Call the nominee" above, please provide their phone number.</div>
     <%= request_input f, :nominee_phone, type: :phone %>
-  </label>
-</div>
-
-<div class="card">
-  <label>
-    <div>Please pick which song you'd like to dedicate and have our artist, <%= @session.musician.name %>, play for the one you care about.</div>
-    <%= request_select f, :song, songs(@session.musician.playlist) %>
   </label>
 </div>
 
@@ -62,11 +54,16 @@
 </div>
 
 <div class="card">
-  <label>
-    <div>What is a good phone number to text you? (Since this is a prototype, we might have some follow-up questions to try and make this experience better) <%= required_star() %></div>
+  <label class="field">
+    <div>What is a good email address to reach you? (Since this is a prototype, we might have some follow-up questions to try and make this experience better) <%= required_star() %></div>
+    <%= request_input f, :requester_email, type: :email %>
+  </label>
+
+  <label class="field">
+    <div>What is a good phone number to text you? <%= required_star() %></div>
     <%= request_input f, :requester_phone, type: :phone %>
   </label>
 </div>
 
-<button type="submit">Submit</button>
+<button type="submit">SUBMIT</button>
 <% end %>

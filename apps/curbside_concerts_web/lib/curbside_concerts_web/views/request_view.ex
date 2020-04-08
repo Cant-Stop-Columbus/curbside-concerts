@@ -78,6 +78,15 @@ defmodule CurbsideConcertsWeb.RequestView do
     """
   end
 
+  def request_input(form, field, type: :email) do
+    class = class(form, field)
+
+    ~E"""
+    <%= email_input(form, field, class: class, placeholder: "Your answer") %>
+    <%= error_tag form, field %>
+    """
+  end
+
   def request_input(form, field) when field in ~w|special_message|a do
     class = class(form, field)
 

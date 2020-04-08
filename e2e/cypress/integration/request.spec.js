@@ -1,10 +1,10 @@
 import faker from "faker";
-import { gigsPage, landingPage, requestFormPage } from "./../support/pages";
-
-// See priv/repo/seeds.exs for the seeded musician / session data
-const sessionData = {
-	name: "Songs with Remington",
-};
+import {
+	gigsPage,
+	landingPage,
+	requestFormPage,
+	requestTrackerPage,
+} from "./../support/pages";
 
 const requestData = {
 	nomineeName: faker.name.findName(),
@@ -15,6 +15,7 @@ const requestData = {
 	specialMessage: faker.lorem.paragraph(),
 	requesterName: faker.name.findName(),
 	requesterPhone: faker.phone.phoneNumberFormat(),
+	requesterEmail: faker.internet.email(),
 };
 
 function buildFakeAddress() {
@@ -26,22 +27,22 @@ describe("Submit a request for a concert.", () => {
 		landingPage.visit();
 		landingPage.assert();
 
-		landingPage.clickSession(sessionData.name);
-		requestFormPage.assert(sessionData.name);
+		landingPage.clickRequestConcertButton();
+		requestFormPage.assert();
 
 		requestFormPage.fillInNomineeName(requestData.nomineeName);
 		requestFormPage.clickContactPreferenceOption(requestData.contactPreference);
 		requestFormPage.fillInNomineePhone(requestData.nomineePhone);
-		requestFormPage.selectSong(requestData.song);
 		requestFormPage.fillInNomineeAddress(requestData.nomineeAddress);
 		requestFormPage.fillInSpecialMessage(requestData.specialMessage);
 		requestFormPage.fillInRequesterName(requestData.requesterName);
+		requestFormPage.fillInRequesterEmail(requestData.requesterEmail);
 		requestFormPage.fillInRequesterPhone(requestData.requesterPhone);
 
 		requestFormPage.clickSubmit();
 
-		landingPage.assert();
-		landingPage.assertRequestSuccessAlert(requestData.nomineeName);
+		requestTrackerPage.assert(requestData.requesterName);
+		requestTrackerPage.assertRequestSuccessAlert(requestData.nomineeName);
 	});
 
 	it("should see request appear on /gigs page when logged in as admin", () => {

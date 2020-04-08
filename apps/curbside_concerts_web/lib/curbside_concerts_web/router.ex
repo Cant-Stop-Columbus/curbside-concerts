@@ -23,7 +23,7 @@ defmodule CurbsideConcertsWeb.Router do
 
     get "/", LandingController, :index
     get "/tracker/:tracker_id", RequestController, :tracker
-    get "/request/:session_id", RequestController, :new
+    get "/request", RequestController, :new
     post "/request", RequestController, :create
 
     get "/admin", AdminController, :index
@@ -39,13 +39,7 @@ defmodule CurbsideConcertsWeb.Router do
     post "/musician_builder/new", MusicianController, :create
     get "/musician_builder", MusicianController, :index
 
-    resources "/session_builder", SessionController
-
-    # get "/session_builder/new", SessionController, :new
-    # post "/session_builder/new", SessionController, :create
-    # get "/session_builder/:session_id", SessionController, :update
-    # post "/session_builder/:session_id", SessionController, :save
-    # get "/session_builder", SessionController, :index
+    resources "/session", SessionController, only: [:index, :create, :edit, :new, :update, :show]
 
     get "/gigs", RequestController, :index
     get "/gigs/:musician", RequestController, :index

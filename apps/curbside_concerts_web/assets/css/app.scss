@@ -2,6 +2,7 @@
 @import "./mixins";
 @import "./layout";
 @import "./landing";
+@import "./request-form";
 
 .field {
 	display: block;
@@ -66,33 +67,4 @@ input#request_nominee_address {
 
 .help-block {
 	font-size: 0.9em;
-}
-
-.card {
-	background-color: #fff;
-	border: 1px solid #dadce0;
-	border-radius: 8px;
-	margin-bottom: 12px;
-	padding: 24px;
-	padding-top: 22px;
-	position: relative;
-}
-
-.alert {
-	padding: 8px 10px 8px;
-	border: 1px solid transparent;
-	margin: 0 auto;
-	margin-bottom: 12px;
-
-	&.alert-info {
-		color: #1e5732;
-		border-color: #68d391;
-		background-color: #f0fff4;
-	}
-
-	&.alert-danger {
-		color: #942424;
-		border-color: $error-red;
-		background-color: #fff5f5;
-	}
 }

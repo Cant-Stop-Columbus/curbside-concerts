@@ -1,4 +1,5 @@
-const dangerAlert = () => cy.get(".alert-danger");
+import layout from "./layout";
+
 const heading = () => cy.get("h2");
 const usernameField = () => cy.get('input[name="session[username]"]');
 const passwordField = () => cy.get('input[name="session[password]"]');
@@ -14,10 +15,7 @@ class SignInPage {
 	}
 
 	assertAuthAlert() {
-		dangerAlert().should(
-			"contain.text",
-			"You need to be signed in to access that page."
-		);
+		layout.assertErrorAlert("You need to be signed in to access that page.");
 	}
 
 	fillInUsername(username) {

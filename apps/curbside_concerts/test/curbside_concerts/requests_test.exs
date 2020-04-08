@@ -5,14 +5,15 @@ defmodule CurbsideConcerts.RequestsTest do
   alias CurbsideConcerts.Requests.Request
 
   @valid_request_attrs %{
-    contact_preference: "contact_requester",
-    nominee_name: "Helga",
-    nominee_phone: "6145557890",
-    nominee_address: "123 Awesome St Columbus, OH",
-    song: "Up on the Rooftop",
-    special_message: "Thanks for always being there",
-    requester_name: "Emma",
-    requester_phone: "6145551234"
+    nominee_name: Faker.Name.name(),
+    contact_preference: "call_requester",
+    nominee_phone: Faker.Phone.EnUs.phone(),
+    nominee_address: Faker.Address.street_address(),
+    song: Faker.String.base64(),
+    special_message: Faker.StarWars.quote(),
+    requester_name: Faker.Name.name(),
+    requester_phone: Faker.Phone.EnUs.phone(),
+    requester_email: Faker.Internet.email()
   }
 
   describe "create_request/1 state management" do
