@@ -66,43 +66,4 @@ header.landing {
 
 .card.call-to-action {
 	text-align: center;
-
-	.session-cards {
-		box-sizing: border-box;
-		padding-right: 0;
-
-		@include tablet {
-			display: flex;
-			flex-wrap: wrap;
-		}
-
-		.session-card-wrapper {
-			box-sizing: border-box;
-			margin-bottom: 10px;
-
-			@include tablet {
-				border: 0 solid transparent;
-				border-width: 16px 16px 0 0;
-				flex: 0 0 50%;
-				max-width: 50%;
-				margin: 0;
-			}
-
-			.session-card {
-				border: 1px solid gray;
-				border-radius: 4px;
-				box-sizing: border-box;
-				color: inherit;
-				display: block;
-				height: 100%;
-				padding: 20px;
-				text-decoration: none;
-
-				h3 {
-					margin: 0;
-					margin-bottom: 10px;
-				}
-			}
-		}
-	}
 }
