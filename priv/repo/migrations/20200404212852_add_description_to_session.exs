@@ -1,4 +1,4 @@
-defmodule Hello.Repo.Migrations.AddDescriptionToSession do
+defmodule CurbsideConcerts.Repo.Migrations.AddDescriptionToSession do
   use Ecto.Migration
 
   def change do

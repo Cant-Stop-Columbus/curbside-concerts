@@ -1,9 +1,9 @@
-defmodule HelloWeb.Factory do
-  alias Hello.Repo
+defmodule CurbsideConcertsWeb.Factory do
+  alias CurbsideConcerts.Repo
 
-  alias Hello.Accounts.User
-  alias Hello.Musicians.Musician
-  alias Hello.Musicians.Session
+  alias CurbsideConcerts.Accounts.User
+  alias CurbsideConcerts.Musicians.Musician
+  alias CurbsideConcerts.Musicians.Session
 
   def attrs(:musician) do
     %{

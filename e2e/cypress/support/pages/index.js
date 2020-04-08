@@ -1,4 +1,4 @@
-import requestHomePage from "./request-home-page";
+import landingPage from "./landing-page";
 import requestFormPage from "./request-form-page";
 
-export { requestHomePage, requestFormPage };
+export { landingPage, requestFormPage };

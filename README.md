@@ -20,7 +20,7 @@ brew install erlang
 
 3. [Phoenix](https://hexdocs.pm/phoenix/installation.html)
 
-4. [Optional] [Docker and Docker-Compose](https://docs.docker.com/get-docker/), for running Postgres (recommended). Alternatively, you can install and run Postgres locally.
+4. [Optional][docker and docker-compose](https://docs.docker.com/get-docker/), for running Postgres (recommended). Alternatively, you can install and run Postgres locally.
 
 ## Getting Started
 
@@ -63,7 +63,7 @@ Some routes require authentication. On local, this means you'll need to create a
 
 ```
 iex -S mix
-> Hello.Accounts.create_user(%{username: "admin", password: "password"})
+> CurbsideConcerts.Accounts.create_user(%{username: "admin", password: "password"})
 ```
 
 Then, you can log in with the credentials you created.

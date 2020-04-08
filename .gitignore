@@ -1,6 +1,8 @@
 # The directory Mix will write compiled artifacts to.
 /_build/
 
+*.dump*
+
 # Ignore Mac system files when global gitignore is not setup
 .DS_Store
 
@@ -31,7 +33,7 @@ erl_crash.dump
 *.ez
 
 # Ignore package tarball (built via "mix hex.build").
-hello-*.tar
+curbside_concerts-*.tar
 
 # If NPM crashes, it generates a log, let's ignore it too.
 npm-debug.log

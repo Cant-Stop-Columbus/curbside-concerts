@@ -1,16 +1,16 @@
 use Mix.Config
 
 # Configure your database
-config :hello, Hello.Repo,
+config :curbside_concerts, CurbsideConcerts.Repo,
   username: "postgres",
   password: "postgres",
-  database: "hello_test",
+  database: "curbside_concerts_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :hello, HelloWeb.Endpoint,
+config :curbside_concerts, CurbsideConcertsWeb.Endpoint,
   http: [port: 4002],
   server: false
 

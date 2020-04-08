@@ -7,15 +7,15 @@
 # General application configuration
 use Mix.Config
 
-config :hello,
-  ecto_repos: [Hello.Repo]
+config :curbside_concerts,
+  ecto_repos: [CurbsideConcerts.Repo]
 
 # Configures the endpoint
-config :hello, HelloWeb.Endpoint,
+config :curbside_concerts, CurbsideConcertsWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "Ohz+ngvE8GFpcL+uXhf86wrXuUXRbLz+++c4s08Vmvfve0YDGf4gbqvbaxbgj9j6",
-  render_errors: [view: HelloWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Hello.PubSub, adapter: Phoenix.PubSub.PG2],
+  render_errors: [view: CurbsideConcertsWeb.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: CurbsideConcerts.PubSub, adapter: Phoenix.PubSub.PG2],
   live_view: [signing_salt: "l7bokeeO"]
 
 # Configures Elixir's Logger

@@ -5,13 +5,13 @@
 # Inside the script, you can read and write to any of your
 # repositories directly:
 #
-#     Hello.Repo.insert!(%Hello.SomeSchema{})
+#     CurbsideConcerts.Repo.insert!(%CurbsideConcerts.SomeSchema{})
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
 musician1 =
-  Hello.Repo.insert!(%Hello.Musicians.Musician{
+  CurbsideConcerts.Repo.insert!(%CurbsideConcerts.Musicians.Musician{
     gigs_id: "remington",
     name: "Remington Ortiz",
     playlist: [
@@ -25,7 +25,7 @@ musician1 =
   })
 
 musician2 =
-  Hello.Repo.insert!(%Hello.Musicians.Musician{
+  CurbsideConcerts.Repo.insert!(%CurbsideConcerts.Musicians.Musician{
     gigs_id: "misscornell",
     name: "Miss Cornell Emmerich PhD",
     playlist: [
@@ -37,14 +37,14 @@ musician2 =
     ]
   })
 
-Hello.Repo.insert!(%Hello.Musicians.Session{
+CurbsideConcerts.Repo.insert!(%CurbsideConcerts.Musicians.Session{
   name: "Songs with Remington",
-  description: "",
+  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   musician: musician1
 })
 
-Hello.Repo.insert!(%Hello.Musicians.Session{
+CurbsideConcerts.Repo.insert!(%CurbsideConcerts.Musicians.Session{
   name: "Songs with Miss Cornell",
-  description: "",
+  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   musician: musician2
 })

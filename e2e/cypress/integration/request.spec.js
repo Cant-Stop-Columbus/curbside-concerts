@@ -1,5 +1,5 @@
 import faker from "faker";
-import { requestFormPage, requestHomePage } from "./../support/pages";
+import { requestFormPage, landingPage } from "./../support/pages";
 
 // See priv/repo/seeds.exs for the seeded musician / session data
 const sessionData = {
@@ -9,24 +9,24 @@ const sessionData = {
 const requestData = {
 	nomineeName: faker.name.findName(),
 	contactPreference: "call_nominee",
-	nomineePhone: faker.phone.phoneNumberFormat().replace(/-/g, ""),
+	nomineePhone: faker.phone.phoneNumberFormat(),
 	song: "Hallelujah",
 	nomineeAddress: buildFakeAddress(),
 	specialMessage: faker.lorem.paragraph(),
 	requesterName: faker.name.findName(),
-	requesterPhone: faker.phone.phoneNumberFormat().replace(/-/g, ""),
+	requesterPhone: faker.phone.phoneNumberFormat(),
 };
 
 function buildFakeAddress() {
 	return `${faker.address.streetAddress()} ${faker.address.city()}, ${faker.address.state()} ${faker.address.zipCode()}`;
 }
 
-describe("Request", () => {
+describe("Submit a request for a concert.", () => {
 	it("Should submit a new request", () => {
-		requestHomePage.visit();
-		requestHomePage.assert();
+		landingPage.visit();
+		landingPage.assert();
 
-		requestHomePage.clickSession(sessionData.name);
+		landingPage.clickSession(sessionData.name);
 		requestFormPage.assert(sessionData.name);
 
 		requestFormPage.fillInNomineeName(requestData.nomineeName);
@@ -40,7 +40,7 @@ describe("Request", () => {
 
 		requestFormPage.clickSubmit();
 
-		requestHomePage.assert();
-		requestHomePage.assertRequestSuccessAlert(requestData.nomineeName);
+		landingPage.assert();
+		landingPage.assertRequestSuccessAlert(requestData.nomineeName);
 	});
 });
