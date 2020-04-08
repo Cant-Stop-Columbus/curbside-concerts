@@ -2,7 +2,10 @@
 
 [![Build Status](https://travis-ci.org/testdouble/curbside-concerts.svg?branch=master)](https://travis-ci.org/testdouble/curbside-concerts)
 
-This repository contains the source code for Curbside Concerts / Send a Concert, a charity project that Test Double is working on with [Can't Stop Columbus](https://cantstopcolumbus.web.app/).
+This repository contains the source code for Curbside Concerts / Send a Concert, a charity project that Test Double is working on with [Can't Stop Columbus](https://cantstopcolumbus.web.app/). The codebase is structured as a [Phoenix Umbrella project](https://elixirschool.com/en/lessons/advanced/umbrella-projects/) into two "apps":
+
+- `curbside_concerts` - An Ecto application containing the data contexts; this is responsible for interfacing with the database.
+- `curbside_concerts_web` - A Phoenix application containing the front-end routes, controllers, views, and templates.
 
 ## Dependencies:
 
