@@ -40,6 +40,7 @@ defmodule CurbsideConcertsWeb.MixProject do
       {:curbside_concerts, in_umbrella: true},
       {:floki, "~> 0.26.0", only: :test},
       {:gettext, "~> 0.11"},
+      {:hashids, "~> 2.0"},
       {:jason, "~> 1.0"},
       {:phoenix_ecto, "~> 4.0"},
       {:phoenix_html, "~> 2.11"},

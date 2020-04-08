@@ -22,6 +22,7 @@ defmodule CurbsideConcertsWeb.Router do
     pipe_through :browser
 
     get "/", LandingController, :index
+    get "/tracker/:tracker_id", RequestController, :tracker
     get "/request/:session_id", RequestController, :new
     post "/request", RequestController, :create
 

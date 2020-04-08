@@ -20,15 +20,34 @@ defmodule CurbsideConcertsWeb.RequestView do
 
   def display_state(%Request{state: state}) do
     case state do
-      @pending_state -> "Pending"
-      @accepted_state -> "Accepted"
-      @enroute_state -> "On the way"
-      @arrived_state -> "Arrived"
-      @completed_state -> "Completed"
-      @canceled_state -> "Canceled"
-      @archived_state -> "Archived"
-      _ -> "Unknown"
+      @pending_state -> pending_message()
+      @accepted_state -> accepted_message()
+      @enroute_state -> enroute_message()
+      @arrived_state -> arrived_message()
+      @completed_state -> completed_message()
+      @canceled_state -> canceled_message()
+      @archived_state -> archived_message()
+      _ -> unknown_message()
     end
+  end
+
+  def pending_message, do: "Received"
+  def accepted_message, do: "Accepted"
+  def enroute_message, do: "On the way"
+  def arrived_message, do: "Arrived"
+  def completed_message, do: "Completed"
+  def canceled_message, do: "Canceled"
+  def archived_message, do: "Archived"
+  def unknown_message, do: "Unknown"
+
+  def progress do
+    [
+      pending_message(),
+      accepted_message(),
+      enroute_message(),
+      arrived_message(),
+      completed_message()
+    ]
   end
 
   def first_name(%Session{musician: %Musician{name: name}}) do

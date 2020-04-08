@@ -4,6 +4,7 @@ defmodule CurbsideConcertsWeb.RequestController do
   alias CurbsideConcerts.Requests
   alias CurbsideConcerts.Requests.Request
   alias CurbsideConcerts.Musicians
+  alias CurbsideConcertsWeb.TrackerCypher
 
   def new(conn, %{"session_id" => session_id}) do
     session = Musicians.find_session(session_id)
@@ -14,10 +15,15 @@ defmodule CurbsideConcertsWeb.RequestController do
 
   def create(conn, %{"request" => request_params}) do
     case Requests.create_request(request_params) do
-      {:ok, %Request{nominee_name: nominee_name}} ->
+      {:ok, %Request{id: request_id, nominee_name: nominee_name}} ->
+        tracker_id = TrackerCypher.encode(request_id)
+
         conn
-        |> put_flash(:info, "Thank you for submitting a concert request for #{nominee_name}!")
-        |> redirect(to: Routes.landing_path(conn, :index))
+        |> put_flash(
+          :info,
+          "Thank you for submitting a concert request for #{nominee_name}! Please bookmark this page to track its progress."
+        )
+        |> redirect(to: Routes.request_path(conn, :tracker, tracker_id))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         action = Routes.request_path(conn, :create)
@@ -46,5 +52,16 @@ defmodule CurbsideConcertsWeb.RequestController do
     conn
     |> assign(:requests, Requests.all_requests())
     |> render("index.html")
+  end
+
+  def tracker(conn, %{"tracker_id" => tracker_id}) do
+    request_id = TrackerCypher.decode(tracker_id)
+    request = Requests.find_request(request_id)
+
+    conn
+    |> assign(:tracker_id, tracker_id)
+    |> assign(:request_id, request_id)
+    |> assign(:request, request)
+    |> render("tracker.html")
   end
 end
