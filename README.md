@@ -68,6 +68,29 @@ iex -S mix
 
 Then, you can log in with the credentials you created.
 
+### Using Latest Prod Data to Seed Development Environment
+
+It's possible to develop against a production-like environment locally by copying the database contents from Heroku into your development instance of Postgres.
+
+See the [heroku documentation](https://devcenter.heroku.com/articles/heroku-postgres-import-export) for more information on importing/exporting Postgres databases.
+
+```sh
+# Run the local database
+docker-compose up -d
+
+# Ensure that production has the latest migrations (it should already)
+heroku run "POOL_SIZE=2 mix ecto.migrate" -a <heroku_app_name>
+
+# Generate a backup of the heroku production data
+heroku pg:backups:capture -a sendaconcert
+
+# Download the dump file locally, defaults the file name to latest.dump
+heroku pg:backups:download -a sendaconcert
+
+# Replace your local db with the downloaded dump.
+pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d curbside_converts_dev latest.dump
+```
+
 ## Deployment
 
 At the moment, this repository is connected directly to [the Heroku Project](https://dashboard.heroku.com/apps/sendaconcert). Pushing to master will automatically kick off a build and deploy.
