@@ -1,5 +1,5 @@
 import faker from "faker";
-import { requestFormPage, landingPage } from "./../support/pages";
+import { gigsPage, landingPage, requestFormPage } from "./../support/pages";
 
 // See priv/repo/seeds.exs for the seeded musician / session data
 const sessionData = {
@@ -42,5 +42,16 @@ describe("Submit a request for a concert.", () => {
 
 		landingPage.assert();
 		landingPage.assertRequestSuccessAlert(requestData.nomineeName);
+	});
+
+	it("should see request appear on /gigs page when logged in as admin", () => {
+		cy.login();
+
+		gigsPage.visit();
+		gigsPage.assertRequest(
+			requestData.nomineeName,
+			requestData.requesterName,
+			requestData.specialMessage
+		);
 	});
 });
