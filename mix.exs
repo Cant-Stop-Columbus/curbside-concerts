@@ -24,7 +24,8 @@ defmodule CurbsideConcerts.Umbrella.MixProject do
   # and cannot be accessed from applications inside the apps folder
   defp deps do
     [
-      {:mix_test_watch, "~> 1.0", only: :dev, runtime: false}
+      {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},
+      {:tzdata, "~> 1.0.3"}
     ]
   end
 

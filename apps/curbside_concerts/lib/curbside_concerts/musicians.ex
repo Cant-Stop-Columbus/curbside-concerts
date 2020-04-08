@@ -43,7 +43,7 @@ defmodule CurbsideConcerts.Musicians do
   end
 
   def all_upcoming_sessions do
-    now = DateTime.now!("America/New_York")
+    {:ok, now} = DateTime.now("America/New_York")
 
     Session
     |> where([s], is_nil(s.start_time) or s.start_time >= ^now)
