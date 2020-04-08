@@ -1,12 +1,34 @@
 defmodule HelloWeb.RequestView do
   use HelloWeb, :view
 
+  alias Hello.Requests
   alias Hello.Requests.Request
   alias Hello.Musicians.Musician
   alias Hello.Musicians.Session
 
   def required_star do
     ~E|<span class="required">*</span>|
+  end
+
+  @pending_state Requests.pending_state()
+  @accepted_state Requests.accepted_state()
+  @enroute_state Requests.enroute_state()
+  @arrived_state Requests.arrived_state()
+  @completed_state Requests.completed_state()
+  @canceled_state Requests.canceled_state()
+  @archived_state Requests.archived_state()
+
+  def display_state(%Request{state: state}) do
+    case state do
+      @pending_state -> "Pending"
+      @accepted_state -> "Accepted"
+      @enroute_state -> "On the way"
+      @arrived_state -> "Arrived"
+      @completed_state -> "Completed"
+      @canceled_state -> "Canceled"
+      @archived_state -> "Archived"
+      _ -> "Unknown"
+    end
   end
 
   def first_name(%Session{musician: %Musician{name: name}}) do

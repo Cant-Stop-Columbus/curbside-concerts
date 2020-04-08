@@ -8,6 +8,10 @@
   special_message: special_message
 } = @request %>
 <div class="card">
+  <div><b>Status:</b> <%= display_state(@request) %></div>
+
+  <br>
+
   <div><b>Contact Preference:</b> <%= contact_preference(@request) %></div>
 
   <br>

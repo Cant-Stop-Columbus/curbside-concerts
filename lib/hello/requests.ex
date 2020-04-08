@@ -46,6 +46,20 @@ defmodule Hello.Requests do
     resource(Request, only: [:all, :change, :create])
   end
 
+  def pending_state, do: @pending
+
+  def accepted_state, do: @accepted
+
+  def enroute_state, do: @enroute
+
+  def arrived_state, do: @arrived
+
+  def completed_state, do: @completed
+
+  def canceled_state, do: @canceled
+
+  def archived_state, do: @archived
+
   def accept_request(%Request{} = request) do
     Machinery.transition_to(request, __MODULE__, @accepted)
   end
