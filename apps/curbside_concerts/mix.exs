@@ -44,7 +44,8 @@ defmodule CurbsideConcerts.MixProject do
       {:jason, "~> 1.0"},
       {:machinery, "~> 1.0.0"},
       {:mock, "~> 0.3.0", only: :test},
-      {:postgrex, ">= 0.0.0"}
+      {:postgrex, ">= 0.0.0"},
+      {:tzdata, "~> 1.0.3"}
     ]
   end
 

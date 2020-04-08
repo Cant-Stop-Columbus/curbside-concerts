@@ -42,6 +42,14 @@ defmodule CurbsideConcerts.Musicians do
     |> Repo.all()
   end
 
+  def all_upcoming_sessions do
+    now = DateTime.now!("America/New_York")
+
+    Session
+    |> where([s], is_nil(s.start_time) or s.start_time >= ^now)
+    |> Repo.all()
+  end
+
   def find_session(session_id) do
     Session
     |> where([s], s.id == ^session_id)
