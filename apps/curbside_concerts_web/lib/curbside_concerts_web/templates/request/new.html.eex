@@ -54,8 +54,13 @@
 </div>
 
 <div class="card">
-  <label>
-    <div>What is a good phone number to text you? (Since this is a prototype, we might have some follow-up questions to try and make this experience better) <%= required_star() %></div>
+  <label class="field">
+    <div>What is a good email address to reach you? (Since this is a prototype, we might have some follow-up questions to try and make this experience better) <%= required_star() %></div>
+    <%= request_input f, :requester_email, type: :email %>
+  </label>
+
+  <label class="field">
+    <div>What is a good phone number to text you? <%= required_star() %></div>
     <%= request_input f, :requester_phone, type: :phone %>
   </label>
 </div>

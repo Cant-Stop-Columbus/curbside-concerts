@@ -33,7 +33,8 @@ defmodule CurbsideConcertsWeb.RequestControllerTest do
           song: Faker.String.base64(),
           special_message: Faker.StarWars.quote(),
           requester_name: Faker.Name.name(),
-          requester_phone: Faker.Phone.EnUs.phone()
+          requester_phone: Faker.Phone.EnUs.phone(),
+          requester_email: Faker.Internet.email()
         }
 
       conn = post(conn, Routes.request_path(conn, :create), request: valid_attrs)

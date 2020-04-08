@@ -12,6 +12,8 @@ const requesterNameField = () =>
 	cy.get('input[name="request[requester_name]"]');
 const requesterPhoneField = () =>
 	cy.get('input[name="request[requester_phone]"]');
+const requesterEmailField = () =>
+	cy.get('input[name="request[requester_email]"]');
 const submitButton = () => cy.contains("SUBMIT");
 
 class RequestFormPage {
@@ -53,6 +55,10 @@ class RequestFormPage {
 
 	fillInRequesterPhone(phone) {
 		requesterPhoneField().clear().type(phone);
+	}
+
+	fillInRequesterEmail(email) {
+		requesterEmailField().clear().type(email);
 	}
 
 	clickSubmit() {
