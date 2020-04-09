@@ -2,6 +2,7 @@ defmodule CurbsideConcerts.Factory do
   alias CurbsideConcerts.Repo
 
   alias CurbsideConcerts.Accounts.User
+  alias CurbsideConcerts.Musicians.Genre
   alias CurbsideConcerts.Musicians.Musician
   alias CurbsideConcerts.Musicians.Session
 
@@ -20,6 +21,10 @@ defmodule CurbsideConcerts.Factory do
       name: Faker.Lorem.sentence(),
       description: Faker.Lorem.paragraph()
     }
+  end
+
+  def attrs(:genre) do
+    %{name: Faker.Food.dish()}
   end
 
   def attrs(:user) do
@@ -44,6 +49,10 @@ defmodule CurbsideConcerts.Factory do
         musician: build(:musician)
       })
     )
+  end
+
+  def build(:genre) do
+    struct(Genre, attrs(:genre))
   end
 
   def build(factory_name, attributes) do

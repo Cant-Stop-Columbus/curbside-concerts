@@ -40,6 +40,7 @@ defmodule CurbsideConcertsWeb.Router do
     get "/musician_builder", MusicianController, :index
 
     resources "/session", SessionController, only: [:index, :create, :edit, :new, :update, :show]
+    resources "/genre", GenreController, only: [:index, :create, :edit, :new, :update, :show]
 
     get "/gigs", RequestController, :index
     get "/gigs/:musician", RequestController, :index

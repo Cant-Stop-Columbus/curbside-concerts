@@ -1,0 +1,9 @@
+<%= form_for @changeset, @action, fn f -> %>
+<%= hidden_input f, :id %>
+<%= unless f.errors == [], do: inspect(f.errors) %>
+
+  <label class="field">Name: <%= text_input f, :name %></label>
+  <label class="field">Archived: <%= checkbox f, :archived %></label>
+
+  <button type="submit">SUBMIT</button>
+<% end %>

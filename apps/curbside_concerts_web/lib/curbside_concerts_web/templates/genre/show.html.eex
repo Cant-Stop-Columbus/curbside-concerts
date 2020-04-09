@@ -1,0 +1,18 @@
+<div class="card">
+  <h1>View Genre</h1>
+  <%= link "Back", to: Routes.genre_path(@conn, :index) %>
+  | <%= link "Edit", to: Routes.genre_path(@conn, :edit, @genre) %>
+</div>
+
+<div class="card">
+  <ul>
+    <li>
+      <strong>Name:</strong>
+      <%= @genre.name %>
+    </li>
+    <li>
+      <strong>Archived:</strong>
+      <%= @genre.archived %>
+    </li>
+  </ul>
+</div>

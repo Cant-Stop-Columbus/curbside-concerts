@@ -1,0 +1,8 @@
+<div class="card">
+  <h1>New Genre</h1>
+  <span><%= link "Back", to: Routes.genre_path(@conn, :index) %></span>
+</div>
+
+<div class="card">
+  <%= render "form.html", Map.put(assigns, :action, Routes.genre_path(@conn, :create)) %>
+</div>

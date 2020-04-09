@@ -1,0 +1,19 @@
+<div class="card">
+  <h1>Genres</h1>
+  <%= link "Back to Admin", to: Routes.admin_path(@conn, :index) %>
+  | <%= link "Create a new genre", to: Routes.genre_path(@conn, :new) %>
+</div>
+
+<%= for %Genre{
+  name: name,
+	archived: archived
+} = genre <- @genres do %>
+  <div class="card">
+    <div>Name: <%= name %></div>
+    <div>Archived: <%= archived %></div>
+    <div>
+      <%= link "View", to: Routes.genre_path(@conn, :show, genre) %>
+      | <%= link "Edit", to: Routes.genre_path(@conn, :edit, genre) %>
+    </div>
+  </div>
+<% end %>

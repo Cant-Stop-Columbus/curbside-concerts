@@ -17,6 +17,8 @@ defmodule CurbsideConcertsWeb.ConnCase do
 
   use ExUnit.CaseTemplate
 
+  alias CurbsideConcerts.Accounts.User
+
   using do
     quote do
       # Import conveniences for testing with connections
@@ -25,6 +27,8 @@ defmodule CurbsideConcertsWeb.ConnCase do
 
       # The default endpoint for testing
       @endpoint CurbsideConcertsWeb.Endpoint
+
+      import CurbsideConcertsWeb.ConnCase, only: [with_authenticated_user: 2]
     end
   end
 
@@ -36,5 +40,10 @@ defmodule CurbsideConcertsWeb.ConnCase do
     end
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}
+  end
+
+  def with_authenticated_user(%Plug.Conn{} = conn, %User{} = user) do
+    conn
+    |> Plug.Test.init_test_session(current_user_id: user.id)
   end
 end

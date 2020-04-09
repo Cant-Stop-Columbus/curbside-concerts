@@ -2,6 +2,7 @@ defmodule CurbsideConcerts.Musicians do
   import Ecto.Query, warn: false
 
   alias CurbsideConcerts.Repo
+  alias CurbsideConcerts.Musicians.Genre
   alias CurbsideConcerts.Musicians.Musician
   alias CurbsideConcerts.Musicians.Session
 
@@ -10,6 +11,7 @@ defmodule CurbsideConcerts.Musicians do
   using_repo(Repo) do
     resource(Musician, only: [:all, :change])
     resource(Session, only: [:change, :create, :update])
+    resource(Genre, only: [:all, :change, :create, :get, :update])
   end
 
   ### Musicians

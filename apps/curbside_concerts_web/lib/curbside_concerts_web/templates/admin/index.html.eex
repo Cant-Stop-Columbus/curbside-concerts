@@ -14,6 +14,7 @@
     <ul>
       <li><%= link "View Gigs", to: Routes.request_path(@conn, :index) %></li>
       <li><%= link "View Sessions", to: Routes.session_path(@conn, :index) %></li>
+      <li><%= link "Manage Genres", to: Routes.genre_path(@conn, :index) %></li>
     </ul>
   <% else %>
     You must be signed in to view this content.
