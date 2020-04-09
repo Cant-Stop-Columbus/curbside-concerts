@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card card-with-nav">
   <nav>
     <span class="link current">HOME</span>
     <%= link "REQUEST", to: Routes.request_path(@conn, :new), class: "link" %>

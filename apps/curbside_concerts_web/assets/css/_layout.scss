@@ -65,13 +65,14 @@ nav {
 
 	.link {
 		color: $dark-blue;
-		font-size: 1.2em;
-		font-weight: 600;
+		font-size: 1.1em;
+		font-weight: 500;
+		line-height: 0.8em;
 		margin-left: 20px;
 		text-decoration: none;
 
 		&.current {
-			border-bottom: 2px solid $dark-blue;
+			border-bottom: 3px solid $dark-blue;
 		}
 	}
 }
@@ -114,13 +115,20 @@ header {
 	background-color: #fff;
 	border: 1px solid #dadce0;
 	border-radius: 8px;
-	padding: 24px;
-	padding-top: 22px;
+	padding: 16px;
 	position: relative;
+
+	@include tablet {
+		padding: 36px;
+	}
 
 	& + & {
 		margin-top: 12px;
 	}
+}
+
+.card-with-nav {
+	padding-top: 12px;
 }
 
 .alert {
