@@ -67,7 +67,7 @@
 
 <div class="card">
   <label class="field">
-    <div>What is a good email address to reach you? (Since this is a prototype, we might have some follow-up questions to try and make this experience better) <%= required_star() %></div>
+    <div>Please provide your email address so we can contact you with a few follow-up questions about your experience, to help improve our process. <%= required_star() %></div>
     <%= request_input f, :requester_email, type: :email %>
   </label>
 

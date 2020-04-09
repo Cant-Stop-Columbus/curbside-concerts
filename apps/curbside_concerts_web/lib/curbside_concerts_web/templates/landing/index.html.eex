@@ -5,10 +5,10 @@
   </nav>
   <header class="landing">
     <p>Hey Columbus,</p>
-    <h1>Know someone feeling down?</h1>
+    <h1>Is there a Senior Citizen you know who needs to feel some love and connection right now?</h1>
     <div class="content-wrapper">
       <div class="description">
-        <h2>Send a <em>live curbside concert</em>, for your quarantined love ones</h2>
+        <h2>Send a <em>live curbside concert to</em> someone you care about</h2>
         <p>For free!</p>
 
         <%= link "REQUEST A CONCERT", to: Routes.request_path(@conn, :new), role: "button", class: "button" %>
@@ -26,13 +26,13 @@
   <h2>We get it. Being quarantined is hard...</h2>
 
   <p>
-    But that doesn't mean we have to miss out on all the joys in life. A lot of us are joining zoom concerts and Facebook Live events to be social on the internet. But our older and vulnerable populations - those who may not be as connected digitally, are both most at risk ith this virus and most isolated, too.
+    But that doesn't mean we have to miss out on all the joys in life. A lot of us are joining zoom concerts and Facebook Live events to be social on the internet. But our older and vulnerable populations - those who may not be as connected digitally, are both most at risk for this virus and most isolated, too.
   </p>
 
   <h2>That's where we come in.</h2>
 
   <p>
-    We're helping you to reach out and connect to those you care about. Through your request, we'll bring a musical performance to the curbside of their home, bringing joy to those in quarantine and helping them temporarily forget about the grave state of the world.
+    We're helping you to reach out and connect to those you care about. Through your request, we'll bring a musical performance to the curbside of their home, bringing joy to those who are isolated and helping them temporarily forget about the grave state of the world.
   </p>
 
   <%= link "REQUEST A CONCERT", to: Routes.request_path(@conn, :new), role: "button", class: "button inverted" %>
@@ -50,9 +50,19 @@
       "This is from your daughter:
       <br/>
       <br/>
-      Mom , we know how hard it is to be alone but we wanted you to be safe. We hope this song brightens your day. We love you!"
+      Mom, we know how hard it is to be alone but we wanted you to be safe. We hope this song brightens your day. We love you!"
     </p>
   </div>
+</div>
+
+<div class="card">
+	<h2>Concepted, organized and performed with love</h2>
+
+	<p>
+		This idea came to be through a human-centered design process led by <strong>The Columbus Foundation</strong> and <strong>Can’t Stop Columbus</strong>, an initiative of <strong>Smart Columbus</strong>.  The <strong>Greater Columbus Arts Council</strong> has provided the funding to pay for <strong>local artists</strong> to play for you.  The concerts will come to you in a pick-up truck provided by <strong>Ricart Automotive</strong>. The reservation and scheduling platform has been developed pro-bono by <strong>Test Double</strong>.  Social media management is being handled through pro-bono support from <strong>Futurety</strong>.
+	</p>
+
+	<strong>Can’t Stop Columbus Volunteers</strong> lead the coordination, communications and operations support to make this all possible. 
 </div>
 
 <div class="card call-to-action" id="request">

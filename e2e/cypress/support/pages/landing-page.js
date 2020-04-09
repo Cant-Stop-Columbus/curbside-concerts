@@ -7,7 +7,10 @@ class LandingPage {
 	}
 
 	assert() {
-		heading().should("have.text", "Know someone feeling down?");
+		heading().should(
+			"have.text",
+			"Is there a Senior Citizen you know who needs to feel some love and connection right now?"
+		);
 	}
 
 	clickRequestConcertButton() {
