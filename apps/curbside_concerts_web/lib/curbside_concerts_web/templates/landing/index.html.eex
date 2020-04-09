@@ -43,7 +43,7 @@
 
   <div class="image-wrapper">
     <div class="image">
-      <%= hero_image() %>
+      <%= story_image() %>
     </div>
 
     <p>

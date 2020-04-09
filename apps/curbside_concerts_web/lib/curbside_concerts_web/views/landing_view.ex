@@ -3,12 +3,12 @@ defmodule CurbsideConcertsWeb.LandingView do
 
   use CurbsideConcertsWeb, :view
 
-  def hero_image() do
+  def story_image() do
     alt_text =
-      "A man sitting in the bed of a pickup truck plays guitar for an elderly woman standing in her driveway. A speech bubble over the man says \"That song was for you. People care about you. This is from your daughter: 'Mom, we know it's hard to be alone but we want you to be safe. We hope this song brightens your day. We love you.'\""
+      "A man plays guitar from the bed of a pickup truck parked in a driveway, while a woman records it on her phone. In the background, other people from the neighborhood stand in their lawns observing the performance.'\""
 
     ~E"""
-    <img src="/images/for_you.png" alt="<%= alt_text %>" />
+    <img src="/images/landing_story.png" alt="<%= alt_text %>" />
     """
   end
 end
