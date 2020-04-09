@@ -36,14 +36,15 @@
 </div>
 
 <div class="card">
-  <%=
-  multiselect_checkboxes(
+  <p>
+    Our team will take your request and book one of our local musicians to come play for them. Which type of music would you like to have played for your loved one? (please check all that apply).
+  </p>
+  <%= multiselect_checkboxes(
       f,
       :genres,
       Enum.map(@genres, fn a -> { a.name, a.id } end),
       selected: Enum.map(@changeset.data.genres,&(&1.id))
-    )
-  %>
+    )%>
 </div>
 
 <div class="card">

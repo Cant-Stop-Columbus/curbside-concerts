@@ -1,17 +1,29 @@
 defmodule CurbsideConcertsWeb.Helpers.MultiCheckbox do
   @moduledoc """
-   Renders multiple checkboxes.  ## Example      iex> multiselect_checkboxes(
-              f,
-              :amenities,
-              Enum.map(@amenities, fn c -> { c.name, c.id } end),
-              selected: Enum.map(@changeset.data.amenities,&(&1.id))
-            )
-       <div class="checkbox">
-         <label>
-           <input name="property[amenities][]" id="property_amenities_1" type="checkbox" value="1" checked>
-           <input name="property[amenities][]" id="property_amenities_2" type="checkbox" value="2">
-         </label>
-  		</div
+  This code was shamelessly swiped from: https://medium.com/@ricardoruwer/many-to-many-associations-in-elixir-and-phoenix-b4aa6d978f7b
+
+  Renders multiple checkboxes.
+
+  ## Example
+  ```
+  multiselect_checkboxes(
+  f,
+  :genres,
+  Enum.map(@genres, fn c -> { c.name, c.id } end),
+  selected: Enum.map(@changeset.data.genres,&(&1.id))
+  )
+  ```
+
+  Results in:
+
+  ```
+  <div>
+  <label>
+  	<input name="request[genres][]" id="request_genres_1" type="checkbox" value="1" checked>
+  	<input name="request[genres][]" id="request_genres_2" type="checkbox" value="2">
+  </label>
+  </div
+  ```
   """
 
   use Phoenix.HTML
@@ -21,17 +33,19 @@ defmodule CurbsideConcertsWeb.Helpers.MultiCheckbox do
     selected_as_strings = Enum.map(selected, &"#{&1}")
 
     for {value, key} <- options, into: [] do
-      content_tag(:label, class: "checkbox-inline") do
-        [
-          tag(:input,
-            name: input_name(form, field) <> "[]",
-            id: input_id(form, field, key),
-            type: "checkbox",
-            value: key,
-            checked: Enum.member?(selected_as_strings, "#{key}")
-          ),
-          value
-        ]
+      content_tag(:div) do
+        content_tag(:label, class: "checkbox-field") do
+          [
+            tag(:input,
+              name: input_name(form, field) <> "[]",
+              id: input_id(form, field, key),
+              type: "checkbox",
+              value: key,
+              checked: Enum.member?(selected_as_strings, "#{key}")
+            ),
+            content_tag(:span, value)
+          ]
+        end
       end
     end
   end

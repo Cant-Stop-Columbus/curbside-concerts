@@ -12,6 +12,19 @@
 	}
 }
 
+.checkbox-field {
+	padding: 5px 0;
+
+	input {
+		margin-right: 10px;
+	}
+
+	input,
+	span {
+		vertical-align: middle;
+	}
+}
+
 label {
 	div {
 		display: block;
