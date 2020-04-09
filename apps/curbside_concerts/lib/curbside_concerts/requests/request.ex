@@ -8,6 +8,8 @@ defmodule CurbsideConcerts.Requests.Request do
   import Ecto.Changeset
 
   alias CurbsideConcerts.Musicians.Session
+  alias CurbsideConcerts.Musicians.Genre
+  alias CurbsideConcerts.Requests.RequestGenre
 
   @allowed_attrs ~w|state contact_preference nominee_name nominee_phone nominee_address special_message requester_name requester_phone requester_email session_id|a
   @required_attrs ~w|state contact_preference nominee_name nominee_address special_message requester_name requester_phone requester_email|a
@@ -27,6 +29,8 @@ defmodule CurbsideConcerts.Requests.Request do
     field(:song, :string)
 
     belongs_to :session, Session
+
+    many_to_many :genres, Genre, join_through: RequestGenre
 
     timestamps()
   end

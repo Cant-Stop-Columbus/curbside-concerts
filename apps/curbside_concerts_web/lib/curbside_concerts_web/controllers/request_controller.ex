@@ -7,8 +7,14 @@ defmodule CurbsideConcertsWeb.RequestController do
   alias CurbsideConcertsWeb.TrackerCypher
 
   def new(conn, _params) do
-    changeset = Requests.change_request(%Request{})
-    render(conn, "new.html", changeset: changeset)
+    genres = Musicians.all_genres()
+
+    changeset =
+      Requests.change_request(%Request{
+        genres: []
+      })
+
+    render(conn, "new.html", changeset: changeset, genres: genres)
   end
 
   def create(conn, %{"request" => request_params}) do
@@ -24,12 +30,15 @@ defmodule CurbsideConcertsWeb.RequestController do
         |> redirect(to: Routes.request_path(conn, :tracker, tracker_id))
 
       {:error, %Ecto.Changeset{} = changeset} ->
+        data = Requests.load_genres(changeset.data)
+        changeset = %{changeset | data: data}
+
         conn
         |> put_flash(
           :error,
           "Oops! Looks like a field is missing - please check below and try again"
         )
-        |> render("new.html", changeset: changeset)
+        |> render("new.html", changeset: changeset, genres: Musicians.all_genres())
     end
   end
 
@@ -45,7 +54,7 @@ defmodule CurbsideConcertsWeb.RequestController do
 
   def index(conn, _) do
     conn
-    |> assign(:requests, Requests.all_requests())
+    |> assign(:requests, Requests.all_requests(preloads: [:genres]))
     |> render("index.html")
   end
 

@@ -36,6 +36,17 @@
 </div>
 
 <div class="card">
+  <%=
+  multiselect_checkboxes(
+      f,
+      :genres,
+      Enum.map(@genres, fn a -> { a.name, a.id } end),
+      selected: Enum.map(@changeset.data.genres,&(&1.id))
+    )
+  %>
+</div>
+
+<div class="card">
   <label>
     <div>
       After the song, our performer will mention that it was dedicated by you and share the message you type below.

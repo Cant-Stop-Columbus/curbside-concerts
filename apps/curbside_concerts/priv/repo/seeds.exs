@@ -48,3 +48,19 @@ CurbsideConcerts.Repo.insert!(%CurbsideConcerts.Musicians.Session{
   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   musician: musician2
 })
+
+CurbsideConcerts.Repo.insert!(%CurbsideConcerts.Musicians.Genre{
+  name: "Country"
+})
+
+CurbsideConcerts.Repo.insert!(%CurbsideConcerts.Musicians.Genre{
+  name: "Pop"
+})
+
+CurbsideConcerts.Repo.insert!(%CurbsideConcerts.Musicians.Genre{
+  name: "Rock"
+})
+
+CurbsideConcerts.Repo.insert!(%CurbsideConcerts.Musicians.Genre{
+  name: "Marching Band"
+})

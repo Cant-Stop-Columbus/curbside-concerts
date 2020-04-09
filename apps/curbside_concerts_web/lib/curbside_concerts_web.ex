@@ -41,6 +41,7 @@ defmodule CurbsideConcertsWeb do
 
       import CurbsideConcertsWeb.ErrorHelpers
       import CurbsideConcertsWeb.Gettext
+      import CurbsideConcertsWeb.Helpers.MultiCheckbox
       alias CurbsideConcertsWeb.Router.Helpers, as: Routes
     end
   end

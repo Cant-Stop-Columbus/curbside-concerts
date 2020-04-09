@@ -3,6 +3,7 @@ defmodule CurbsideConcertsWeb.RequestView do
 
   alias CurbsideConcerts.Requests
   alias CurbsideConcerts.Requests.Request
+  alias CurbsideConcerts.Musicians.Genre
   alias CurbsideConcerts.Musicians.Musician
   alias CurbsideConcerts.Musicians.Session
 

@@ -4,7 +4,7 @@
   nominee_name: nominee_name,
   nominee_phone: nominee_phone,
   nominee_address: nominee_address,
-  song: song,
+  genres: genres,
   special_message: special_message
 } = @request %>
 <div class="card">
@@ -25,15 +25,26 @@
 
   <div style="display: flex">
     <div style="margin-right: 16px">
-      <b>To:</b><br><span><%= nominee_name %><br><%= nominee_phone %>
+      <b>To:</b><br>
+      <span><%= nominee_name %><br>
+        <%= nominee_phone %>
+      </div>
+      <div>
+        <b>From:</b><br>
+        <%= requester_name %><br>
+        <%= requester_phone %>
+      </div>
     </div>
+    <br>
     <div>
-      <b>From:</b><br><%= requester_name %><br><%= requester_phone %>
+      <b>Preferred Genres:</b>
+      <ul>
+        <%= for %Genre{name: name} <- genres do %>
+          <li><%= name %></li>
+        <% end %>
+      </ul>
+    </div>
+    <div><b>Special Message:</b><br>
+      <%= special_message %>
     </div>
   </div>
-  <br>
-  <div><b>Song:</b> <%= song %></div>
-  <div><b>Special Message:</b><br>
-    <%= special_message %>
-  </div>
-</div>

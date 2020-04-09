@@ -11,12 +11,13 @@ class GigsPage {
 		heading().should("contain.text", "All requests");
 	}
 
-	assertRequest(nomineeName, requesterName, specialMessage) {
+	assertRequest(nomineeName, requesterName, specialMessage, genres) {
 		const request = requestCard(specialMessage);
 
 		request
 			.should("contain.text", nomineeName)
 			.and("contain.text", requesterName);
+		genres.forEach((genre) => request.should("contain.text", genre));
 	}
 }
 

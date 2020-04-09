@@ -58,4 +58,11 @@ defmodule CurbsideConcerts.Musicians do
     |> preload([:musician])
     |> Repo.one()
   end
+
+  ### Genres
+  def get_genres_by_ids(nil), do: []
+
+  def get_genres_by_ids(ids) do
+    Repo.all(from g in Genre, where: g.id in ^ids)
+  end
 end

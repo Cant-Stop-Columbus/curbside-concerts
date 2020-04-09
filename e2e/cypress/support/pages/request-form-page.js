@@ -14,6 +14,10 @@ const requesterPhoneField = () =>
 	cy.get('input[name="request[requester_phone]"]');
 const requesterEmailField = () =>
 	cy.get('input[name="request[requester_email]"]');
+const genreCheckbox = (label) =>
+	cy.contains("label", label).within(() => {
+		cy.get('input[name="request[genres][]"]');
+	});
 const submitButton = () => cy.contains("SUBMIT");
 
 class RequestFormPage {
@@ -30,7 +34,7 @@ class RequestFormPage {
 	}
 
 	clickContactPreferenceOption(value) {
-		nomineeContactPreferenceRadio().check(value).click();
+		nomineeContactPreferenceRadio().check(value);
 	}
 
 	fillInNomineePhone(phone) {
@@ -39,6 +43,10 @@ class RequestFormPage {
 
 	selectSong(song) {
 		nomineeSongField().select(song);
+	}
+
+	clickGenreCheckbox(genre) {
+		genreCheckbox(genre).check();
 	}
 
 	fillInNomineeAddress(address) {

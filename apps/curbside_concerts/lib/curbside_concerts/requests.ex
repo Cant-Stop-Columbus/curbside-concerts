@@ -37,13 +37,14 @@ defmodule CurbsideConcerts.Requests do
 
   alias CurbsideConcerts.Repo
   alias CurbsideConcerts.Requests.Request
+  alias CurbsideConcerts.Musicians
   alias CurbsideConcerts.Musicians.Musician
   alias CurbsideConcerts.Musicians.Session
 
   use EctoResource
 
   using_repo(Repo) do
-    resource(Request, only: [:all, :change, :create])
+    resource(Request, only: [:all, :change])
   end
 
   def pending_state, do: @pending
@@ -96,6 +97,13 @@ defmodule CurbsideConcerts.Requests do
     request
   end
 
+  def create_request(attrs) do
+    %Request{}
+    |> Request.changeset(attrs)
+    |> put_assoc_genres(attrs)
+    |> Repo.insert()
+  end
+
   def update_request(%Request{} = request, attrs) do
     request
     |> Request.changeset(attrs)
@@ -110,7 +118,7 @@ defmodule CurbsideConcerts.Requests do
 
   def all do
     Request
-    |> preload(session: :musician)
+    |> preload([:session, :genres])
     |> Repo.all()
   end
 
@@ -125,8 +133,17 @@ defmodule CurbsideConcerts.Requests do
             session.musician_id == musician.id,
         where: musician.gigs_id == ^gigs_id
       )
-      |> preload(session: :musician)
+      |> preload([:session, :genres])
 
     Repo.all(query)
+  end
+
+  def load_genres(request), do: Repo.preload(request, :genres)
+
+  defp put_assoc_genres(changeset, []), do: changeset
+
+  defp put_assoc_genres(changeset, attrs) do
+    genres = Musicians.get_genres_by_ids(attrs["genres"])
+    Ecto.Changeset.put_assoc(changeset, :genres, genres)
   end
 end

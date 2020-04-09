@@ -10,7 +10,7 @@ const requestData = {
 	nomineeName: faker.name.findName(),
 	contactPreference: "call_nominee",
 	nomineePhone: faker.phone.phoneNumberFormat(),
-	song: "Hallelujah",
+	genres: ["Country", "Marching Band"],
 	nomineeAddress: buildFakeAddress(),
 	specialMessage: faker.lorem.paragraph(),
 	requesterName: faker.name.findName(),
@@ -34,6 +34,9 @@ describe("Submit a request for a concert.", () => {
 		requestFormPage.clickContactPreferenceOption(requestData.contactPreference);
 		requestFormPage.fillInNomineePhone(requestData.nomineePhone);
 		requestFormPage.fillInNomineeAddress(requestData.nomineeAddress);
+		requestData.genres.forEach((genre) => {
+			requestFormPage.clickGenreCheckbox(genre);
+		});
 		requestFormPage.fillInSpecialMessage(requestData.specialMessage);
 		requestFormPage.fillInRequesterName(requestData.requesterName);
 		requestFormPage.fillInRequesterEmail(requestData.requesterEmail);
@@ -52,7 +55,8 @@ describe("Submit a request for a concert.", () => {
 		gigsPage.assertRequest(
 			requestData.nomineeName,
 			requestData.requesterName,
-			requestData.specialMessage
+			requestData.specialMessage,
+			["Country", "Marching Band"]
 		);
 	});
 });
