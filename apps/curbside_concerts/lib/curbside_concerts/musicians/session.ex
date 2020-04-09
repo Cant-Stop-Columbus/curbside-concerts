@@ -10,7 +10,7 @@ defmodule CurbsideConcerts.Musicians.Session do
   alias CurbsideConcerts.Musicians.Musician
 
   @allowed_attrs ~w|name musician_id description start_time end_time|a
-  @required_attrs ~w|name musician_id|a
+  @required_attrs ~w|name|a
 
   schema "sessions" do
     field(:name, :string)

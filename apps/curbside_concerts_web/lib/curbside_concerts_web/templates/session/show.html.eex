@@ -11,10 +11,12 @@
       <%= @session.name %>
     </li>
 
-    <li>
-      <strong>Musician:</strong>
-      <%= @session.musician.name %>
-    </li>
+    <%= if @session.musician do %>
+      <li>
+        <strong>Musician:</strong>
+        <%= @session.musician.name %>
+      </li>
+    <% end %>
 
     <li>
       <strong>Description:</strong>

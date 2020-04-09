@@ -11,7 +11,9 @@
 } = session <- @sessions do %>
   <div class="card">
     <div>Name: <%= name %></div>
-    <div>Musician: <%= musician.name %></div>
+    <%= if musician do %>
+      <div>Musician: <%= musician.name %></div>
+    <% end %>
     <div>
       <strong>Description:</strong>
       <%= description %>

@@ -3,7 +3,6 @@
 <%= unless f.errors == [], do: inspect(f.errors) %>
 
   <label>Name: <%= text_input f, :name %></label>
-  <label>Musician: <%= select f, :musician_id, musician_options(@musicians) %></label>
   <label>Description: <%= textarea f, :description %></label>
 
   <button type="submit">SUBMIT</button>
