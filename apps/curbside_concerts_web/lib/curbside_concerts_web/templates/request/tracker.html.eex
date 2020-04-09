@@ -6,14 +6,5 @@
   <%= if @request do %>
     <% current_status = display_state(@request) %>
     Current Status: <%= current_status %>
-
-    <br><br>
-
-    Flow:
-    <ul>
-      <%= for step <- progress() do %>
-        <li><%= step %> <%= if step == current_status, do: "<-- You are here" %> </li>
-      <% end %>
-    </ul>
   <% end %>
 </div>
