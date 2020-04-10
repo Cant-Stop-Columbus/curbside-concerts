@@ -19,8 +19,9 @@
       <%= description %>
     </div>
     <div>
-      <%= link "View", to: Routes.session_path(@conn, :show, session) %>
-      | <%= link "Edit", to: Routes.session_path(@conn, :edit, session) %>
+      <%= link "View", to: Routes.session_path(CurbsideConcertsWeb.Endpoint, :show, session) %>
+      | <%= link "Edit", to: Routes.session_path(CurbsideConcertsWeb.Endpoint, :edit, session) %>
+      | <%= link "Book Requests", to: Routes.session_booker_path(CurbsideConcertsWeb.Endpoint, CurbsideConcertsWeb.SessionBookerLive, session) %>
     </div>
   </div>
 <% end %>

@@ -122,6 +122,13 @@ defmodule CurbsideConcerts.Requests do
     |> Repo.all()
   end
 
+  def all_unbooked_requests do
+    Request
+    |> where([r], is_nil(r.session_id))
+    |> preload([:genres])
+    |> Repo.all()
+  end
+
   def get_by_gigs_id(gigs_id) do
     query =
       from(

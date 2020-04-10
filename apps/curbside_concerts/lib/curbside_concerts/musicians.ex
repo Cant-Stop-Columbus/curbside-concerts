@@ -55,7 +55,7 @@ defmodule CurbsideConcerts.Musicians do
   def find_session(session_id) do
     Session
     |> where([s], s.id == ^session_id)
-    |> preload([:musician])
+    |> preload([:musician, :requests])
     |> Repo.one()
   end
 

@@ -36,13 +36,7 @@ defmodule CurbsideConcertsWeb do
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
 
-      # Use all HTML functionality (forms, tags, etc)
-      use Phoenix.HTML
-
-      import CurbsideConcertsWeb.ErrorHelpers
-      import CurbsideConcertsWeb.Gettext
-      import CurbsideConcertsWeb.Helpers.MultiCheckbox
-      alias CurbsideConcertsWeb.Router.Helpers, as: Routes
+      unquote(view_helpers())
     end
   end
 
@@ -51,6 +45,7 @@ defmodule CurbsideConcertsWeb do
       use Phoenix.Router
       import Plug.Conn
       import Phoenix.Controller
+      import Phoenix.LiveView.Router
     end
   end
 
@@ -58,6 +53,39 @@ defmodule CurbsideConcertsWeb do
     quote do
       use Phoenix.Channel
       import CurbsideConcertsWeb.Gettext
+    end
+  end
+
+  def live_component do
+    quote do
+      use Phoenix.LiveComponent
+
+      unquote(view_helpers())
+    end
+  end
+
+  def live_view do
+    quote do
+      use Phoenix.LiveView,
+        layout: {CurbsideConcertsWeb.LayoutView, "live.html"}
+
+      unquote(view_helpers())
+    end
+  end
+
+  defp view_helpers do
+    quote do
+      # Use all HTML functionality (forms, tags, etc)
+      use Phoenix.HTML
+
+      # Import LiveView functions
+      import Phoenix.LiveView.Helpers
+
+      import CurbsideConcertsWeb.ErrorHelpers
+      import CurbsideConcertsWeb.Gettext
+      import CurbsideConcertsWeb.Helpers.MultiCheckbox
+
+      alias CurbsideConcertsWeb.Router.Helpers, as: Routes
     end
   end
 

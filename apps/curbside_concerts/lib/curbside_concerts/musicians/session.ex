@@ -8,6 +8,7 @@ defmodule CurbsideConcerts.Musicians.Session do
   import Ecto.Changeset
 
   alias CurbsideConcerts.Musicians.Musician
+  alias CurbsideConcerts.Requests.Request
 
   @allowed_attrs ~w|name musician_id description start_time end_time|a
   @required_attrs ~w|name|a
@@ -20,6 +21,7 @@ defmodule CurbsideConcerts.Musicians.Session do
 
     belongs_to :musician, Musician
 
+    has_many(:requests, Request, foreign_key: :session_id)
     timestamps()
   end
 

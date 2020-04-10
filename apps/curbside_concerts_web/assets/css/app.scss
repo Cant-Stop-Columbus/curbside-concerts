@@ -3,6 +3,7 @@
 @import "./layout";
 @import "./landing";
 @import "./request-form";
+@import "../node_modules/nprogress/nprogress.css";
 
 .field {
 	display: block;
@@ -84,4 +85,14 @@ input#request_nominee_address {
 
 .help-block {
 	font-size: 0.9em;
+}
+
+
+.booker {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+
+	.column {
+
+	}
 }

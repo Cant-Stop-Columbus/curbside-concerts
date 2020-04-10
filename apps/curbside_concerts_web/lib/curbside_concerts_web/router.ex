@@ -4,7 +4,7 @@ defmodule CurbsideConcertsWeb.Router do
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
-    plug :fetch_flash
+    plug :fetch_live_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug(CurbsideConcertsWeb.Plugs.SetCurrentUser)
@@ -41,6 +41,8 @@ defmodule CurbsideConcertsWeb.Router do
 
     resources "/session", SessionController, only: [:index, :create, :edit, :new, :update, :show]
     resources "/genre", GenreController, only: [:index, :create, :edit, :new, :update, :show]
+
+    live "/session_booker/:session_id", SessionBookerLive, as: :session_booker
 
     get "/gigs", RequestController, :index
     get "/gigs/:musician", RequestController, :index
