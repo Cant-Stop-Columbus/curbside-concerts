@@ -26,6 +26,7 @@ defmodule CurbsideConcertsWeb.Router do
     get "/tracker/:tracker_id", RequestController, :tracker
     get "/request", RequestController, :new
     post "/request", RequestController, :create
+    put "/cancel_request/:tracker_id", RequestController, :cancel_request
 
     get "/admin", AdminController, :index
 
