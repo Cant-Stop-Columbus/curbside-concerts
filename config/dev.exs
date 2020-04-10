@@ -74,3 +74,6 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+config :curbside_concerts_web, CurbsideConcertsWeb.Mailer,
+  adapter: Bamboo.LocalAdapter
