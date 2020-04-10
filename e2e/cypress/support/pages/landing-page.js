@@ -9,7 +9,7 @@ class LandingPage {
 	assert() {
 		heading().should(
 			"have.text",
-			"Is there a Senior Citizen you know who needs to feel some love and connection right now?"
+			"Know an older person in need of some love and connection right now?"
 		);
 	}
 

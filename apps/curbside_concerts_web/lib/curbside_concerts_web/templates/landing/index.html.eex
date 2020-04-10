@@ -5,10 +5,10 @@
   </nav>
   <header class="landing">
     <p>Hey Columbus,</p>
-    <h1>Is there a Senior Citizen you know who needs to feel some love and connection right now?</h1>
+    <h1>Know an older person in need of some love and connection right now?</h1>
     <div class="content-wrapper">
       <div class="description">
-        <h2>Send a <em>live curbside concert to</em> someone you care about</h2>
+        <h2>Send a <em>live curbside concert to</em> someone you care about.</h2>
         <p>For free!</p>
 
         <%= link "REQUEST A CONCERT", to: Routes.request_path(@conn, :new), role: "button", class: "button" %>
@@ -26,13 +26,13 @@
   <h2>We get it. Being quarantined is hard...</h2>
 
   <p>
-    But that doesn't mean we have to miss out on all the joys in life. A lot of us are joining zoom concerts and Facebook Live events to be social on the internet. But our older and vulnerable populations - those who may not be as connected digitally, are both most at risk for this virus and most isolated, too.
+		But that doesn't mean we have to miss out on all the joys in life. A lot of us are joining zoom concerts and Facebook Live events to be social on the internet. But our older and vulnerable populations – those who may not be as connected digitally – are both most at risk for this virus and most isolated, too.
   </p>
 
   <h2>That's where we come in.</h2>
 
   <p>
-    We're helping you to reach out and connect to those you care about. Through your request, we'll bring a musical performance to the curbside of their home, bringing joy to those who are isolated and helping them temporarily forget about the grave state of the world.
+		We’re here to help you safely reach out and connect with older friends or family members you care about. Through your request, we'll bring a musical performance to the curbside of their home in the Columbus area. It’s our experience that a little gesture from you combined with some great live music can really bring some joy... and help them temporarily forget about the grave state of the world.
   </p>
 
   <%= link "REQUEST A CONCERT", to: Routes.request_path(@conn, :new), role: "button", class: "button inverted" %>
@@ -53,6 +53,25 @@
       Mom, we know how hard it is to be alone but we wanted you to be safe. We hope this song brightens your day. We love you!"
     </p>
   </div>
+</div>
+
+<div class="card">
+	<h2>How curbside concerts work</h2>
+
+	<h3> Make a request</h3>
+	<p>
+		Pick an older nominee in the Columbus area and write a heartfelt message that will be read to them during the show
+	</p>
+
+	<h3>We book a local artist</h3>
+	<p>
+		We organize requests together in short 3-4 hour routes and book one of Columbus’s best for a mini curbside-to-curbside tour
+	</p>
+
+	<h3>They play for your love ones</h3>
+	<p>
+		Artists arrive ready to relay your kindness and good wishes with a personalized performance that can be enjoyed from the safety of their yard, porch or driveway
+	</p>
 </div>
 
 <div class="card">
