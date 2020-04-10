@@ -57,7 +57,10 @@ defmodule CurbsideConcertsWeb.RequestView do
       |> Enum.map(fn %Request{nominee_address: address} -> address end)
       |> Enum.join("/")
 
-    link("Map this route", to: "https://www.google.com/maps/dir/#{addresses}", target: "_blank")
+    link("Map this #{length(requests)} concert route",
+      to: "https://www.google.com/maps/dir/#{addresses}",
+      target: "_blank"
+    )
   end
 
   def first_name(%Session{musician: %Musician{name: name}}) do
