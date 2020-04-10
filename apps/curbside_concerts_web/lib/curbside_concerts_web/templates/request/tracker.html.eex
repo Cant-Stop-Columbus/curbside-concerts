@@ -1,4 +1,24 @@
 <div class="card">
+	<h1>Thanks for submitting your requests</h1>
+	<h2>What to expect next</h2>
+
+	<h3>Get an email once you’re booked</h3>
+	<p>
+		You will get an email with the details of your concert, including the date, timeframe, artist who will be playing, and summary of the request you provided once we book your request on a tour
+	</p>
+
+	<h3>Receive a text when your artist starts their tour</h3>
+	<p>
+		We’ll send you a text when the artist starts their tour
+	</p>
+
+	<h3>We will let you or your nominee know when they’re up next</h3>
+	<p>
+		Based on your contact preference, our driver will either call your nominee, call you, or text you to let you know your request is up next
+	</p>
+</div>
+
+<div class="card">
   Track your concert request progress here, <%= @request.requester_name %>.
 
   <br>

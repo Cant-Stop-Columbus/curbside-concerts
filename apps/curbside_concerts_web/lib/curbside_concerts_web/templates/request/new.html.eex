@@ -6,7 +6,10 @@
   </nav>
   <header class="request-form">
     <h1>Request a concert</h1>
-    <p><strong>Note</strong>: priority will be given to elderly and vulnerable populations.</p>
+		<h2>Fill out the form below to make your "musical request" for an older person who may be feeling isolated at this time.</h2>
+    <p>
+			<strong>Note</strong>: priority will be given to elderly and vulnerable populations. We currently aren’t able to fulfill requests that are outside the greater Columbus area. Please ensure that there’s a safe way for your nominees to enjoy the concert and for us to pull up our pick-up truck to play.
+		</p>
   </header>
 </div>
 
