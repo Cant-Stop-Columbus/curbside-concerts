@@ -5,6 +5,8 @@ defmodule CurbsideConcertsWeb.RequestController do
   alias CurbsideConcerts.Requests.Request
   alias CurbsideConcerts.Musicians
   alias CurbsideConcertsWeb.TrackerCypher
+  alias CurbsideConcertsWeb.EmailSender
+  alias CurbsideConcertsWeb.Helpers.HostPath
 
   def new(conn, _params) do
     genres = Musicians.all_genres()
@@ -19,9 +21,9 @@ defmodule CurbsideConcertsWeb.RequestController do
 
   def create(conn, %{"request" => request_params}) do
     case Requests.create_request(request_params) do
-      {:ok, %Request{id: request_id, nominee_name: nominee_name}} ->
+      {:ok, %Request{id: request_id, nominee_name: nominee_name} = request} ->
         tracker_id = TrackerCypher.encode(request_id)
-
+        EmailSender.send_request_confirmation(request, HostPath.tracker_url(tracker_id))
         conn
         |> put_flash(
           :info,

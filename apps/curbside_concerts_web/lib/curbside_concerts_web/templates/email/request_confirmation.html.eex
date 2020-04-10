@@ -1,0 +1,61 @@
+<div class="card">
+  <h1>Thank you <%= @request.requester_name %> for submitting your request</h1>
+  <p>You can track the progress of your request <%= link("here", to: @tracker_url) %></p>
+
+  <h3>Below is the summary of your request</h3>
+
+  <div>
+    <h4>Basic details</h4>
+    <ul>
+      <li>
+        <strong>Requester</strong>
+        <%= @request.requester_name %>
+      </li>
+  
+      <li>
+        <strong>Contact Preference</strong>
+        <%= @contact_preference %>
+      </li>
+  
+      <li>
+        <strong>Special Message</strong>
+        <%= @request.special_message%>
+      </li>
+    </ul>
+  </div>
+
+  <%= if !Enum.empty?(@request.genres) do %>
+  <div>
+    <h4>Requested Genres</h4>
+    <ul>
+      <%= for genre <- @request.genres do %>
+        <li><strong><%= genre.name %></strong></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+ 
+  <div>
+    <h4>Nominee Information</h4>
+    <ul>
+      <li>
+        <strong>Name</strong>
+        <%= @request.nominee_name %>
+      </li>
+
+      <%= if @request.nominee_phone do %>
+        <li>
+          <strong>Phone</strong>
+          <%= @request.nominee_phone %>
+        </li>
+      <% end %>
+  
+      <li>
+        <strong>Address:</strong>
+        <%= @request.nominee_address %>
+      </li>
+    </ul>
+  </div>
+</div>
+
