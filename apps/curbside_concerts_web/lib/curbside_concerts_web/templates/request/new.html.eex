@@ -1,8 +1,10 @@
 <%= form_for @changeset, Routes.request_path(@conn, :create), fn f -> %>
 <div class="card card-with-nav">
   <nav>
-    <%= link "HOME", to: Routes.landing_path(@conn, :index), class: "link" %>
-    <span class="link current">REQUEST</span>
+		<%# the comment tags remove the white space between nav elements, keeping spacing consistent between pages %>
+    <%= link "HOME", to: Routes.landing_path(@conn, :index), class: "link" %><!--
+    --><span class="link current">REQUEST</span><!--
+		--><%= link "TIPS", to: Routes.tips_path(@conn, :index), class: "link" %>
   </nav>
   <header class="request-form">
     <h1>Request a concert</h1>

@@ -69,15 +69,19 @@ nav {
 	margin-bottom: 10px;
 
 	.link {
+		border-bottom: 3px solid rgba(255, 255, 255, 0);
+		box-sizing: border-box;
 		color: $dark-blue;
+		display: inline-block;
 		font-size: 1.1em;
 		font-weight: 500;
 		line-height: 0.8em;
 		margin-left: 20px;
+		padding: 0 0 5px;
 		text-decoration: none;
 
 		&.current {
-			border-bottom: 3px solid $dark-blue;
+			border-color: $dark-blue;
 		}
 	}
 }
