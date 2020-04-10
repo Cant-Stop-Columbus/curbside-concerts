@@ -10,6 +10,14 @@ class RequestTrackerPage {
 			`Thank you for submitting a concert request for ${nomineeName}!`
 		);
 	}
+
+	assertCancelRequestLink() {
+		cy.get("a#cancel_request").should("contain.text", "Cancel Request");
+	}
+
+	clickCancelRequest() {
+		cy.get("a#cancel_request").click();
+	}
 }
 
 export default new RequestTrackerPage();

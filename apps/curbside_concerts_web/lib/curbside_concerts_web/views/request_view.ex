@@ -32,6 +32,19 @@ defmodule CurbsideConcertsWeb.RequestView do
     end
   end
 
+  def cancellable_state(%Request{state: state}) do
+    case state do
+      @pending_state -> true
+      @accepted_state -> true
+      @enroute_state -> false
+      @arrived_state -> false
+      @completed_state -> false
+      @canceled_state -> false
+      @archived_state -> false
+      _ -> true
+    end
+  end
+
   def pending_message, do: "Received"
   def accepted_message, do: "Accepted"
   def enroute_message, do: "On the way"
