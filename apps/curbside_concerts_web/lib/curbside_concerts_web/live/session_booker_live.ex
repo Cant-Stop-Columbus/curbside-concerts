@@ -242,6 +242,7 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
          draggable="true">
       <div class="card">
         <b>email:</b> <%= request.requester_email %><br>
+        <b>genres:</b> <%= Enum.map(request.genres, fn g -> g.name end) |> Enum.join(", ") %><br>
         <b>Address:</b> <%= nominee_address %><br>
         <b>Special Message:</b> <%= special_message %><br>
         <b>state:</b> <%= request.state %><br>
