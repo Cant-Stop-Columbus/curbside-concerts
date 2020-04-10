@@ -12,10 +12,6 @@ const sessionData = {
 	description: faker.lorem.paragraph(),
 };
 
-const updatedSessionData = {
-	name: faker.lorem.sentence(),
-};
-
 describe("Session CRUD", () => {
 	it("should not be available to unauthenticated users.", () => {
 		sessionIndexPage.visit();
@@ -44,17 +40,42 @@ describe("Session CRUD", () => {
 		cy.login();
 
 		sessionIndexPage.visit();
-		sessionIndexPage.clickEditLink(sessionData.name);
+		sessionIndexPage.clickEditSessionLink(sessionData.name);
 
 		sessionEditPage.assert();
 
-		sessionEditPage.fillInNameField(updatedSessionData.name);
+		// update sessionData.name
+		sessionData.name = faker.lorem.sentence();
+		sessionEditPage.fillInNameField(sessionData.name);
 		sessionEditPage.clickSubmit();
 
-		sessionShowPage.assert(updatedSessionData.name);
+		sessionShowPage.assert(sessionData.name);
 		sessionShowPage.assertUpdateSuccessAlert();
 		sessionShowPage.clickBackLink();
 
-		sessionIndexPage.assert();
+		sessionIndexPage.assertActiveSessionView();
+		sessionIndexPage.assertSession(sessionData.name);
+	});
+
+	it("should be able to archive a session", () => {
+		cy.login();
+
+		sessionIndexPage.visit();
+		sessionIndexPage.assertActiveSessionView();
+
+		sessionIndexPage.assertArchiveConfirmationPopUp();
+		sessionIndexPage.assertSession(sessionData.name);
+		sessionIndexPage.clickArchiveSessionLink(sessionData.name);
+
+		sessionIndexPage.assertArchiveSuccessAlert();
+		sessionIndexPage.refuteSession(sessionData.name);
+
+		sessionIndexPage.clickArchiveViewLink();
+		sessionIndexPage.assertArchivedSessionView();
+		sessionIndexPage.assertSession(sessionData.name);
+
+		sessionIndexPage.clickActiveViewLink();
+		sessionIndexPage.assertActiveSessionView();
+		sessionIndexPage.refuteSession(sessionData.name);
 	});
 });

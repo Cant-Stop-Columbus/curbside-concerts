@@ -7,7 +7,7 @@ defmodule CurbsideConcertsWeb.LandingController do
   alias CurbsideConcerts.Musicians
 
   def index(conn, _params) do
-    sessions = Musicians.all_sessions()
+    sessions = Musicians.all_active_sessions()
 
     render(conn, "index.html", sessions: sessions)
   end

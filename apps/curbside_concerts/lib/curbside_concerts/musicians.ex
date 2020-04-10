@@ -10,7 +10,7 @@ defmodule CurbsideConcerts.Musicians do
 
   using_repo(Repo) do
     resource(Musician, only: [:all, :change])
-    resource(Session, only: [:change, :create, :update])
+    resource(Session, only: [:change, :create, :get, :update])
     resource(Genre, only: [:all, :change, :create, :get, :update])
   end
 
@@ -38,10 +38,22 @@ defmodule CurbsideConcerts.Musicians do
   end
 
   ### Sessions
-  def all_sessions do
-    Session
+  def all_sessions(queryable) do
+    queryable
     |> preload([:musician])
     |> Repo.all()
+  end
+
+  def all_active_sessions do
+    Session
+    |> where([s], s.archived == false)
+    |> all_sessions()
+  end
+
+  def all_archived_sessions do
+    Session
+    |> where([s], s.archived == true)
+    |> all_sessions()
   end
 
   def all_upcoming_sessions do
@@ -57,6 +69,12 @@ defmodule CurbsideConcerts.Musicians do
     |> where([s], s.id == ^session_id)
     |> preload([:musician, :requests])
     |> Repo.one()
+  end
+
+  def archive_session(session) do
+    update_session(session, %{
+      archived: true
+    })
   end
 
   ### Genres

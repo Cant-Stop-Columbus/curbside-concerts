@@ -4,10 +4,16 @@ defmodule CurbsideConcertsWeb.SessionController do
   alias CurbsideConcerts.Musicians
   alias CurbsideConcerts.Musicians.Session
 
-  def index(conn, _) do
+  def index(conn, %{"archived" => "true"}) do
     conn
-    |> assign(:sessions, Musicians.all_sessions())
-    |> render("index.html")
+    |> assign(:sessions, Musicians.all_archived_sessions())
+    |> render("index.html", show_archived: true)
+  end
+
+  def index(conn, _params) do
+    conn
+    |> assign(:sessions, Musicians.all_active_sessions())
+    |> render("index.html", show_archived: false)
   end
 
   def new(conn, _params) do
@@ -73,5 +79,14 @@ defmodule CurbsideConcertsWeb.SessionController do
         )
         |> render("new.html")
     end
+  end
+
+  def archive(conn, %{"id" => id}) do
+    session = Musicians.get_session(id)
+    {:ok, _session} = Musicians.archive_session(session)
+
+    conn
+    |> put_flash(:info, "Session archived successfully.")
+    |> redirect(to: Routes.session_path(conn, :index))
   end
 end

@@ -1,27 +1,36 @@
 <div class="card">
-  <h1>Sessions</h1>
-  <%= link "Back to Admin", to: Routes.admin_path(@conn, :index) %>
-  | <%= link "Create a new session", to: Routes.session_path(@conn, :new) %>
-</div>
+  <h1><%= if @show_archived, do: "Archived" %> Sessions</h1>
+    <%= link "Back to Admin", to: Routes.admin_path(@conn, :index) %>
+    | <%= link "Create a new session", to: Routes.session_path(@conn, :new) %>
+    <%= if @show_archived do %>
+      | <%= link "Show active sessions", to: Routes.session_path(@conn, :index) %>
+    <% else %>
+      | <%= link "Show archived sessions", to: Routes.session_path(@conn, :index, %{"archived" => "true"}) %>
+    <% end %>
+  </div>
 
-<%= for %Session{
+  <%= for %Session{
   name: name,
   musician: musician,
-  description: description
+  description: description,
+	archived: archived
 } = session <- @sessions do %>
-  <div class="card">
-    <div>Name: <%= name %></div>
-    <%= if musician do %>
-      <div>Musician: <%= musician.name %></div>
-    <% end %>
-    <div>
-      <strong>Description:</strong>
-      <%= description %>
+    <div class="card">
+      <div>Name: <%= name %></div>
+      <%= if musician do %>
+        <div>Musician: <%= musician.name %></div>
+      <% end %>
+      <div>
+        <strong>Description:</strong>
+        <%= description %>
+      </div>
+      <div>
+        <%= link "View", to: Routes.session_path(CurbsideConcertsWeb.Endpoint, :show, session) %>
+        | <%= link "Edit", to: Routes.session_path(CurbsideConcertsWeb.Endpoint, :edit, session) %>
+        | <%= link "Book Requests", to: Routes.session_booker_path(CurbsideConcertsWeb.Endpoint, CurbsideConcertsWeb.SessionBookerLive, session) %>
+        <%= if !archived do %>
+          | <%= link "Archive This Session", to: Routes.session_path(@conn, :archive, session), method: :put, data: [confirm: "Are you sure?"] %>
+        <% end %>
+      </div>
     </div>
-    <div>
-      <%= link "View", to: Routes.session_path(CurbsideConcertsWeb.Endpoint, :show, session) %>
-      | <%= link "Edit", to: Routes.session_path(CurbsideConcertsWeb.Endpoint, :edit, session) %>
-      | <%= link "Book Requests", to: Routes.session_booker_path(CurbsideConcertsWeb.Endpoint, CurbsideConcertsWeb.SessionBookerLive, session) %>
-    </div>
-  </div>
-<% end %>
+  <% end %>

@@ -10,7 +10,7 @@ defmodule CurbsideConcerts.Musicians.Session do
   alias CurbsideConcerts.Musicians.Musician
   alias CurbsideConcerts.Requests.Request
 
-  @allowed_attrs ~w|name musician_id description start_time end_time|a
+  @allowed_attrs ~w|name musician_id description start_time end_time archived|a
   @required_attrs ~w|name|a
 
   schema "sessions" do
@@ -18,6 +18,7 @@ defmodule CurbsideConcerts.Musicians.Session do
     field(:description, :string)
     field(:start_time, :utc_datetime)
     field(:end_time, :utc_datetime)
+    field(:archived, :boolean)
 
     belongs_to :musician, Musician
 

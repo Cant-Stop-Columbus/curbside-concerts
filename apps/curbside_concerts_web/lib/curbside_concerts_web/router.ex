@@ -39,7 +39,10 @@ defmodule CurbsideConcertsWeb.Router do
     post "/musician_builder/new", MusicianController, :create
     get "/musician_builder", MusicianController, :index
 
-    resources "/session", SessionController, only: [:index, :create, :edit, :new, :update, :show]
+    resources "/session", SessionController, only: [:create, :edit, :index, :new, :update, :show]
+    get "/session/archived", SessionController, :index_archived
+    put "/session/:id/archive", SessionController, :archive
+
     resources "/genre", GenreController, only: [:index, :create, :edit, :new, :update, :show]
 
     live "/session_booker/:session_id", SessionBookerLive, as: :session_booker
