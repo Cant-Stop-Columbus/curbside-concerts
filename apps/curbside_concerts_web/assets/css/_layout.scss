@@ -29,15 +29,20 @@ a.button {
 	font-size: 0.9em;
 	padding: 12px 20px;
 	text-decoration: none;
+	transition: background-color 200ms linear;
 
 	&.inverted {
 		background-color: $light-purple;
 		border-color: $dark-blue;
 		color: $dark-blue;
+
+		&:hover {
+			background-color: $light-purple-darker;
+		}
 	}
 
 	&:hover {
-		background-color: $dark-blue-lighter;
+		background-color: $dark-blue-darker;
 	}
 }
 
