@@ -37,6 +37,7 @@ defmodule CurbsideConcertsWeb.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:bamboo, "~> 1.4"},
       {:curbside_concerts, in_umbrella: true},
       {:floki, "~> 0.26.0", only: :test},
       {:gettext, "~> 0.11"},

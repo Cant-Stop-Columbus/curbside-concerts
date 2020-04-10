@@ -50,6 +50,10 @@ defmodule CurbsideConcertsWeb.Router do
     delete("/sign-out", AccountSessionController, :delete)
   end
 
+  if Mix.env == :dev do
+    forward "/sent_emails", Bamboo.SentEmailViewerPlug
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", CurbsideConcertsWeb do
   #   pipe_through :api
