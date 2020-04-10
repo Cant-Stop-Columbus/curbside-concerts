@@ -227,19 +227,29 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
     """
   end
 
-  defp render_request_card(assigns, %Request{
-         id: request_id,
-         nominee_address: nominee_address,
-         special_message: special_message
-       }) do
+  defp render_request_card(
+         assigns,
+         %Request{
+           id: request_id,
+           nominee_address: nominee_address,
+           special_message: special_message
+         } = request
+       ) do
     ~L"""
     <div phx-hook="RequestBookerCard"
          phx-value-request-id="<%= request_id %>"
          class="draggable-card"
          draggable="true">
       <div class="card">
+        <b>email:</b> <%= request.requester_email %><br>
         <b>Address:</b> <%= nominee_address %><br>
         <b>Special Message:</b> <%= special_message %><br>
+        <b>state:</b> <%= request.state %><br>
+        <b>contact_preference:</b> <%= request.contact_preference %><br>
+        <b>nominee_name:</b> <%= request.nominee_name %><br>
+        <b>nominee_phone:</b> <%= request.nominee_phone %><br>
+        <b>requester_name:</b> <%= request.requester_name %><br>
+        <b>requester_phone:</b> <%= request.requester_phone %><br>
       </div>
     </div>
     """
