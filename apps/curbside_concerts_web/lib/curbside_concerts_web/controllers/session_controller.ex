@@ -75,9 +75,9 @@ defmodule CurbsideConcertsWeb.SessionController do
         |> assign(:musicians, Musicians.all_musicians())
         |> put_flash(
           :error,
-          "Oops! Looks like a field is missing - please check below and try again"
+          "Error submitting session. Please check below and try again."
         )
-        |> render("new.html")
+        |> render("edit.html")
     end
   end
 

@@ -1,4 +1,4 @@
-defmodule CurbsideConcertsWeb.SessionControllerTest do
+defmodule CurbsideConcertsWeb.AccountSessionControllerTest do
   use CurbsideConcertsWeb.ConnCase
 
   alias CurbsideConcerts.Accounts.User

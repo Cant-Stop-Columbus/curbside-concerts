@@ -1,6 +1,9 @@
 <%= form_for @changeset, @action, fn f -> %>
 <%= hidden_input f, :id %>
-<%= unless f.errors == [], do: inspect(f.errors) %>
+
+<p>
+  <%= unless f.errors == [], do: inspect(f.errors) %>
+  </p>
 
   <label>Name: <%= text_input f, :name %></label>
   <label>Description: <%= textarea f, :description %></label>
