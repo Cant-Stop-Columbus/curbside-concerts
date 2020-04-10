@@ -22,6 +22,7 @@ defmodule CurbsideConcertsWeb.Router do
     pipe_through :browser
 
     get "/", LandingController, :index
+    get "/tips", TipsController, :index
     get "/tracker/:tracker_id", RequestController, :tracker
     get "/request", RequestController, :new
     post "/request", RequestController, :create
@@ -53,7 +54,7 @@ defmodule CurbsideConcertsWeb.Router do
     delete("/sign-out", AccountSessionController, :delete)
   end
 
-  if Mix.env == :dev do
+  if Mix.env() == :dev do
     forward "/sent_emails", Bamboo.SentEmailViewerPlug
   end
 
