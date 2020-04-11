@@ -4,6 +4,7 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
   """
   use CurbsideConcertsWeb, :live_view
 
+  alias CurbsideConcerts.LexoRanker
   alias CurbsideConcerts.Musicians
   alias CurbsideConcerts.Musicians.Session
   alias CurbsideConcerts.Requests
@@ -23,6 +24,7 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
       |> assign(:unbooked_requests, unbooked_requests)
       |> assign(:session_requests, session.requests)
       |> assign(:session, session)
+      |> assign(:saved, false)
 
     {:ok, socket}
   end
@@ -38,19 +40,30 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
           }
         } = socket
       ) do
-    Enum.each(unbooked_requests, fn request ->
-      IO.inspect("unbooked #{request.id}")
-      Requests.update_request(request, %{session_id: nil, session: nil})
+    Enum.reduce(unbooked_requests, nil, fn request, last_rank ->
+      last_rank = LexoRanker.calculate(last_rank, nil)
+      Requests.update_request(request, %{rank: last_rank, session_id: nil, session: nil})
+      last_rank
     end)
 
-    Enum.each(session_requests, fn request ->
-      IO.inspect("booked #{request.id} to session #{session_id}")
-      Requests.update_request(request, %{session_id: session_id})
+    Enum.reduce(session_requests, nil, fn request, last_rank ->
+      last_rank = LexoRanker.calculate(last_rank, nil)
+      Requests.update_request(request, %{rank: last_rank, session_id: session_id})
+      last_rank
     end)
 
     # TODO change status of the session_requests
 
-    {:noreply, socket}
+    unbooked_requests = Requests.all_unbooked_requests()
+    session = Musicians.find_session(session_id)
+
+    {:noreply,
+     assign(socket,
+       saved: true,
+       unbooked_requests: unbooked_requests,
+       session_requests: session.requests,
+       session: session
+     )}
   end
 
   def handle_event(
@@ -60,38 +73,28 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
           "over_request_id" => over_request_id,
           "from_session_id" => from_session_id,
           "to_session_id" => to_session_id
-        } = params,
+        },
         %{assigns: %{unbooked_requests: unbooked_requests, session_requests: session_requests}} =
           socket
       ) do
-    IO.inspect(params, label: "params for booked event")
-    IO.inspect({request_id, over_request_id, from_session_id, to_session_id})
-
     booked? = !is_nil(to_session_id)
     internal_move? = from_session_id == to_session_id
-    IO.inspect(booked?, label: "booked?")
 
     {unbooked_requests, session_requests} =
       if booked? do
         if internal_move? do
-          IO.inspect("internal move within session #{from_session_id}")
           session_requests = internal_move_request(request_id, over_request_id, session_requests)
           {unbooked_requests, session_requests}
         else
-          IO.inspect("move from unbooked to session #{to_session_id}")
           move_request(request_id, over_request_id, unbooked_requests, session_requests)
         end
       else
         if internal_move? do
-          IO.inspect("internal unbooked move")
-
           unbooked_requests =
             internal_move_request(request_id, over_request_id, unbooked_requests)
 
           {unbooked_requests, session_requests}
         else
-          IO.inspect("move from session #{to_session_id} to unbooked")
-
           {session_requests, unbooked_requests} =
             move_request(request_id, over_request_id, session_requests, unbooked_requests)
 
@@ -109,17 +112,17 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
     #   }
     # )
 
-    # IO.inspect(unbooked_requests, label: "unbooked_requests")
-    # IO.inspect(session_requests, label: "session_requests")
-
     {:noreply,
-     assign(socket, unbooked_requests: unbooked_requests, session_requests: session_requests)}
+     assign(socket,
+       unbooked_requests: unbooked_requests,
+       session_requests: session_requests,
+       saved: false
+     )}
   end
 
   defp internal_move_request(request_id, over_request_id, list) do
     request =
       Enum.find(list, fn %Request{id: id} ->
-        IO.inspect({id, request_id}, label: "{id, request_id}")
         "#{request_id}" == "#{id}"
       end)
 
@@ -192,6 +195,9 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
     <div class="booker">
       <div class="card">
         Drag and drop requests. <button phx-click="session_booked_up">Click here</button> when you are done.
+        <%= if @saved do %>
+          <br><br>SAVED!
+        <% end %>
       </div>
       <div class="columns">
         <div class="column">
