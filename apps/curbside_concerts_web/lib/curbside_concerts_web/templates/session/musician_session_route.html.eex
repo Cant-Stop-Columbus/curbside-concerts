@@ -1,0 +1,50 @@
+<h2><%= if @session.musician, do: @session.musician.name, else: "Musician" %>'s page for <%= @session.name %></h2>
+<%= RequestView.map_route_link(@session.requests) %>
+
+<%= for %Request{
+  nominee_address: nominee_address,
+  nominee_name: nominee_name,
+  requester_name: requester_name,
+  special_message: special_message,
+  genres: genres
+} <- @session.requests do %>
+  <div class="card">
+    <div>
+      <b>Arriving at:</b> <%= nominee_address %>
+    </div>
+
+    <br>
+
+    <div>
+      <b>Preferred Genres:</b>
+      <%= if genres != [] do %>
+        <ul>
+          <%= for %Genre{name: name} <- genres do %>
+            <li><%= name %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        No genres specified
+      <% end %>
+    </div>
+
+    <br>
+
+    <div style="display: flex">
+      <div style="margin-right: 16px">
+        <b>To:</b><br>
+        <%= nominee_name %>
+      </div>
+      <div>
+        <b>From:</b><br>
+        <%= requester_name %>
+      </div>
+    </div>
+
+    <br>
+
+    <div><b>Special Message:</b><br>
+      <%= special_message %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,53 @@
+<h2>Driver for <%= @session.name %></h2>
+<%= RequestView.map_route_link(@session.requests) %>
+
+<%= for %Request{
+  nominee_name: nominee_name,
+  nominee_address: nominee_address,
+  nominee_phone: nominee_phone,
+  requester_name: requester_name,
+  requester_phone: requester_phone,
+  requester_email: requester_email,
+  special_message: special_message,
+  genres: genres
+} = request <- @session.requests do %>
+  <div class="card">
+    <div><b>Contact Preference:</b> <%= CurbsideConcertsWeb.RequestView.contact_preference(request) %></div>
+
+    <br>
+
+    <div>
+      <b>Map to <%= nominee_name %>'s house:</b>
+      <a href="http://maps.google.com/?q=<%= URI.encode(nominee_address) %>"><%= nominee_address %></a>
+    </div>
+
+    <br>
+
+    <div style="display: flex">
+      <div style="margin-right: 16px">
+        <b>To:</b><br>
+        <%= nominee_name %><br>
+        <%= nominee_phone %>
+      </div>
+      <div>
+        <b>From:</b><br>
+        <%= requester_name %><br>
+        <%= requester_phone %><br>
+        <%= requester_email %>
+      </div>
+    </div>
+    <div>
+      <div>
+        <b>Preferred Genres:</b>
+        <ul>
+          <%= for %Genre{name: name} <- genres do %>
+            <li><%= name %></li>
+          <% end %>
+        </ul>
+      </div>
+      <div><b>Special Message:</b><br>
+        <%= special_message %>
+      </div>
+    </div>
+  </div>
+<% end %>
