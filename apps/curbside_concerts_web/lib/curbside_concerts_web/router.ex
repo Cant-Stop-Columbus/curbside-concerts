@@ -54,6 +54,7 @@ defmodule CurbsideConcertsWeb.Router do
 
     live "/session_booker/:session_id", SessionBookerLive, as: :session_booker
 
+    get "/last_minute_gigs", RequestController, :last_minute_gigs
     get "/gigs", RequestController, :index
     get "/gigs/:musician", RequestController, :index
 

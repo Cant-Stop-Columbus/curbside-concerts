@@ -123,6 +123,14 @@ defmodule CurbsideConcerts.Requests do
     |> Repo.all()
   end
 
+  def last_minute_requests do
+    Request
+    |> where([r], is_nil(r.session_id))
+    |> preload([:genres])
+    |> order_by({:desc, :inserted_at})
+    |> Repo.all()
+  end
+
   def all_unbooked_requests do
     Request
     |> where([r], is_nil(r.session_id))

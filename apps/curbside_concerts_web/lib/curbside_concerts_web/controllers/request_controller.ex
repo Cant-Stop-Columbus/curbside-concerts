@@ -58,6 +58,12 @@ defmodule CurbsideConcertsWeb.RequestController do
     |> render("index.html")
   end
 
+  def last_minute_gigs(conn, _) do
+    conn
+    |> assign(:requests, Requests.last_minute_requests())
+    |> render("index.html")
+  end
+
   def tracker(conn, %{"tracker_id" => tracker_id}) do
     request_id = TrackerCypher.decode(tracker_id)
     request = Requests.find_request(request_id)
@@ -75,6 +81,7 @@ defmodule CurbsideConcertsWeb.RequestController do
 
     if request != nil do
       Requests.cancel_request(request)
+
       conn
       |> put_flash(:info, "The concert request for #{request.nominee_name} has been cancelled.")
       |> redirect(to: Routes.request_path(conn, :new))
