@@ -65,13 +65,15 @@ defmodule CurbsideConcertsWeb.RequestView do
   end
 
   def map_route_link(requests) do
+    truck_location = "491 W Broad St., Columbus, OH 43215"
+
     addresses =
       requests
       |> Enum.map(fn %Request{nominee_address: address} -> address end)
       |> Enum.join("/")
 
     link("Map this #{length(requests)} concert route",
-      to: "https://www.google.com/maps/dir/#{addresses}",
+      to: "https://www.google.com/maps/dir/#{truck_location}/#{addresses}/#{truck_location}",
       target: "_blank"
     )
   end
