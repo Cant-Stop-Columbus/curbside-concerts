@@ -1,7 +1,4 @@
 <html>
-  <head>
-    <link rel="stylesheet" href="<%= Routes.static_path(CurbsideConcertsWeb.Endpoint, "/css/app.css") %>"/>
-  </head>
   <body>
     <%= render @view_module, @view_template, assigns %>
   </body>

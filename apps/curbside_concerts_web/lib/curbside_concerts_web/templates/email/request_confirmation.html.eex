@@ -1,6 +1,6 @@
-<div class="card">
-  <h1>Thank you <%= @request.requester_name %> for submitting your request</h1>
-  <p>You can track the progress of your request <%= link("here", to: @tracker_url) %></p>
+<div>
+  <h1>Thank you <%= @request.requester_name %> for submitting your request!</h1>
+  <p>You can track the progress of your request <%= link("here", to: @tracker_url) %>.</p>
 
   <h3>Below is the summary of your request</h3>
 
