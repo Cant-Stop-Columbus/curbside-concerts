@@ -16,3 +16,7 @@ config :curbside_concerts_web, CurbsideConcertsWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+config :curbside_concerts_web, CurbsideConcertsWeb.Mailer,
+  adapter: Bamboo.TestAdapter
+  
