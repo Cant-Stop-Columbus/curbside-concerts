@@ -8,7 +8,9 @@
   <%= hidden_input f, :id %>
   <%= unless f.errors == [], do: inspect(f.errors) %>
 
-    <label class="field">Nominee Address: <%= text_input f, :nominee_address %></label>
+    <label class="field">Nominee Street Address: <%= text_input f, :nominee_street_address %></label>
+    <label class="field">Nominee Street Address: <%= text_input f, :nominee_city %></label>
+    <label class="field">Nominee Street Address: <%= text_input f, :nominee_zip_code %></label>
 
     <button type="submit">SUBMIT</button>
   <% end %>

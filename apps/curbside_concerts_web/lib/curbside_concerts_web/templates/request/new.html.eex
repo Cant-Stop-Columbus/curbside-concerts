@@ -34,9 +34,26 @@
 </div>
 
 <div class="card">
+  <div>Please provide an address for where we should play the song for your loved one</div>
   <label>
-    <div>Please provide an address for where we should play the song for your loved one: <%= required_star() %></div>
-    <%= request_input f, :nominee_address %>
+    <div>Address<%= required_star() %></div>
+    <%= request_input f, :nominee_street_address %>
+  </label>
+  <div id="address_container">  
+    <label>
+      <div>City  <%= required_star() %></div>
+      <%= request_input f, :nominee_city %>
+    </label>
+    <label>
+      <div>Zip Code  <%= required_star() %></div>
+      <%= request_input f, :nominee_zip_code %>
+    </label>
+  </div>
+  <label>
+    <div>
+      Any special instructions needed to get to this address? 
+    </div>
+    <%= request_input f, :nominee_address_notes %>
   </label>
 </div>
 

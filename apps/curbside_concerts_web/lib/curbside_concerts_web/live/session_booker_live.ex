@@ -10,6 +10,7 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
   alias CurbsideConcerts.Requests
   alias CurbsideConcerts.Requests.Request
   alias CurbsideConcertsWeb.RequestView
+  alias CurbsideConcertsWeb.Helpers.RequestAddress
 
   def mount(%{"session_id" => session_id} = _params, _session, socket) do
     unbooked_requests = Requests.all_unbooked_requests()
@@ -232,7 +233,6 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
          assigns,
          %Request{
            id: request_id,
-           nominee_address: nominee_address,
            special_message: special_message
          } = request
        ) do
@@ -244,7 +244,7 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
       <div class="card">
         <b>email:</b> <%= request.requester_email %><br>
         <b>genres:</b> <%= Enum.map(request.genres, fn g -> g.name end) |> Enum.join(", ") %><br>
-        <b>Address:</b> <%= nominee_address %><br>
+        <b>Address:</b> <%= RequestAddress.full_address(request) %><br>
         <b>Special Message:</b> <%= special_message %><br>
         <b>state:</b> <%= request.state %><br>
         <b>contact_preference:</b> <%= request.contact_preference %><br>

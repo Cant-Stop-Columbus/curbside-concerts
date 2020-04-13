@@ -5,7 +5,7 @@
   requester_phone: requester_phone,
   nominee_name: nominee_name,
   nominee_phone: nominee_phone,
-  nominee_address: nominee_address,
+  nominee_address_notes: nominee_address_notes,
   genres: genres,
 	inserted_at: inserted_at,
   special_message: special_message
@@ -22,8 +22,15 @@
 
   <div>
     <b>Map to <%= nominee_name %>'s house:</b>
-    <a href="http://maps.google.com/?q=<%= URI.encode(nominee_address) %>"><%= nominee_address %></a>
+    <a href="http://maps.google.com/?q=<%= URI.encode(RequestAddress.full_address(@request)) %>"><%= RequestAddress.full_address(@request) %></a>
   </div>
+
+  <%= if nominee_address_notes do %>
+    <div> 
+      <b>Address Instructions:</b><br>
+      <%= raw nominee_address_notes %>
+    </div>
+  <% end %>
 
   <br>
 

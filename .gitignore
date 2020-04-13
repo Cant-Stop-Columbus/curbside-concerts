@@ -38,3 +38,6 @@ e2e/cypress/videos
 
 # VSCode keeps generating these, need to investigate.
 *.tmp
+
+# Local VSCode configurations
+.vscode/

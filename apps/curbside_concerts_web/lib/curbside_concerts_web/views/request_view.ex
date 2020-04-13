@@ -6,6 +6,7 @@ defmodule CurbsideConcertsWeb.RequestView do
   alias CurbsideConcerts.Musicians.Genre
   alias CurbsideConcerts.Musicians.Musician
   alias CurbsideConcerts.Musicians.Session
+  alias CurbsideConcertsWeb.Helpers.RequestAddress
 
   def required_star do
     ~E|<span class="required">*</span>|
@@ -116,7 +117,7 @@ defmodule CurbsideConcertsWeb.RequestView do
     """
   end
 
-  def request_input(form, field) when field in ~w|special_message|a do
+  def request_input(form, field) when field in ~w|special_message nominee_address_notes|a do
     class = class(form, field)
 
     ~E"""
