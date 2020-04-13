@@ -1,14 +1,17 @@
 <% %Request{
   requester_name: requester_name,
+	requester_email: requester_email,
   requester_phone: requester_phone,
   nominee_name: nominee_name,
   nominee_phone: nominee_phone,
   nominee_address: nominee_address,
   genres: genres,
+	inserted_at: inserted_at,
   special_message: special_message
 } = @request %>
 <div class="card">
   <div><b>Status:</b> <%= display_state(@request) %></div>
+  <div><b>Date of Request:</b> <%= inserted_at %></div>
 
   <br>
 
@@ -26,13 +29,14 @@
   <div style="display: flex">
     <div style="margin-right: 16px">
       <b>To:</b><br>
-      <span><%= nominee_name %><br>
+        <%= nominee_name %><br>
         <%= nominee_phone %>
       </div>
       <div>
         <b>From:</b><br>
         <%= requester_name %><br>
-        <%= requester_phone %>
+        <%= requester_phone %><br>
+        <%= requester_email %>
       </div>
     </div>
     <br>

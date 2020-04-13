@@ -5,6 +5,7 @@ defmodule CurbsideConcerts.Musicians do
   alias CurbsideConcerts.Musicians.Genre
   alias CurbsideConcerts.Musicians.Musician
   alias CurbsideConcerts.Musicians.Session
+  alias CurbsideConcerts.Requests.Request
 
   use EctoResource
 
@@ -65,9 +66,11 @@ defmodule CurbsideConcerts.Musicians do
   end
 
   def find_session(session_id) do
+    requests_query = from(r in Request, order_by: r.rank, preload: [:genres])
+
     Session
     |> where([s], s.id == ^session_id)
-    |> preload([:musician, :requests])
+    |> preload([:musician, requests: ^requests_query])
     |> Repo.one()
   end
 

@@ -92,4 +92,27 @@ defmodule CurbsideConcertsWeb.RequestControllerTest do
                "Oops! Looks like a field is missing - please check below and try again"
     end
   end
+
+  describe "cancel_request/2" do
+    test "redirects to new with failure message when request is not found", %{conn: conn} do
+      tracker_id = "invalid-tracker"
+
+      conn = put(conn, Routes.request_path(conn, :cancel_request, tracker_id))
+      redir_path = redirected_to(conn)
+      assert Routes.request_path(conn, :new) == redir_path
+
+      html =
+        recycle(conn)
+        |> get(redir_path)
+        |> html_response(200)
+        |> Floki.parse_document!()
+
+      failure_message =
+        html
+        |> Floki.find(".alert-danger")
+        |> Floki.text()
+
+      assert failure_message == "The concert request was not found."
+    end
+  end
 end

@@ -60,3 +60,30 @@ describe("Submit a request for a concert.", () => {
 		);
 	});
 });
+
+describe("Cancel a concert request", () => {
+	it("should cancel an existing request", () => {
+		requestFormPage.visit();
+
+		requestFormPage.fillInNomineeName(requestData.nomineeName);
+		requestFormPage.clickContactPreferenceOption(requestData.contactPreference);
+		requestFormPage.fillInNomineePhone(requestData.nomineePhone);
+		requestFormPage.fillInNomineeAddress(requestData.nomineeAddress);
+		requestData.genres.forEach((genre) => {
+			requestFormPage.clickGenreCheckbox(genre);
+		});
+		requestFormPage.fillInSpecialMessage(requestData.specialMessage);
+		requestFormPage.fillInRequesterName(requestData.requesterName);
+		requestFormPage.fillInRequesterEmail(requestData.requesterEmail);
+		requestFormPage.fillInRequesterPhone(requestData.requesterPhone);
+
+		requestFormPage.clickSubmit();
+
+		requestTrackerPage.assertCancelRequestLink();
+
+		requestTrackerPage.clickCancelRequest();
+		requestFormPage.assert();
+
+		requestFormPage.assertCancelRequestSuccessAlert(requestData.nomineeName);
+	});
+});

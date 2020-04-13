@@ -119,6 +119,15 @@ defmodule CurbsideConcerts.Requests do
   def all do
     Request
     |> preload([:session, :genres])
+    |> order_by(:rank)
+    |> Repo.all()
+  end
+
+  def last_minute_requests do
+    Request
+    |> where([r], is_nil(r.session_id))
+    |> preload([:genres])
+    |> order_by({:desc, :inserted_at})
     |> Repo.all()
   end
 
@@ -126,6 +135,7 @@ defmodule CurbsideConcerts.Requests do
     Request
     |> where([r], is_nil(r.session_id))
     |> preload([:genres])
+    |> order_by(:rank)
     |> Repo.all()
   end
 
@@ -141,6 +151,7 @@ defmodule CurbsideConcerts.Requests do
         where: musician.gigs_id == ^gigs_id
       )
       |> preload([:session, :genres])
+      |> order_by(:rank)
 
     Repo.all(query)
   end

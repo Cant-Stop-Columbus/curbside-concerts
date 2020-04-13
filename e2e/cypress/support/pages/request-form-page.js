@@ -1,3 +1,5 @@
+import layout from "./layout";
+
 const heading = () => cy.get("h1");
 const nomineeNameField = () => cy.get('input[name="request[nominee_name]"]');
 const nomineeContactPreferenceRadio = () =>
@@ -22,7 +24,7 @@ const submitButton = () => cy.contains("SUBMIT");
 
 class RequestFormPage {
 	visit() {
-		cy.visit("/");
+		cy.visit("/request");
 	}
 
 	assert() {
@@ -71,6 +73,12 @@ class RequestFormPage {
 
 	clickSubmit() {
 		submitButton().click();
+	}
+
+	assertCancelRequestSuccessAlert(nomineeName) {
+		layout.assertInfoAlert(
+			`The concert request for ${nomineeName} has been cancelled.`
+		);
 	}
 }
 

@@ -26,5 +26,10 @@
   <%= if @request do %>
     <% current_status = display_state(@request) %>
     Current Status: <%= current_status %>
+
+    <br>
+    <%= if cancellable_state(@request) do %>
+      <%= link("Cancel Request", to: "#{Routes.request_path(@conn, :cancel_request, @tracker_id)}", method: :put, id: "cancel_request") %>
+    <% end %>
   <% end %>
 </div>

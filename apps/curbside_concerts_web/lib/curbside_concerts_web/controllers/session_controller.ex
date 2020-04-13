@@ -3,6 +3,7 @@ defmodule CurbsideConcertsWeb.SessionController do
 
   alias CurbsideConcerts.Musicians
   alias CurbsideConcerts.Musicians.Session
+  alias CurbsideConcertsWeb.TrackerCypher
 
   def index(conn, %{"archived" => "true"}) do
     conn
@@ -88,5 +89,23 @@ defmodule CurbsideConcertsWeb.SessionController do
     conn
     |> put_flash(:info, "Session archived successfully.")
     |> redirect(to: Routes.session_path(conn, :index))
+  end
+
+  def session_route_driver(conn, %{"driver_id" => driver_id}) do
+    driver_id = TrackerCypher.decode(driver_id)
+    session = Musicians.find_session(driver_id)
+
+    conn
+    |> assign(:session, session)
+    |> render("driver_session_route.html")
+  end
+
+  def session_route_artist(conn, %{"artist_id" => musician_id}) do
+    musician_id = TrackerCypher.decode(musician_id)
+    session = Musicians.find_session(musician_id)
+
+    conn
+    |> assign(:session, session)
+    |> render("musician_session_route.html")
   end
 end

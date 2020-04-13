@@ -4,11 +4,11 @@ defmodule CurbsideConcertsWeb.LandingController do
 
   use CurbsideConcertsWeb, :controller
 
-  alias CurbsideConcerts.Musicians
-
   def index(conn, _params) do
-    sessions = Musicians.all_active_sessions()
+    render(conn, "index.html")
+  end
 
-    render(conn, "index.html", sessions: sessions)
+  def tips(conn, _params) do
+    render(conn, "tips.html")
   end
 end

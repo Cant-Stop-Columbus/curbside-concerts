@@ -11,7 +11,7 @@ defmodule CurbsideConcerts.Requests.Request do
   alias CurbsideConcerts.Musicians.Genre
   alias CurbsideConcerts.Requests.RequestGenre
 
-  @allowed_attrs ~w|state contact_preference nominee_name nominee_phone nominee_address special_message requester_name requester_phone requester_email session_id|a
+  @allowed_attrs ~w|state contact_preference nominee_name nominee_phone nominee_address special_message requester_name requester_phone requester_email rank session_id|a
   @required_attrs ~w|state contact_preference nominee_name nominee_address special_message requester_name requester_phone requester_email|a
 
   schema "requests" do
@@ -24,6 +24,7 @@ defmodule CurbsideConcerts.Requests.Request do
     field(:requester_name, :string)
     field(:requester_phone, :string)
     field(:requester_email, :string)
+    field(:rank, :string)
 
     # deprecated fields
     field(:song, :string)

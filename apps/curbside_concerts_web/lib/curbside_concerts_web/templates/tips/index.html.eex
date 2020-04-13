@@ -1,0 +1,83 @@
+<div class="card card-with-nav">
+  <nav>
+    <%# the comment tags remove the white space between nav elements, keeping spacing consistent between pages %>
+    <%= link "HOME", to: Routes.landing_path(@conn, :index), class: "link" %><!--
+    --><%= link "REQUEST", to: Routes.request_path(@conn, :new), class: "link" %><!--
+    --><span class="link current">TIPS</span>
+  </nav>
+  <header class="landing">
+    <h1>Tip your curbside musician</h1>
+		<br/> 
+		<p>
+			Heard a curbside concert and want to contribute? Follow, subscribe and tip this weekend’s musicians using the information below.
+		</p>
+  </header>
+</div>
+
+<div class="card musician-tip-card">
+  <h2>Will Freed</h2>
+
+	<img src="/images/musicians/will_freed.jpg" alt="Will Freed" />
+
+	<h3>About Will</h3>
+	<p>
+		Will Freed is a singer/songwriter who grew up in West Virginia, but now calls Columbus home. Will began playing for a living at an early age – developing his own style, writing music and learning how to play 100s of covers in his own unique, heartwarming tone. He lives in Grove City with his wife Ashley.
+	</p>
+
+	<h3>Will's Social</h3>
+	<ul>
+		<li><a href="https://twitter.com/willfreed">Twitter</a></li>
+		<li><a href="https://www.instagram.com/willfreedband/">Instagram</a></li>
+		<li><a href="https://www.facebook.com/thewillfreedband/">Facebook</a></li>
+	</ul>
+
+	<h3>Tip Will</h3>
+	<a role="button" class="button" href="https://cash.app/$willfreed1">CashApp</a>
+	<a role="button" class="button" href="https://venmo.com/will-freed-1">Venmo</a>
+	<a role="button" class="button" href="https://www.paypal.me/willfreed">PayPal</a>
+
+</div>
+
+<div class="card musician-tip-card">
+  <h2>KaTanya Ingram</h2>
+
+	<img src="/images/musicians/katanya_ingram.jpg" alt="Katanya Ingram" />
+
+	<h3>About KaTanya</h3>
+	<p>
+		KaTanya believes that music brings people together. She grew up in a military family and has traveled the world from Italy to the United States, Germany and back again. Although not originally from Columbus, she’s inspired by the vast opportunities to enjoy many types of artistic expression in Columbus and its surrounding areas. She identifies not as a singer or vocalist but as a street performer, and enjoys putting smiles on faces and creating a joyful atmosphere in public spaces.
+	</p>
+
+	<h3>KaTanya's Social</h3>
+	<ul>
+		<li><a href="https://twitter.com/girlnowwhat">Twitter</a></li>
+		<li><a href="https://www.instagram.com/GirlNowWhat/">Instagram</a></li>
+		<li><a href="https://www.facebook.com/GirlNowWhat/">Facebook</a></li>
+	</ul>
+
+	<h3>Tip KaTanya</h3>
+	<a role="button" class="button" href="https://cash.app/$GirlNowWhat">CashApp</a>
+	<a role="button" class="button" href="https://venmo.com/GirlNowWhat">Venmo</a>
+</div>
+
+<div class="card musician-tip-card">
+  <h2>Jordidge</h2>
+
+	<img src="/images/musicians/jordidge.jpg" alt="Jordidge" />
+
+	<h3>About Jordidge</h3>
+	<p>
+		Jordidge’s work is derived from his love for words, emotion and philosophies. With every piece, he wants people to dig down and get “the feels”. The kind that linger long after you have forgotten what you experienced. He plays the acoustic/electric guitar with soulful vocals, mostly original songs with the occasional cover.
+	</p>
+
+	<h3>Jordidge's Social</h3>
+	<ul>
+		<li><a href="https://twitter.com/jordidge">Twitter</a></li>
+		<li><a href="https://www.instagram.com/jordidge/">Instagram</a></li>
+		<li><a href="https://www.facebook.com/Jordidge1/">Facebook</a></li>
+	</ul>
+
+	<h3>Tip Jordidge</h3>
+	<a role="button" class="button" href="https://cash.app/$Jordidge">CashApp</a>
+	<a role="button" class="button" href="https://venmo.com/Jordidge">Venmo</a>
+</div>

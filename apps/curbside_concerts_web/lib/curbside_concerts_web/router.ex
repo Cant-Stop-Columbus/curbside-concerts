@@ -22,9 +22,16 @@ defmodule CurbsideConcertsWeb.Router do
     pipe_through :browser
 
     get "/", LandingController, :index
+    get "/tips", TipsController, :index
     get "/tracker/:tracker_id", RequestController, :tracker
+
+    get "/session/driver/:driver_id", SessionController, :session_route_driver
+
+    get "/session/artist/:artist_id", SessionController, :session_route_artist
+
     get "/request", RequestController, :new
     post "/request", RequestController, :create
+    put "/cancel_request/:tracker_id", RequestController, :cancel_request
 
     get "/admin", AdminController, :index
 
@@ -47,13 +54,14 @@ defmodule CurbsideConcertsWeb.Router do
 
     live "/session_booker/:session_id", SessionBookerLive, as: :session_booker
 
+    get "/last_minute_gigs", RequestController, :last_minute_gigs
     get "/gigs", RequestController, :index
     get "/gigs/:musician", RequestController, :index
 
     delete("/sign-out", AccountSessionController, :delete)
   end
 
-  if Mix.env == :dev do
+  if Mix.env() == :dev do
     forward "/sent_emails", Bamboo.SentEmailViewerPlug
   end
 

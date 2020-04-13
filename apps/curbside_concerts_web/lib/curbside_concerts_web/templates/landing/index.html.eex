@@ -1,7 +1,9 @@
 <div class="card card-with-nav">
   <nav>
-    <span class="link current">HOME</span>
-    <%= link "REQUEST", to: Routes.request_path(@conn, :new), class: "link" %>
+		<%# the comment tags remove the white space between nav elements, keeping spacing consistent between pages %>
+    <span class="link current">HOME</span><!--
+    --><%= link "REQUEST", to: Routes.request_path(@conn, :new), class: "link" %><!--
+		--><%= link "TIPS", to: Routes.tips_path(@conn, :index), class: "link" %>
   </nav>
   <header class="landing">
     <p>Hey Columbus,</p>
@@ -68,7 +70,7 @@
 		We organize requests together in short 3-4 hour routes and book one of Columbus’s best for a mini curbside-to-curbside tour
 	</p>
 
-	<h3>They play for your love ones</h3>
+	<h3>They play for your loved ones</h3>
 	<p>
 		Artists arrive ready to relay your kindness and good wishes with a personalized performance that can be enjoyed from the safety of their yard, porch or driveway
 	</p>
