@@ -8,7 +8,7 @@ class GigsPage {
 	}
 
 	assert() {
-		heading().should("contain.text", "All requests");
+		heading().should("contain.text", "All requests (0)");
 	}
 
 	assertRequest(nomineeName, requesterName, specialMessage, genres) {
