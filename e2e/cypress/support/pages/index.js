@@ -2,8 +2,10 @@ import layout from "./layout";
 import adminPage from "./admin-page";
 import gigsPage from "./gigs-page";
 import landingPage from "./landing-page";
+import requestEditPage from "./request/edit-page";
 import requestFormPage from "./request-form-page";
 import requestTrackerPage from "./request-tracker-page";
+import requestShowPage from "./request/show-page";
 import signInPage from "./sign-in-page";
 import sessionIndexPage from "./session/index-page";
 import sessionNewPage from "./session/new-page";
@@ -19,7 +21,9 @@ export {
 	adminPage,
 	gigsPage,
 	landingPage,
+	requestEditPage,
 	requestFormPage,
+	requestShowPage,
 	requestTrackerPage,
 	signInPage,
 	sessionIndexPage,

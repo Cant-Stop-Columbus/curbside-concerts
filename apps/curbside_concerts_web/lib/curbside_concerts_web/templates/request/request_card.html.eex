@@ -1,4 +1,5 @@
 <% %Request{
+	archived: archived,
   requester_name: requester_name,
 	requester_email: requester_email,
   requester_phone: requester_phone,
@@ -29,26 +30,35 @@
   <div style="display: flex">
     <div style="margin-right: 16px">
       <b>To:</b><br>
-        <%= nominee_name %><br>
-        <%= nominee_phone %>
-      </div>
-      <div>
-        <b>From:</b><br>
-        <%= requester_name %><br>
-        <%= requester_phone %><br>
-        <%= requester_email %>
-      </div>
+      <%= nominee_name %><br>
+      <%= nominee_phone %>
     </div>
-    <br>
     <div>
-      <b>Preferred Genres:</b>
-      <ul>
-        <%= for %Genre{name: name} <- genres do %>
-          <li><%= name %></li>
-        <% end %>
-      </ul>
-    </div>
-    <div><b>Special Message:</b><br>
-      <%= special_message %>
+      <b>From:</b><br>
+      <%= requester_name %><br>
+      <%= requester_phone %><br>
+      <%= requester_email %>
     </div>
   </div>
+  <br>
+  <div>
+    <b>Preferred Genres:</b>
+    <ul>
+      <%= for %Genre{name: name} <- genres do %>
+        <li><%= name %></li>
+      <% end %>
+    </ul>
+  </div>
+  <div><b>Special Message:</b><br>
+    <%= raw special_message %>
+  </div>
+
+  <div>
+    <%= link "View", to: Routes.request_path(CurbsideConcertsWeb.Endpoint, :show, @request) %>
+
+    <%= if !archived do %>
+      | <%= link "Edit", to: Routes.request_path(CurbsideConcertsWeb.Endpoint, :edit, @request) %>
+      | <%= link "Archive This Request", to: Routes.request_path(CurbsideConcertsWeb.Endpoint, :archive, @request), method: :put, data: [confirm: "Are you sure?"] %>
+    <% end %>
+  </div>
+</div>

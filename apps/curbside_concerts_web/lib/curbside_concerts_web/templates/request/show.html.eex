@@ -1,0 +1,8 @@
+<div class="card">
+  <h1>View Request</h1>
+  <%= link "Back", to: Routes.request_path(@conn, :index) %>
+</div>
+
+<div class="card">
+  <%= render "request_card.html", request: @request %>
+</div>

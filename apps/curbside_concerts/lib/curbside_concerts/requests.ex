@@ -30,7 +30,7 @@ defmodule CurbsideConcerts.Requests do
       @accepted => @enroute,
       @enroute => @arrived,
       @arrived => @completed,
-      "*" => [@pending, @canceled, @archived]
+      "*" => [@pending, @canceled]
     }
 
   import Ecto.Query
@@ -44,7 +44,7 @@ defmodule CurbsideConcerts.Requests do
   use EctoResource
 
   using_repo(Repo) do
-    resource(Request, only: [:all, :change])
+    resource(Request, only: [:all, :change, :get, :update])
   end
 
   def pending_state, do: @pending
@@ -58,8 +58,6 @@ defmodule CurbsideConcerts.Requests do
   def completed_state, do: @completed
 
   def canceled_state, do: @canceled
-
-  def archived_state, do: @archived
 
   def accept_request(%Request{} = request) do
     Machinery.transition_to(request, __MODULE__, @accepted)
@@ -81,10 +79,6 @@ defmodule CurbsideConcerts.Requests do
     Machinery.transition_to(request, __MODULE__, @completed)
   end
 
-  def archive_request(%Request{} = request) do
-    Machinery.transition_to(request, __MODULE__, @archived)
-  end
-
   def back_to_pending_request(%Request{} = request) do
     Machinery.transition_to(request, __MODULE__, @pending)
   end
@@ -104,10 +98,10 @@ defmodule CurbsideConcerts.Requests do
     |> Repo.insert()
   end
 
-  def update_request(%Request{} = request, attrs) do
-    request
-    |> Request.changeset(attrs)
-    |> Repo.update()
+  def archive_request(request) do
+    __MODULE__.update_request(request, %{
+      archived: true
+    })
   end
 
   def find_request(request_id) do
@@ -116,14 +110,21 @@ defmodule CurbsideConcerts.Requests do
     |> Repo.one()
   end
 
-  def all do
+  def all_active_requests do
+    Request
+    |> where([s], s.archived == false)
+    |> preload([:session, :genres])
+    |> Repo.all()
+  end
+
+  def all_ranked_requests do
     Request
     |> preload([:session, :genres])
     |> order_by(:rank)
     |> Repo.all()
   end
 
-  def last_minute_requests do
+  def all_last_minute_requests do
     Request
     |> where([r], is_nil(r.session_id))
     |> preload([:genres])

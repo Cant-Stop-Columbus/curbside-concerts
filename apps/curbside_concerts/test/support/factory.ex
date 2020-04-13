@@ -5,6 +5,7 @@ defmodule CurbsideConcerts.Factory do
   alias CurbsideConcerts.Musicians.Genre
   alias CurbsideConcerts.Musicians.Musician
   alias CurbsideConcerts.Musicians.Session
+  alias CurbsideConcerts.Requests.Request
 
   def attrs(:musician) do
     %{
@@ -34,6 +35,19 @@ defmodule CurbsideConcerts.Factory do
     }
   end
 
+  def attrs(:request) do
+    %{
+      nominee_name: Faker.Name.name(),
+      contact_preference: Faker.Util.pick(["call_nominee", "call_requester", "text_requester"]),
+      nominee_phone: Faker.Phone.EnUs.phone(),
+      nominee_address: build_fake_address(),
+      special_message: Faker.Lorem.Shakespeare.as_you_like_it(),
+      requester_name: Faker.Name.name(),
+      requester_phone: Faker.Phone.EnUs.phone(),
+      requester_email: Faker.Internet.email()
+    }
+  end
+
   def attrs(factory_name, attributes) do
     factory_name |> attrs() |> Map.merge(attributes)
   end
@@ -55,6 +69,15 @@ defmodule CurbsideConcerts.Factory do
     struct(Genre, attrs(:genre))
   end
 
+  def build(:request) do
+    struct(
+      Request,
+      attrs(:request, %{
+        genres: [build(:genre), build(:genre)]
+      })
+    )
+  end
+
   def build(factory_name, attributes) do
     factory_name |> build() |> struct(attributes)
   end
@@ -73,5 +96,11 @@ defmodule CurbsideConcerts.Factory do
 
   def insert!(factory_name, attributes \\ []) do
     Repo.insert!(build(factory_name, attributes))
+  end
+
+  defp build_fake_address() do
+    "#{Faker.Address.street_address()} #{Faker.Address.city()}, #{Faker.Address.state_abbr()} #{
+      Faker.Address.zip_code()
+    }"
   end
 end

@@ -1,9 +1,12 @@
 defmodule CurbsideConcertsWeb.RequestControllerTest do
   use CurbsideConcertsWeb.ConnCase, async: true
 
+  alias CurbsideConcerts.Accounts.User
   alias CurbsideConcerts.Requests
   alias CurbsideConcerts.Requests.Request
   alias CurbsideConcertsWeb.TrackerCypher
+
+  import CurbsideConcerts.Factory
 
   describe "new/2" do
     test "should render the new request form", %{conn: conn} do
@@ -106,5 +109,99 @@ defmodule CurbsideConcertsWeb.RequestControllerTest do
 
       assert failure_message == "The concert request was not found."
     end
+  end
+
+  describe "view/2" do
+    setup [:auth_user]
+
+    test "renders selected request", %{conn: conn} do
+      %Request{special_message: special_message} = request = insert!(:request)
+
+      html =
+        conn
+        |> get(Routes.request_path(conn, :show, request))
+        |> html_response(200)
+
+      assert html =~ "View Request"
+      assert html =~ special_message
+    end
+  end
+
+  describe "edit/2" do
+    setup [:auth_user]
+
+    test "renders form for editing chosen request", %{conn: conn} do
+      request = insert!(:request)
+
+      html =
+        conn
+        |> get(Routes.request_path(conn, :edit, request))
+        |> html_response(200)
+
+      assert html =~ "Edit Request"
+    end
+  end
+
+  describe "update/2" do
+    setup [:auth_user]
+
+    test "redirects when data is valid", %{conn: conn} do
+      request = insert!(:request)
+
+      update_attrs = %{
+        nominee_address: "updated address"
+      }
+
+      conn = put(conn, Routes.request_path(conn, :update, request), request: update_attrs)
+      assert redirected_to(conn) == Routes.request_path(conn, :show, request)
+
+      html =
+        conn
+        |> get(Routes.request_path(conn, :show, request))
+        |> html_response(200)
+
+      assert html =~ "View Request"
+
+      assert html =~ "Request updated successfully."
+    end
+
+    test "renders errors when data is invalid", %{conn: conn} do
+      request = insert!(:request)
+
+      invalid_attrs = %{
+        nominee_address: nil
+      }
+
+      conn = put(conn, Routes.request_path(conn, :update, request), request: invalid_attrs)
+      assert html_response(conn, 200) =~ "Edit Request"
+    end
+  end
+
+  describe "archive/2" do
+    setup [:auth_user]
+
+    test "archives request", %{conn: conn} do
+      %Request{special_message: special_message} = request = insert!(:request)
+
+      conn = get(conn, Routes.request_path(conn, :index))
+      assert html_response(conn, 200) =~ special_message
+
+      conn = put(conn, Routes.request_path(conn, :archive, request))
+      assert redirected_to(conn) == Routes.request_path(conn, :index)
+
+      conn = get(conn, Routes.request_path(conn, :index))
+      assert html_response(conn, 200) =~ "Request archived successfully."
+      refute html_response(conn, 200) =~ special_message
+    end
+  end
+
+  def auth_user(%{conn: conn}) do
+    %User{} = user = insert!(:user)
+
+    conn =
+      conn
+      |> with_authenticated_user(user)
+
+    %{conn: conn}
   end
 end

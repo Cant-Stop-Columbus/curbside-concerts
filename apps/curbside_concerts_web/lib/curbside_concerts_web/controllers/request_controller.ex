@@ -54,13 +54,13 @@ defmodule CurbsideConcertsWeb.RequestController do
 
   def index(conn, _) do
     conn
-    |> assign(:requests, Requests.all_requests(preloads: [:genres]))
+    |> assign(:requests, Requests.all_active_requests())
     |> render("index.html")
   end
 
   def last_minute_gigs(conn, _) do
     conn
-    |> assign(:requests, Requests.last_minute_requests())
+    |> assign(:requests, Requests.all_last_minute_requests())
     |> assign(:request_type, "unbooked")
     |> render("index.html")
   end
@@ -91,5 +91,39 @@ defmodule CurbsideConcertsWeb.RequestController do
       |> put_flash(:error, "The concert request was not found.")
       |> redirect(to: Routes.request_path(conn, :new))
     end
+  end
+
+  def show(conn, %{"id" => id}) do
+    request = Requests.get_request(id, preloads: [:session, :genres])
+    render(conn, "show.html", request: request)
+  end
+
+  def edit(conn, %{"id" => id}) do
+    request = Requests.get_request(id, preloads: [:session, :genres])
+    changeset = Requests.change_request(request)
+    render(conn, "edit.html", request: request, changeset: changeset)
+  end
+
+  def update(conn, %{"id" => id, "request" => request_params}) do
+    request = Requests.get_request(id)
+
+    case Requests.update_request(request, request_params) do
+      {:ok, request} ->
+        conn
+        |> put_flash(:info, "Request updated successfully.")
+        |> redirect(to: Routes.request_path(conn, :show, request))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "edit.html", request: request, changeset: changeset)
+    end
+  end
+
+  def archive(conn, %{"id" => id}) do
+    request = Requests.get_request(id)
+    {:ok, _request} = Requests.archive_request(request)
+
+    conn
+    |> put_flash(:info, "Request archived successfully.")
+    |> redirect(to: Routes.request_path(conn, :index))
   end
 end

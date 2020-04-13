@@ -60,6 +60,11 @@ defmodule CurbsideConcertsWeb.Router do
     get "/gigs", RequestController, :index
     get "/gigs/:musician", RequestController, :index
 
+    get "/request/:id", RequestController, :show
+    get "/request/:id/edit", RequestController, :edit
+    put "/request/:id/update", RequestController, :update
+    put "/request/:id/archive", RequestController, :archive
+
     delete("/sign-out", AccountSessionController, :delete)
   end
 

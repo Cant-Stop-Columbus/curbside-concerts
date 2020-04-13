@@ -91,21 +91,6 @@ defmodule CurbsideConcerts.RequestsTest do
     end
   end
 
-  describe "archive_request/1" do
-    test "transition allowed from pending" do
-      {:ok, request} = Requests.create_request(@valid_request_attrs)
-      {:ok, request} = Requests.archive_request(request)
-      assert %Request{state: "archived"} = request
-    end
-
-    test "transition allowed from canceled" do
-      {:ok, request} = Requests.create_request(@valid_request_attrs)
-      {:ok, request} = Requests.cancel_request(request)
-      {:ok, request} = Requests.archive_request(request)
-      assert %Request{state: "archived"} = request
-    end
-  end
-
   describe "back_to_pending_request/1" do
     test "transition allowed from pending (the same)" do
       {:ok, request} = Requests.create_request(@valid_request_attrs)

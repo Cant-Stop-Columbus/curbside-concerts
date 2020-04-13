@@ -1,0 +1,15 @@
+<div class="card">
+  <h1>Edit Request</h1>
+  <span><%= link "Back", to: Routes.request_path(@conn, :show, @request) %></span>
+</div>
+
+<div class="card">
+  <%= form_for @changeset, Routes.request_path(@conn, :update, @changeset.data), fn f -> %>
+  <%= hidden_input f, :id %>
+  <%= unless f.errors == [], do: inspect(f.errors) %>
+
+    <label class="field">Nominee Address: <%= text_input f, :nominee_address %></label>
+
+    <button type="submit">SUBMIT</button>
+  <% end %>
+</div>
