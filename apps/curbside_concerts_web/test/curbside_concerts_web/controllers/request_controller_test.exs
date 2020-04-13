@@ -1,5 +1,5 @@
 defmodule CurbsideConcertsWeb.RequestControllerTest do
-  use CurbsideConcertsWeb.ConnCase, async: true
+  use CurbsideConcertsWeb.ConnCase, async: false
 
   alias CurbsideConcerts.Accounts.User
   alias CurbsideConcerts.Requests
@@ -89,6 +89,27 @@ defmodule CurbsideConcertsWeb.RequestControllerTest do
   end
 
   describe "cancel_request/2" do
+    test "cancels a request", %{conn: conn} do
+      %Request{nominee_name: nominee_name, id: request_id} = insert!(:request)
+      tracker_id = TrackerCypher.encode(request_id)
+
+      conn = put(conn, Routes.request_path(conn, :cancel_request, tracker_id))
+      assert Routes.request_path(conn, :new) == redirected_to(conn)
+
+      html =
+        conn
+        |> get(Routes.request_path(conn, :new))
+        |> html_response(200)
+        |> Floki.parse_document!()
+
+      success_message =
+        html
+        |> Floki.find(".alert-info")
+        |> Floki.text()
+
+      assert success_message == "The concert request for #{nominee_name} has been cancelled."
+    end
+
     test "redirects to new with failure message when request is not found", %{conn: conn} do
       tracker_id = "invalid-tracker"
 
