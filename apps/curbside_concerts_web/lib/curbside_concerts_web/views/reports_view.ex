@@ -7,8 +7,6 @@ defmodule CurbsideConcertsWeb.ReportsView do
   def genre_counts(unbooked_requests) when is_list(unbooked_requests) do
     counts =
       Enum.reduce(unbooked_requests, %{}, fn %Request{genres: genres}, acc ->
-        IO.inspect("an iteration in reduce")
-
         if genres == [] do
           Map.update(acc, "No genre specified", 1, &(&1 + 1))
         else

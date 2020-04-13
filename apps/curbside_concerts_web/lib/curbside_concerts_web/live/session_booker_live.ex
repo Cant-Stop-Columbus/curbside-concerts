@@ -146,11 +146,8 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
   end
 
   defp move_request(request_id, over_request_id, from_list, to_list) do
-    IO.inspect(from_list, label: "from_list")
-
     request =
       Enum.find(from_list, fn %Request{id: id} ->
-        IO.inspect({id, request_id}, label: "{id, request_id}")
         "#{request_id}" == "#{id}"
       end)
 
@@ -158,8 +155,6 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
       Enum.find(to_list, fn %Request{id: id} ->
         "#{over_request_id}" == "#{id}"
       end)
-
-    IO.inspect({request, over_request}, label: "{request, over_request}")
 
     from_list = List.delete(from_list, request)
     to_list = List.delete(to_list, request)
