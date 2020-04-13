@@ -8,7 +8,7 @@ defmodule CurbsideConcerts.Requests do
   They can also be moved to the following states at any time:
     * pending
     * canceled
-    * archived
+    * offmission
   """
 
   @pending "pending"
@@ -17,9 +17,9 @@ defmodule CurbsideConcerts.Requests do
   @arrived "arrived"
   @completed "completed"
   @canceled "canceled"
-  @archived "archived"
+  @offmission "offmission"
 
-  @valid_states [@pending, @accepted, @enroute, @arrived, @completed, @canceled, @archived]
+  @valid_states [@pending, @accepted, @enroute, @arrived, @completed, @canceled, @offmission]
 
   use Machinery,
     field: :state,
@@ -30,7 +30,7 @@ defmodule CurbsideConcerts.Requests do
       @accepted => @enroute,
       @enroute => @arrived,
       @arrived => @completed,
-      "*" => [@pending, @canceled]
+      "*" => [@pending, @canceled, @offmission]
     }
 
   import Ecto.Query
@@ -59,6 +59,8 @@ defmodule CurbsideConcerts.Requests do
 
   def canceled_state, do: @canceled
 
+  def offmission_state, do: @offmission
+
   def accept_request(%Request{} = request) do
     Machinery.transition_to(request, __MODULE__, @accepted)
   end
@@ -81,6 +83,10 @@ defmodule CurbsideConcerts.Requests do
 
   def back_to_pending_request(%Request{} = request) do
     Machinery.transition_to(request, __MODULE__, @pending)
+  end
+
+  def off_mission_request(%Request{} = request) do
+    Machinery.transition_to(request, __MODULE__, @offmission)
   end
 
   @doc """
@@ -108,6 +114,13 @@ defmodule CurbsideConcerts.Requests do
     Request
     |> where([r], r.id == ^request_id)
     |> Repo.one()
+  end
+
+  def all_active_requests_by_state(state) do
+    Request
+    |> where([s], s.archived == false and s.state == ^state)
+    |> preload([:session, :genres])
+    |> Repo.all()
   end
 
   def all_active_requests do

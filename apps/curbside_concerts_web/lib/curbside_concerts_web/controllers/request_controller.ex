@@ -4,6 +4,7 @@ defmodule CurbsideConcertsWeb.RequestController do
   alias CurbsideConcerts.Requests
   alias CurbsideConcerts.Requests.Request
   alias CurbsideConcerts.Musicians
+  alias CurbsideConcertsWeb.RequestView
   alias CurbsideConcertsWeb.TrackerCypher
 
   def new(conn, _params) do
@@ -50,6 +51,12 @@ defmodule CurbsideConcertsWeb.RequestController do
     |> assign(:requests, requests)
     |> assign(:musician, musician)
     |> render("musician_gigs.html")
+  end
+
+  def index(conn, %{"state" => state}) do
+    requests = Requests.all_active_requests_by_state(state)
+    request_type = RequestView.display_state(state)
+    render(conn, "index.html", request_type: request_type, requests: requests)
   end
 
   def index(conn, _) do
@@ -124,6 +131,24 @@ defmodule CurbsideConcertsWeb.RequestController do
 
     conn
     |> put_flash(:info, "Request archived successfully.")
+    |> redirect(to: Routes.request_path(conn, :index))
+  end
+
+  def off_mission(conn, %{"id" => id}) do
+    request = Requests.get_request(id)
+    Requests.off_mission_request(request)
+
+    conn
+    |> put_flash(:info, "Request state updated successfully.")
+    |> redirect(to: Routes.request_path(conn, :index))
+  end
+
+  def pending(conn, %{"id" => id}) do
+    request = Requests.get_request(id)
+    Requests.back_to_pending_request(request)
+
+    conn
+    |> put_flash(:info, "Request state updated successfully.")
     |> redirect(to: Routes.request_path(conn, :index))
   end
 end

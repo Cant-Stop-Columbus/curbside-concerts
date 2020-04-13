@@ -17,6 +17,7 @@ defmodule CurbsideConcertsWeb.RequestView do
   @arrived_state Requests.arrived_state()
   @completed_state Requests.completed_state()
   @canceled_state Requests.canceled_state()
+  @offmission_state Requests.offmission_state()
 
   def display_state(%Request{state: state}) do
     case state do
@@ -26,6 +27,7 @@ defmodule CurbsideConcertsWeb.RequestView do
       @arrived_state -> arrived_message()
       @completed_state -> completed_message()
       @canceled_state -> canceled_message()
+      @offmission_state -> offmission_message()
       _ -> unknown_message()
     end
   end
@@ -38,6 +40,7 @@ defmodule CurbsideConcertsWeb.RequestView do
       @arrived_state -> false
       @completed_state -> false
       @canceled_state -> false
+      @offmission_state -> false
       _ -> true
     end
   end
@@ -48,6 +51,7 @@ defmodule CurbsideConcertsWeb.RequestView do
   def arrived_message, do: "Arrived"
   def completed_message, do: "Completed"
   def canceled_message, do: "Canceled"
+  def offmission_message, do: "Off-mission"
   def unknown_message, do: "Unknown"
 
   def progress do

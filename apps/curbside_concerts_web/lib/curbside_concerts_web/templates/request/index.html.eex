@@ -1,3 +1,8 @@
-<h1>All<%= if assigns[:request_type], do: " #{assigns[:request_type]}", else: ""%> requests (<%= length(@requests) %>)</h1>
+<div class="card">
+  <h1>All<%= if assigns[:request_type], do: " #{assigns[:request_type]}", else: "" %> requests (<%= length(@requests) %>)</h1>
+    <%= link "Back to Admin", to: Routes.admin_path(@conn, :index) %>
+    | <%= link "View All Requests", to: Routes.request_path(@conn, :index) %>
+    | <%= link "View Off-Mission Requests", to: Routes.request_path(@conn, :index, %{"state" => "offmission"}) %>
+  </div>
 
   <%= request_cards(@requests) %>

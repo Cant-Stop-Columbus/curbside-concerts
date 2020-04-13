@@ -64,6 +64,8 @@ defmodule CurbsideConcertsWeb.Router do
     get "/request/:id/edit", RequestController, :edit
     put "/request/:id/update", RequestController, :update
     put "/request/:id/archive", RequestController, :archive
+    put "/request/:id/off-mission", RequestController, :off_mission
+    put "/request/:id/pending", RequestController, :pending
 
     delete("/sign-out", AccountSessionController, :delete)
   end
