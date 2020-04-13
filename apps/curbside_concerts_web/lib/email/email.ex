@@ -14,7 +14,6 @@ defmodule CurbsideConcertsWeb.Email do
     |> assign(:tracker_url, HostPath.tracker_url(TrackerCypher.encode(request.id)))
     |> assign(:contact_preference, preference_display_text(request.contact_preference))
     |> render("request_confirmation.html")
- 
   end
 
   defp base_email do

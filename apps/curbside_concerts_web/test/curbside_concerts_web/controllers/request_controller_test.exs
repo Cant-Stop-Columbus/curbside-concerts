@@ -1,5 +1,6 @@
 defmodule CurbsideConcertsWeb.RequestControllerTest do
   use CurbsideConcertsWeb.ConnCase, async: true
+  use Bamboo.Test
 
   alias CurbsideConcerts.Requests
   alias CurbsideConcerts.Requests.Request
@@ -23,7 +24,7 @@ defmodule CurbsideConcertsWeb.RequestControllerTest do
   end
 
   describe "create/2" do
-    test "redirects to tracker confirmation when data is valid", %{conn: conn} do
+    test "sends confirmation and redirects to tracker confirmation when data is valid", %{conn: conn} do
       %{nominee_name: nominee_name} =
         valid_attrs = %{
           nominee_name: Faker.Name.name(),
@@ -38,9 +39,13 @@ defmodule CurbsideConcertsWeb.RequestControllerTest do
         }
 
       conn = post(conn, Routes.request_path(conn, :create), request: valid_attrs)
-      %Request{id: request_id} = Requests.all_requests() |> List.first()
+      %Request{id: request_id} = request = 
+        Requests.all_requests()
+        |> List.first()
+        |> Requests.load_genres
+      
       tracker_id = TrackerCypher.encode(request_id)
-
+      
       assert %{} = redirected_params(conn)
       assert redirected_to(conn) == Routes.request_path(conn, :tracker, tracker_id)
 
@@ -57,6 +62,9 @@ defmodule CurbsideConcertsWeb.RequestControllerTest do
 
       assert success_message ==
                "Thank you for submitting a concert request for #{nominee_name}! Please bookmark this page to track its progress."
+
+      email = CurbsideConcertsWeb.Email.request_confirmation(request)
+      assert_delivered_email email
     end
 
     test "displays error message when data is invalid", %{conn: conn} do

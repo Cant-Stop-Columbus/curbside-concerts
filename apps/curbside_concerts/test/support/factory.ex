@@ -5,6 +5,7 @@ defmodule CurbsideConcerts.Factory do
   alias CurbsideConcerts.Musicians.Genre
   alias CurbsideConcerts.Musicians.Musician
   alias CurbsideConcerts.Musicians.Session
+  alias CurbsideConcerts.Requests.Request
 
   def attrs(:musician) do
     %{
@@ -34,6 +35,20 @@ defmodule CurbsideConcerts.Factory do
     }
   end
 
+  def attrs(:request) do
+    %{
+      nominee_name: Faker.Name.name(),
+      contact_preference: "call_nominee",
+      nominee_phone: Faker.Phone.EnUs.phone(),
+      nominee_address: Faker.Address.street_address(),
+      song: Faker.String.base64(),
+      special_message: Faker.StarWars.quote(),
+      requester_name: Faker.Name.name(),
+      requester_phone: Faker.Phone.EnUs.phone(),
+      requester_email: Faker.Internet.email()
+    }
+  end
+
   def attrs(factory_name, attributes) do
     factory_name |> attrs() |> Map.merge(attributes)
   end
@@ -53,6 +68,10 @@ defmodule CurbsideConcerts.Factory do
 
   def build(:genre) do
     struct(Genre, attrs(:genre))
+  end
+
+  def build(:request) do
+    struct(Request, attrs(:request))
   end
 
   def build(factory_name, attributes) do
