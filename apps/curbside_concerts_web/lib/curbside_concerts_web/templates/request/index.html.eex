@@ -1,5 +1,3 @@
-<h1>All requests</h1>
+<h1>All <%= assigns[:request_type] %> requests (<%= length(@requests) %>)</h1>
 
-<%= for request <- @requests do %>
-  <%= render "request_card.html", request: request %>
-<% end %>
+<%= request_cards(@requests) %>

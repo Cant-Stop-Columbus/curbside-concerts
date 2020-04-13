@@ -1,0 +1,5 @@
+<h2>Genres of upcoming, unbooked requests (<%= length(@unbooked_requests) %>)</h2>
+
+<div class="card">
+  <%= genre_counts(@unbooked_requests) %>
+</div>

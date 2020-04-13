@@ -201,7 +201,7 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
       </div>
       <div class="columns">
         <div class="column">
-          <h2>Unbooked Requests</h2>
+          <h2>Unbooked Requests (<%= length(@unbooked_requests) %>)</h2>
 
           <%= for request <- @unbooked_requests do %>
             <%= render_request_card(assigns, request) %>

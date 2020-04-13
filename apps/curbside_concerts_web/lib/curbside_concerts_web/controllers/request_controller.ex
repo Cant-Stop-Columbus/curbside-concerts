@@ -61,6 +61,7 @@ defmodule CurbsideConcertsWeb.RequestController do
   def last_minute_gigs(conn, _) do
     conn
     |> assign(:requests, Requests.last_minute_requests())
+    |> assign(:request_type, "unbooked")
     |> render("index.html")
   end
 

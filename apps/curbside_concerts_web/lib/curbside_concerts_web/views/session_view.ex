@@ -12,4 +12,13 @@ defmodule CurbsideConcertsWeb.SessionView do
       {name, id}
     end)
   end
+
+  def driver_musician_links(%Session{id: session_id}) do
+    session_id = CurbsideConcertsWeb.TrackerCypher.encode(session_id)
+
+    ~E"""
+    <%= link "Driver Link", to: Routes.session_path(CurbsideConcertsWeb.Endpoint, :session_route_driver, session_id) %>
+    | <%= link "Musician Link", to: Routes.session_path(CurbsideConcertsWeb.Endpoint, :session_route_artist, session_id) %>
+    """
+  end
 end

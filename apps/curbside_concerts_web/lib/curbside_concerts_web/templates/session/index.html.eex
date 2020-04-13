@@ -10,7 +10,6 @@
   </div>
 
   <%= for %Session{
-  id: session_id,
   name: name,
   musician: musician,
   description: description,
@@ -32,9 +31,7 @@
           | <%= link "Book Requests", to: Routes.session_booker_path(CurbsideConcertsWeb.Endpoint, CurbsideConcertsWeb.SessionBookerLive, session) %>
           | <%= link "Archive This Session", to: Routes.session_path(CurbsideConcertsWeb.Endpoint, :archive, session), method: :put, data: [confirm: "Are you sure?"] %>
           <br>
-          <% session_id = CurbsideConcertsWeb.TrackerCypher.encode(session_id) %>
-          <%= link "Driver Link", to: Routes.session_path(CurbsideConcertsWeb.Endpoint, :session_route_driver, session_id) %>
-          | <%= link "Musician Link", to: Routes.session_path(CurbsideConcertsWeb.Endpoint, :session_route_artist, session_id) %>
+          <%= driver_musician_links(session) %>
         <% end %>
       </div>
     </div>

@@ -42,6 +42,8 @@ defmodule CurbsideConcertsWeb.Router do
   scope "/", CurbsideConcertsWeb do
     pipe_through [:browser, :requires_auth]
 
+    get "/reports/genres", ReportsController, :genres
+
     get "/musician_builder/new", MusicianController, :new
     post "/musician_builder/new", MusicianController, :create
     get "/musician_builder", MusicianController, :index

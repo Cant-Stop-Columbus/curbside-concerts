@@ -64,6 +64,20 @@ defmodule CurbsideConcertsWeb.RequestView do
     ]
   end
 
+  def request_cards(requests) when is_list(requests) do
+    ~E"""
+    <%= for request <- requests do %>
+      <%= request_card(request) %>
+    <% end %>
+    """
+  end
+
+  def request_card(request) do
+    ~E"""
+    <%= render "request_card.html", request: request %>
+    """
+  end
+
   def map_route_link(requests) do
     truck_location = "491 W Broad St., Columbus, OH 43215"
 

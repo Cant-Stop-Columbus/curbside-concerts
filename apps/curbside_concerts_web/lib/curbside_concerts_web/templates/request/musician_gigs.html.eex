@@ -4,6 +4,4 @@
   <%= map_route_link(@requests) %>
 </div>
 
-<%= for request <- @requests do %>
-  <%= render "request_card.html", request: request %>
-<% end %>
+<%= request_cards(@requests) %>
