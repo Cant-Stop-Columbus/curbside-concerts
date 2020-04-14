@@ -13,16 +13,15 @@ const requestData = {
 	contactPreference: "call_nominee",
 	nomineePhone: faker.phone.phoneNumberFormat(),
 	genres: ["Country", "Marching Band"],
-	nomineeAddress: buildFakeAddress(),
+	nomineeStreetAddress: faker.address.streetAddress(),
+	nomineeCity: faker.address.city(),
+	nomineeZipCode: faker.address.zipCode(),
+	nomineeAddressNotes: faker.lorem.paragraph(),
 	specialMessage: faker.lorem.paragraph(),
 	requesterName: faker.name.findName(),
 	requesterPhone: faker.phone.phoneNumberFormat(),
 	requesterEmail: faker.internet.email(),
 };
-
-function buildFakeAddress() {
-	return `${faker.address.streetAddress()} ${faker.address.city()}, ${faker.address.state()} ${faker.address.zipCode()}`;
-}
 
 describe("Request", () => {
 	describe("Submit a request for a concert.", () => {
@@ -38,7 +37,10 @@ describe("Request", () => {
 				requestData.contactPreference
 			);
 			requestFormPage.fillInNomineePhone(requestData.nomineePhone);
-			requestFormPage.fillInNomineeAddress(requestData.nomineeAddress);
+			requestFormPage.fillInNomineeStreetAddress(requestData.nomineeStreetAddress);
+			requestFormPage.fillInNomineeCity(requestData.nomineeCity);
+			requestFormPage.fillInNomineeZipCode(requestData.nomineeZipCode);
+			requestFormPage.fillInNomineeAddressNotes(requestData.nomineeAddressNotes);
 			requestData.genres.forEach((genre) => {
 				requestFormPage.clickGenreCheckbox(genre);
 			});
@@ -65,7 +67,7 @@ describe("Request", () => {
 			);
 		});
 
-		it("should be able to edit the legacy address of a request as an admin", () => {
+		it("should be able to edit the address of a request as an admin", () => {
 			cy.login();
 
 			gigsPage.visit();
@@ -73,8 +75,11 @@ describe("Request", () => {
 
 			requestEditPage.assert();
 
-			requestData.address = buildFakeAddress();
-			requestEditPage.fillInLegacyAddressField(requestData.address);
+			requestEditPage.fillInNomineeStreetAddress(faker.address.streetAddress());
+			requestEditPage.fillInNomineeCity(faker.address.city());
+			requestEditPage.fillInNomineeZipCode(faker.address.zipCode());
+			requestEditPage.fillInNomineeAddressNotes(faker.lorem.paragraph());
+
 			requestEditPage.clickSubmitButton();
 
 			requestShowPage.assert(requestData.specialMessage);
@@ -102,7 +107,10 @@ describe("Request", () => {
 				requestData.contactPreference
 			);
 			requestFormPage.fillInNomineePhone(requestData.nomineePhone);
-			requestFormPage.fillInNomineeAddress(requestData.nomineeAddress);
+			requestFormPage.fillInNomineeStreetAddress(requestData.nomineeStreetAddress);
+			requestFormPage.fillInNomineeCity(requestData.nomineeCity);
+			requestFormPage.fillInNomineeZipCode(requestData.nomineeZipCode);
+			requestFormPage.fillInNomineeAddressNotes(requestData.nomineeAddressNotes);
 			requestData.genres.forEach((genre) => {
 				requestFormPage.clickGenreCheckbox(genre);
 			});

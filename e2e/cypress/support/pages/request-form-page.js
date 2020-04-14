@@ -6,8 +6,14 @@ const nomineeContactPreferenceRadio = () =>
 	cy.get('input[name="request[contact_preference]"]');
 const nomineePhoneField = () => cy.get('input[name="request[nominee_phone]"]');
 const nomineeSongField = () => cy.get('select[name="request[song]"]');
-const nomineeAddressField = () =>
-	cy.get('input[name="request[nominee_address]"]');
+const nomineeStreetAddressField = () =>
+	cy.get('input[name="request[nominee_street_address]"]');
+const nomineeCityField = () =>
+	cy.get('input[name="request[nominee_city]"]');
+const nomineeZipCodeField = () =>
+	cy.get('input[name="request[nominee_zip_code]"]');
+const nomineeAddressNotesField = () =>
+	cy.get('textarea[name="request[nominee_address_notes]"]');
 const specialMessageField = () =>
 	cy.get('textarea[name="request[special_message]"]');
 const requesterNameField = () =>
@@ -51,8 +57,20 @@ class RequestFormPage {
 		genreCheckbox(genre).check();
 	}
 
-	fillInNomineeAddress(address) {
-		nomineeAddressField().clear().type(address);
+	fillInNomineeStreetAddress(streetAddress) {
+		nomineeStreetAddressField().clear().type(streetAddress);
+	}
+
+	fillInNomineeCity(city) {
+		nomineeCityField().clear().type(city);
+	}
+
+	fillInNomineeZipCode(zipcode) {
+		nomineeZipCodeField().clear().type(zipcode);
+	}
+
+	fillInNomineeAddressNotes(notes) {
+		nomineeAddressNotesField().clear().type(notes);
 	}
 
 	fillInSpecialMessage(message) {

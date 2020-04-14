@@ -1,6 +1,10 @@
 const heading = () => cy.get("h1");
-const legacyAddressField = () =>
-	cy.get('input[name="request[nominee_address]"');
+const nomineeStreetAddressField = () =>
+	cy.get('input[name="request[nominee_street_address]"]');
+const nomineeCityField = () =>
+	cy.get('input[name="request[nominee_city]"]');
+const nomineeZipCodeField = () =>
+	cy.get('input[name="request[nominee_zip_code]"]');
 const submitButton = () => cy.contains("SUBMIT");
 
 class RequestPage {
@@ -8,8 +12,16 @@ class RequestPage {
 		heading().should("contain.text", "Edit Request");
 	}
 
-	fillInLegacyAddressField(address) {
-		legacyAddressField().clear().type(address);
+	fillInNomineeStreetAddress(streetAddress) {
+		nomineeStreetAddressField().clear().type(streetAddress);
+	}
+
+	fillInNomineeCity(city) {
+		nomineeCityField().clear().type(city);
+	}
+
+	fillInNomineeZipCode(zipcode) {
+		nomineeZipCodeField().clear().type(zipcode);
 	}
 
 	clickSubmitButton() {
