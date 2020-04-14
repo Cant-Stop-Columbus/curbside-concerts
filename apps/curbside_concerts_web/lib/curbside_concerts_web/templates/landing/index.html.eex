@@ -1,11 +1,5 @@
 <div class="card card-with-nav">
-  <nav>
-		<%# the comment tags remove the white space between nav elements, keeping spacing consistent between pages %>
-    <span class="link current">HOME</span><!--
-    --><%= link "REQUEST", to: Routes.request_path(@conn, :new), class: "link" %><!--
-		--><%= link "TIPS", to: Routes.tips_path(@conn, :index), class: "link" %><!--
-		--><%= link "PERFORM", to: Routes.perform_path(@conn, :index), class: "link" %>
-  </nav>
+	<%= LayoutView.render_nav_links(LayoutView.get_nav_links("HOME")) %>
   <header class="landing">
     <p>Hey Columbus,</p>
     <h1>Know an older person in need of some love and connection right now?</h1>
