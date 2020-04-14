@@ -3,7 +3,6 @@
 
 <%= for %Request{
   nominee_name: nominee_name,
-  nominee_address: nominee_address,
   nominee_phone: nominee_phone,
   requester_name: requester_name,
   requester_phone: requester_phone,
@@ -18,7 +17,7 @@
 
     <div>
       <b>Map to <%= nominee_name %>'s house:</b>
-      <a href="http://maps.google.com/?q=<%= URI.encode(nominee_address) %>"><%= nominee_address %></a>
+      <a href="http://maps.google.com/?q=<%= URI.encode(RequestAddress.full_address(request)) %>"><%= RequestAddress.full_address(request) %></a>
     </div>
 
     <br>
