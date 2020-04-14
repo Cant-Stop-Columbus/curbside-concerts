@@ -207,7 +207,9 @@ defmodule CurbsideConcertsWeb.RequestControllerTest do
       conn = get(conn, Routes.request_path(conn, :index))
       assert html_response(conn, 200) =~ special_message
 
-      conn = put(conn, Routes.request_path(conn, :archive, request))
+      redirect = Routes.request_path(conn, :index)
+
+      conn = put(conn, Routes.request_path(conn, :archive, request, %{redirect: redirect}))
       assert redirected_to(conn) == Routes.request_path(conn, :index)
 
       conn = get(conn, Routes.request_path(conn, :index))
