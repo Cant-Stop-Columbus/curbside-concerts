@@ -1,5 +1,4 @@
 <% %Request{
-	archived: archived,
   requester_name: requester_name,
 	requester_email: requester_email,
   requester_phone: requester_phone,
@@ -58,14 +57,5 @@
   </div>
   <div><b>Special Message:</b><br>
     <%= raw special_message %>
-  </div>
-
-  <div>
-    <%= link "View", to: Routes.request_path(CurbsideConcertsWeb.Endpoint, :show, @request) %>
-
-    <%= if !archived do %>
-      | <%= link "Edit", to: Routes.request_path(CurbsideConcertsWeb.Endpoint, :edit, @request) %>
-      | <%= link "Archive This Request", to: Routes.request_path(CurbsideConcertsWeb.Endpoint, :archive, @request), method: :put, data: [confirm: "Are you sure?"] %>
-    <% end %>
   </div>
 </div>

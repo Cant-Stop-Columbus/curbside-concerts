@@ -1,5 +1,5 @@
 defmodule CurbsideConcertsWeb.RequestControllerTest do
-  use CurbsideConcertsWeb.ConnCase, async: true
+  use CurbsideConcertsWeb.ConnCase, async: false
 
   alias CurbsideConcerts.Accounts.User
   alias CurbsideConcerts.Requests
@@ -92,6 +92,27 @@ defmodule CurbsideConcertsWeb.RequestControllerTest do
   end
 
   describe "cancel_request/2" do
+    test "cancels a request", %{conn: conn} do
+      %Request{nominee_name: nominee_name, id: request_id} = insert!(:request)
+      tracker_id = TrackerCypher.encode(request_id)
+
+      conn = put(conn, Routes.request_path(conn, :cancel_request, tracker_id))
+      assert Routes.request_path(conn, :new) == redirected_to(conn)
+
+      html =
+        conn
+        |> get(Routes.request_path(conn, :new))
+        |> html_response(200)
+        |> Floki.parse_document!()
+
+      success_message =
+        html
+        |> Floki.find(".alert-info")
+        |> Floki.text()
+
+      assert success_message == "The concert request for #{nominee_name} has been cancelled."
+    end
+
     test "redirects to new with failure message when request is not found", %{conn: conn} do
       tracker_id = "invalid-tracker"
 
@@ -189,12 +210,54 @@ defmodule CurbsideConcertsWeb.RequestControllerTest do
       conn = get(conn, Routes.request_path(conn, :index))
       assert html_response(conn, 200) =~ special_message
 
-      conn = put(conn, Routes.request_path(conn, :archive, request))
+      redirect = Routes.request_path(conn, :index)
+
+      conn = put(conn, Routes.request_path(conn, :archive, request, %{redirect: redirect}))
       assert redirected_to(conn) == Routes.request_path(conn, :index)
 
       conn = get(conn, Routes.request_path(conn, :index))
       assert html_response(conn, 200) =~ "Request archived successfully."
       refute html_response(conn, 200) =~ special_message
+    end
+  end
+
+  describe "state/2" do
+    setup [:auth_user]
+
+    test "should update state to offmission", %{conn: conn} do
+      %Request{special_message: special_message} = request = insert!(:request)
+
+      conn = get(conn, Routes.request_path(conn, :index))
+      assert html_response(conn, 200) =~ special_message
+
+      redirect = Routes.request_path(conn, :index, %{state: "offmission"})
+
+      conn =
+        put(conn, Routes.request_path(conn, :state, request, "offmission", %{redirect: redirect}))
+
+      assert redirected_to(conn) == redirect
+
+      conn = get(conn, redirect)
+      assert html_response(conn, 200) =~ "Request state updated successfully."
+      assert html_response(conn, 200) =~ special_message
+    end
+
+    test "should update state to pending", %{conn: conn} do
+      %Request{special_message: special_message} = request = insert!(:request)
+
+      conn = get(conn, Routes.request_path(conn, :index))
+      assert html_response(conn, 200) =~ special_message
+
+      redirect = Routes.request_path(conn, :index, %{state: "pending"})
+
+      conn =
+        put(conn, Routes.request_path(conn, :state, request, "pending", %{redirect: redirect}))
+
+      assert redirected_to(conn) == redirect
+
+      conn = get(conn, redirect)
+      assert html_response(conn, 200) =~ "Request state updated successfully."
+      assert html_response(conn, 200) =~ special_message
     end
   end
 
