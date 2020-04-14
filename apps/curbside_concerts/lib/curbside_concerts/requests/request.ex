@@ -38,7 +38,10 @@ defmodule CurbsideConcerts.Requests.Request do
   end
 
   def changeset(request, attrs) do
-    attrs = trim_attrs(attrs, @allowed_attrs)
+    attrs =
+      attrs
+      |> trim_attrs(@allowed_attrs)
+      |> filter_phones()
 
     request
     |> cast(attrs, @allowed_attrs)
@@ -47,12 +50,11 @@ defmodule CurbsideConcerts.Requests.Request do
   end
 
   @doc """
-  Do not want to get too picky here. If the input has _ characters I know
-  that the phone was not given.
+  Do not want to get too picky here. If the input does not have 10 characters complain.
   """
   def validate_phone(changeset, field) when is_atom(field) do
     validate_change(changeset, field, fn f, value ->
-      if is_binary(value) and String.contains?(value, "_") do
+      if is_binary(value) and String.length(value) < 10 do
         [{f, "Please complete this phone number"}]
       else
         []
@@ -61,10 +63,24 @@ defmodule CurbsideConcerts.Requests.Request do
   end
 
   defp trim_attrs(%{} = map, fields) when is_list(fields) do
-    to_trim = Map.take(map, fields)
+    field_keys = Enum.map(fields, &to_string/1)
+    fields_to_trim = Map.take(map, field_keys)
 
-    Map.merge(map, to_trim, fn _key, _old_val, new_val ->
+    Map.merge(map, fields_to_trim, fn _key, _old_val, new_val ->
       if is_binary(new_val), do: String.trim(new_val), else: new_val
     end)
   end
+
+  defp filter_phones(attrs) do
+    attrs
+    |> digitize_field("nominee_phone")
+    |> digitize_field("requester_phone")
+  end
+
+  defp digitize_field(attrs, field) do
+    if Map.has_key?(attrs, field), do: Map.update!(attrs, field, &digits_only/1), else: attrs
+  end
+
+  defp digits_only(string) when is_binary(string), do: String.replace(string, ~r/\D/, "")
+  defp digits_only(not_string), do: not_string
 end
