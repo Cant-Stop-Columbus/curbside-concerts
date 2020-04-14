@@ -53,17 +53,19 @@ defmodule CurbsideConcertsWeb.RequestController do
     |> render("musician_gigs.html")
   end
 
-  def index(conn, %{"state" => state}) do
+  def index(conn, %{"state" => state} = params) do
     conn
     |> assign(:state, state)
     |> assign(:request_type, RequestView.display_state(state))
     |> assign(:requests, Requests.all_active_requests_by_state(state))
+    |> assign(:route, Routes.request_path(conn, :index, params))
     |> render("index.html")
   end
 
   def index(conn, _) do
     conn
     |> assign(:requests, Requests.all_active_requests())
+    |> assign(:route, Routes.request_path(conn, :index))
     |> render("index.html")
   end
 
@@ -136,21 +138,40 @@ defmodule CurbsideConcertsWeb.RequestController do
     |> redirect(to: Routes.request_path(conn, :index))
   end
 
-  def off_mission(conn, %{"id" => id}) do
+  @doc """
+  This route can be used to change the status of a request.
+
+  Path: "/request/:id/state/:state?redirect=:redirect_url"
+
+  Parameters:
+  - id: the id of a request
+  - state: the string corresponding to a valid request state
+  - redirect: the route that should be redirected to after updating the request
+
+  Sample Usage:
+
+  ```
+  Routes.request_path(
+  	CurbsideConcertsWeb.Endpoint,
+  	:state,
+  	request,
+  	"pending",
+  	%{redirect: Routes.request_path(CurbsideConcertsWeb.Endpoint, :index)}
+  )
+  ```
+  """
+  @spec state(Plug.Conn.t(), map) :: Plug.Conn.t()
+  def state(conn, %{"id" => id, "state" => state, "redirect" => redirect}) do
     request = Requests.get_request(id)
-    Requests.off_mission_request(request)
+
+    case state do
+      "offmission" -> Requests.off_mission_request(request)
+      "pending" -> Requests.back_to_pending_request(request)
+      _ -> nil
+    end
 
     conn
     |> put_flash(:info, "Request state updated successfully.")
-    |> redirect(to: Routes.request_path(conn, :index))
-  end
-
-  def pending(conn, %{"id" => id}) do
-    request = Requests.get_request(id)
-    Requests.back_to_pending_request(request)
-
-    conn
-    |> put_flash(:info, "Request state updated successfully.")
-    |> redirect(to: Routes.request_path(conn, :index))
+    |> redirect(to: redirect)
   end
 end

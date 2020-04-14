@@ -216,6 +216,46 @@ defmodule CurbsideConcertsWeb.RequestControllerTest do
     end
   end
 
+  describe "state/2" do
+    setup [:auth_user]
+
+    test "should update state to offmission", %{conn: conn} do
+      %Request{special_message: special_message} = request = insert!(:request)
+
+      conn = get(conn, Routes.request_path(conn, :index))
+      assert html_response(conn, 200) =~ special_message
+
+      redirect = Routes.request_path(conn, :index, %{state: "offmission"})
+
+      conn =
+        put(conn, Routes.request_path(conn, :state, request, "offmission", %{redirect: redirect}))
+
+      assert redirected_to(conn) == redirect
+
+      conn = get(conn, redirect)
+      assert html_response(conn, 200) =~ "Request state updated successfully."
+      assert html_response(conn, 200) =~ special_message
+    end
+
+    test "should update state to pending", %{conn: conn} do
+      %Request{special_message: special_message} = request = insert!(:request)
+
+      conn = get(conn, Routes.request_path(conn, :index))
+      assert html_response(conn, 200) =~ special_message
+
+      redirect = Routes.request_path(conn, :index, %{state: "pending"})
+
+      conn =
+        put(conn, Routes.request_path(conn, :state, request, "pending", %{redirect: redirect}))
+
+      assert redirected_to(conn) == redirect
+
+      conn = get(conn, redirect)
+      assert html_response(conn, 200) =~ "Request state updated successfully."
+      assert html_response(conn, 200) =~ special_message
+    end
+  end
+
   def auth_user(%{conn: conn}) do
     %User{} = user = insert!(:user)
 

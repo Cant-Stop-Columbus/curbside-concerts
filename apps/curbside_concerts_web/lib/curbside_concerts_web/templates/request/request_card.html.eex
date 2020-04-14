@@ -1,5 +1,4 @@
 <% %Request{
-	archived: archived,
   requester_name: requester_name,
 	requester_email: requester_email,
   requester_phone: requester_phone,
@@ -8,8 +7,7 @@
   nominee_address: nominee_address,
   genres: genres,
 	inserted_at: inserted_at,
-  special_message: special_message,
-	state: state
+  special_message: special_message
 } = @request %>
 <div class="card">
   <div><b>Status:</b> <%= display_state(@request) %></div>
@@ -52,21 +50,5 @@
   </div>
   <div><b>Special Message:</b><br>
     <%= raw special_message %>
-  </div>
-
-  <br />
-
-  <div>
-    <%= link "View", to: Routes.request_path(CurbsideConcertsWeb.Endpoint, :show, @request) %>
-
-    <%= if !archived do %>
-      | <%= link "Edit", to: Routes.request_path(CurbsideConcertsWeb.Endpoint, :edit, @request) %>
-      <%= if state !== Requests.offmission_state() do %>
-        | <%= link "Mark as Off-Mission", to: Routes.request_path(CurbsideConcertsWeb.Endpoint, :off_mission, @request), method: :put, data: [confirm: "Are you sure?"] %>
-      <% else %>
-        | <%= link "Mark as Received", to: Routes.request_path(CurbsideConcertsWeb.Endpoint, :pending, @request), method: :put, data: [confirm: "Are you sure?"] %>
-      <% end %>
-      | <%= link "Archive This Request", to: Routes.request_path(CurbsideConcertsWeb.Endpoint, :archive, @request), method: :put, data: [confirm: "Are you sure?"] %>
-    <% end %>
   </div>
 </div>

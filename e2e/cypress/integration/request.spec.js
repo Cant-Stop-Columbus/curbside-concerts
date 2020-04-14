@@ -85,11 +85,12 @@ describe("Request", () => {
 
 		it("should be able to mark a request as off-mission, then back", () => {
 			gigsPage.visit();
+
+			// mark a request off-mission
 			gigsPage.clickRequestOffMissionLink(requestData.specialMessage);
 
-			gigsPage.refuteRequest(requestData.specialMessage);
+			// the request should appear on the off-mission view
 			gigsPage.clickOffMissionNavLink();
-
 			gigsPage.assertOffMissionView();
 			gigsPage.assertRequest(
 				requestData.nomineeName,
@@ -97,6 +98,12 @@ describe("Request", () => {
 				requestData.specialMessage,
 				requestData.genres
 			);
+
+			// mark a request as received (undo the off-mission state)
+			gigsPage.clickRequestReceivedLink(requestData.specialMessage);
+
+			// the request should disappear from the off-mission view
+			gigsPage.refuteRequest();
 		});
 
 		it("should be able to archive a request as an admin", () => {
