@@ -19,6 +19,15 @@ defmodule CurbsideConcertsWeb.RequestView do
   @canceled_state Requests.canceled_state()
   @offmission_state Requests.offmission_state()
 
+  @doc """
+  Given either a Request or a string representating a request
+  state, returns the message text associated with that state.
+
+  If the request does not have a state property, or the state
+  is not recognized, an unknown message will be returned.
+  """
+  @spec display_state(Request.t()) :: binary()
+  @spec display_state(binary()) :: binary()
   def display_state(%Request{state: state}) do
     display_state(state)
   end
