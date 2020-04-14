@@ -18,27 +18,34 @@ defmodule CurbsideConcertsWeb.Router do
     plug CurbsideConcertsWeb.Plugs.AuthenticateUser
   end
 
+  # This scope contains unauthenticated routes.
   scope "/", CurbsideConcertsWeb do
     pipe_through :browser
 
+    # static home pages
     get "/", LandingController, :index
     get "/tips", TipsController, :index
+    get "/perform", PerformController, :index
+
+    # status pages
     get "/tracker/:tracker_id", RequestController, :tracker
-
     get "/session/driver/:driver_id", SessionController, :session_route_driver
-
     get "/session/artist/:artist_id", SessionController, :session_route_artist
 
+    # request management
     get "/request", RequestController, :new
     post "/request", RequestController, :create
     put "/cancel_request/:tracker_id", RequestController, :cancel_request
 
+    # admin landing page
     get "/admin", AdminController, :index
 
+    # authentication
     get("/sign-in", AccountSessionController, :new)
     post("/sign-in", AccountSessionController, :create)
   end
 
+  # This scope contains authenticated routes.
   scope "/", CurbsideConcertsWeb do
     pipe_through [:browser, :requires_auth]
 

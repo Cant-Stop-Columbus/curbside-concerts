@@ -3,7 +3,8 @@
     <%# the comment tags remove the white space between nav elements, keeping spacing consistent between pages %>
     <%= link "HOME", to: Routes.landing_path(@conn, :index), class: "link" %><!--
     --><%= link "REQUEST", to: Routes.request_path(@conn, :new), class: "link" %><!--
-    --><span class="link current">TIPS</span>
+    --><span class="link current">TIPS</span><!--
+		--><%= link "PERFORM", to: Routes.perform_path(@conn, :index), class: "link" %>
   </nav>
   <header class="landing">
     <h1>Tip your curbside musician</h1>
