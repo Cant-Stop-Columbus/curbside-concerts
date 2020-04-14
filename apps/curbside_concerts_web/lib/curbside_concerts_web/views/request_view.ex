@@ -36,6 +36,8 @@ defmodule CurbsideConcertsWeb.RequestView do
     end
   end
 
+  def display_state(_), do: unknown_message()
+
   def cancellable_state(%Request{state: state}) do
     case state do
       @pending_state -> true
