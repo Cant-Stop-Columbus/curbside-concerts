@@ -38,8 +38,33 @@ defmodule CurbsideConcerts.Requests.Request do
   end
 
   def changeset(request, attrs) do
+    attrs = trim_attrs(attrs, @allowed_attrs)
+
     request
     |> cast(attrs, @allowed_attrs)
     |> validate_required(@required_attrs, message: "Please provide an answer")
+    |> validate_phone(:requester_phone)
+  end
+
+  @doc """
+  Do not want to get too picky here. If the input has _ characters I know
+  that the phone was not given.
+  """
+  def validate_phone(changeset, field) when is_atom(field) do
+    validate_change(changeset, field, fn f, value ->
+      if is_binary(value) and String.contains?(value, "_") do
+        [{f, "Please complete this phone number"}]
+      else
+        []
+      end
+    end)
+  end
+
+  defp trim_attrs(%{} = map, fields) when is_list(fields) do
+    to_trim = Map.take(map, fields)
+
+    Map.merge(map, to_trim, fn _key, _old_val, new_val ->
+      if is_binary(new_val), do: String.trim(new_val), else: new_val
+    end)
   end
 end
