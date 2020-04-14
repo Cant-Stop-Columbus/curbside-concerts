@@ -20,6 +20,10 @@ defmodule CurbsideConcertsWeb.RequestView do
   @offmission_state Requests.offmission_state()
 
   def display_state(%Request{state: state}) do
+    display_state(state)
+  end
+
+  def display_state(state) when is_binary(state) do
     case state do
       @pending_state -> pending_message()
       @accepted_state -> accepted_message()

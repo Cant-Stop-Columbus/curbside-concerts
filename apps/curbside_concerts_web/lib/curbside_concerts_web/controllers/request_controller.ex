@@ -54,9 +54,11 @@ defmodule CurbsideConcertsWeb.RequestController do
   end
 
   def index(conn, %{"state" => state}) do
-    requests = Requests.all_active_requests_by_state(state)
-    request_type = RequestView.display_state(state)
-    render(conn, "index.html", request_type: request_type, requests: requests)
+    conn
+    |> assign(:state, state)
+    |> assign(:request_type, RequestView.display_state(state))
+    |> assign(:requests, Requests.all_active_requests_by_state(state))
+    |> render("index.html")
   end
 
   def index(conn, _) do

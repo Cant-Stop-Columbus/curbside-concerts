@@ -54,6 +54,8 @@
     <%= raw special_message %>
   </div>
 
+  <br />
+
   <div>
     <%= link "View", to: Routes.request_path(CurbsideConcertsWeb.Endpoint, :show, @request) %>
 

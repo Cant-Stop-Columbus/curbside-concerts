@@ -6,6 +6,9 @@ const editRequestLink = (specialMessage) =>
 	requestCard(specialMessage).contains("Edit");
 const archiveRequestLink = (specialMessage) =>
 	requestCard(specialMessage).contains("Archive This Request");
+const offMissionRequestLink = (specialMessage) =>
+	requestCard(specialMessage).contains("Mark as Off-Mission");
+const offMissionNavLink = () => cy.contains("View Off-Mission Requests");
 
 class GigsPage {
 	visit() {
@@ -13,7 +16,11 @@ class GigsPage {
 	}
 
 	assert() {
-		heading().should("contain.text", "All requests");
+		heading().should("contain.text", "All Off-mission requests");
+	}
+
+	assertOffMissionView() {
+		heading().should("contain.text", "");
 	}
 
 	assertRequest(nomineeName, requesterName, specialMessage, genres) {
@@ -42,6 +49,14 @@ class GigsPage {
 
 	clickRequestArchiveLink(specialMessage) {
 		archiveRequestLink(specialMessage).click();
+	}
+
+	clickRequestOffMissionLink(specialMessage) {
+		offMissionRequestLink(specialMessage).click();
+	}
+
+	clickOffMissionNavLink() {
+		offMissionNavLink().click();
 	}
 }
 
