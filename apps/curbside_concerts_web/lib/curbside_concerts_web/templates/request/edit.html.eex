@@ -5,8 +5,10 @@
 
 <div class="card">
   <%= form_for @changeset, Routes.request_path(@conn, :update, @changeset.data), fn f -> %>
-  <%= hidden_input f, :id %>
-  <%= unless f.errors == [], do: inspect(f.errors) %>
+    <%= hidden_input f, :id %>
+    <%= unless f.errors == [], do: inspect(f.errors) %>
+
+    <label class="field">Deprecated Address: <%= input_value(f, :nominee_address) %></label>
 
     <label class="field">Nominee Street Address: <%= text_input f, :nominee_street_address %></label>
     <label class="field">Nominee City: <%= text_input f, :nominee_city %></label>

@@ -1,11 +1,11 @@
 defmodule CurbsideConcertsWeb.Helpers.RequestAddress do
-
   alias CurbsideConcerts.Requests.Request
+
   @moduledoc """
 
   This holds the logic to concatendate the address fields in a Request for viewing purposes
   If the legacy nominee_address field exists in the Request, this method will return that value
-  
+
   ## Example
   ```
   request = %Request{
@@ -25,14 +25,14 @@ defmodule CurbsideConcertsWeb.Helpers.RequestAddress do
   """
 
   def full_address(%Request{
-    nominee_address: nominee_address,
-    nominee_street_address: nominee_street_address,
-    nominee_city: nominee_city,
-    nominee_zip_code: nominee_zip_code
-  }) do 
+        nominee_address: nominee_address,
+        nominee_street_address: nominee_street_address,
+        nominee_city: nominee_city,
+        nominee_zip_code: nominee_zip_code
+      }) do
     cond do
-      nominee_address -> nominee_address
-      true -> "#{nominee_street_address} #{nominee_city} #{nominee_zip_code}"
+      nominee_street_address -> "#{nominee_street_address} #{nominee_city} #{nominee_zip_code}"
+      true -> nominee_address
     end
   end
 end
