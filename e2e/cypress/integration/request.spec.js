@@ -75,15 +75,19 @@ describe("Request", () => {
 
 			requestEditPage.assert();
 
-			requestEditPage.fillInNomineeStreetAddress(faker.address.streetAddress());
-			requestEditPage.fillInNomineeCity(faker.address.city());
-			requestEditPage.fillInNomineeZipCode(faker.address.zipCode());
+			const streetAddress = faker.address.streetAddress();
+			const city = faker.address.city();
+			const zipCode = faker.address.zipCode();
+
+			requestEditPage.fillInNomineeStreetAddress(streetAddress);
+			requestEditPage.fillInNomineeCity(city);
+			requestEditPage.fillInNomineeZipCode(zipCode);
 			requestEditPage.fillInNomineeAddressNotes(faker.lorem.paragraph());
 
 			requestEditPage.clickSubmitButton();
 
 			requestShowPage.assert(requestData.specialMessage);
-			requestShowPage.assertAddress(requestData.address);
+			requestShowPage.assertAddress(`${streetAddress} ${city} ${zipCode}`);
 		});
 
 		it("should be able to archive a request as an admin", () => {
