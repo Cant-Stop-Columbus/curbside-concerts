@@ -11,8 +11,6 @@ npm install --prefix e2e
 
 ## Running the Tests
 
-**Note**: These tests rely on the seed data in `priv/repo/seeds.exs`. Make sure you've run `bin/setup.sh` or `mix ecto.setup` before running the tests.
-
 Load the seeds to create a test user for cypress:
 
 ```sh

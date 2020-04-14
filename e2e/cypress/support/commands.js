@@ -24,7 +24,7 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-import { adminPage, signInPage } from "./pages";
+import { adminPage, signInPage, genreIndexPage, genreNewPage } from "./pages";
 
 Cypress.Commands.add("logout", () => {
 	adminPage.visit();
@@ -37,3 +37,13 @@ Cypress.Commands.add("login", () => {
 	signInPage.fillInPassword("password");
 	signInPage.clickSubmit();
 });
+
+Cypress.Commands.add("createGenre", ({ name: name }) => {
+	genreIndexPage.visit();
+	genreIndexPage.clickNewGenreLink();
+	genreNewPage.fillInNameField(name);
+	genreNewPage.clickSubmit();
+});
+
+// TBD
+Cypress.Commands.add("archiveGenre", () => {});
