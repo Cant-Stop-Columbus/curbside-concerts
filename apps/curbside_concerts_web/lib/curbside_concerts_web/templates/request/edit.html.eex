@@ -9,8 +9,9 @@
   <%= unless f.errors == [], do: inspect(f.errors) %>
 
     <label class="field">Nominee Street Address: <%= text_input f, :nominee_street_address %></label>
-    <label class="field">Nominee Street Address: <%= text_input f, :nominee_city %></label>
-    <label class="field">Nominee Street Address: <%= text_input f, :nominee_zip_code %></label>
+    <label class="field">Nominee City: <%= text_input f, :nominee_city %></label>
+    <label class="field">Nominee Zip Code: <%= text_input f, :nominee_zip_code %></label>
+    <label class="field">Nominee Address Notes: <%= textarea f, :nominee_address_notes %></label>
 
     <button type="submit">SUBMIT</button>
   <% end %>

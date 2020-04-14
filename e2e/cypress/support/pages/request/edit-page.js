@@ -5,6 +5,8 @@ const nomineeCityField = () =>
 	cy.get('input[name="request[nominee_city]"]');
 const nomineeZipCodeField = () =>
 	cy.get('input[name="request[nominee_zip_code]"]');
+const nomineeAddressNotesField = () =>
+	cy.get('textarea[name="request[nominee_address_notes]"]');
 const submitButton = () => cy.contains("SUBMIT");
 
 class RequestPage {
@@ -22,6 +24,10 @@ class RequestPage {
 
 	fillInNomineeZipCode(zipcode) {
 		nomineeZipCodeField().clear().type(zipcode);
+	}
+
+	fillInNomineeAddressNotes(notes) {
+		nomineeAddressNotesField().clear().type(notes);
 	}
 
 	clickSubmitButton() {
