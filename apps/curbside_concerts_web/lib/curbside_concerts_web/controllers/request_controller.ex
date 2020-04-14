@@ -73,6 +73,7 @@ defmodule CurbsideConcertsWeb.RequestController do
     conn
     |> assign(:requests, Requests.all_last_minute_requests())
     |> assign(:request_type, "unbooked")
+    |> assign(:route, Routes.request_path(conn, :last_minute_gigs))
     |> render("index.html")
   end
 
@@ -129,13 +130,13 @@ defmodule CurbsideConcertsWeb.RequestController do
     end
   end
 
-  def archive(conn, %{"id" => id}) do
+  def archive(conn, %{"id" => id, "redirect" => redirect}) do
     request = Requests.get_request(id)
     {:ok, _request} = Requests.archive_request(request)
 
     conn
     |> put_flash(:info, "Request archived successfully.")
-    |> redirect(to: Routes.request_path(conn, :index))
+    |> redirect(to: redirect)
   end
 
   @doc """

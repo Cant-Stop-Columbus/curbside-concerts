@@ -78,7 +78,7 @@
           <% else %>
             | <%= link "Mark as Received", to: Routes.request_path(CurbsideConcertsWeb.Endpoint, :state, request, "pending", %{redirect: @route}), method: :put, data: [confirm: "Are you sure?"] %>
           <% end %>
-          | <%= link "Archive This Request", to: Routes.request_path(CurbsideConcertsWeb.Endpoint, :archive, request), method: :put, data: [confirm: "Are you sure?"] %>
+          | <%= link "Archive This Request", to: Routes.request_path(CurbsideConcertsWeb.Endpoint, :archive, request, %{redirect: @route}), method: :put, data: [confirm: "Are you sure?"] %>
         <% end %>
       </div>
     </div>

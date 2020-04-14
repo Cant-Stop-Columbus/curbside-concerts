@@ -125,7 +125,7 @@ defmodule CurbsideConcerts.Requests do
 
   def all_active_requests do
     Request
-    |> where([s], s.archived == false)
+    |> where([r], r.archived == false)
     |> preload([:session, :genres])
     |> Repo.all()
   end
@@ -139,7 +139,7 @@ defmodule CurbsideConcerts.Requests do
 
   def all_last_minute_requests do
     Request
-    |> where([r], is_nil(r.session_id))
+    |> where([r], is_nil(r.session_id) and r.state == ^@pending and r.archived == false)
     |> preload([:genres])
     |> order_by({:desc, :inserted_at})
     |> Repo.all()
@@ -147,7 +147,7 @@ defmodule CurbsideConcerts.Requests do
 
   def all_unbooked_requests do
     Request
-    |> where([r], is_nil(r.session_id))
+    |> where([r], is_nil(r.session_id) and r.state == ^@pending and r.archived == false)
     |> preload([:genres])
     |> order_by(:rank)
     |> Repo.all()
