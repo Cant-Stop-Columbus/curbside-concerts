@@ -1,6 +1,9 @@
+# This file replaces config/prod.exs before executing CI checks in Travis (see .travis.yml).
+# We need to do this to ensure the database configuration below, which is unique to Travis.
+# This file should _not_ be used outside of Travis.
+
 use Mix.Config
 
-# Configure your database
 config :curbside_concerts, CurbsideConcerts.Repo,
   username: "postgres",
   password: "",
@@ -8,11 +11,8 @@ config :curbside_concerts, CurbsideConcerts.Repo,
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
-# We don't run a server during test. If one is required,
-# you can enable the server option below.
 config :curbside_concerts_web, CurbsideConcertsWeb.Endpoint,
   http: [port: 4002],
   server: false
 
-# Print only warnings and errors during test
 config :logger, level: :warn
