@@ -13,7 +13,7 @@
 <div class="card musician-tip-card">
   <h2>Will Freed</h2>
 
-	<img src="/images/musicians/will_freed.jpg" alt="Will Freed" />
+	<img src="/images/musicians/WillFreed.jpg" alt="Will Freed" />
 
 	<h3>About Will</h3>
 	<p>
@@ -31,13 +31,12 @@
 	<a role="button" class="button" href="https://cash.app/$willfreed1">CashApp</a>
 	<a role="button" class="button" href="https://venmo.com/will-freed-1">Venmo</a>
 	<a role="button" class="button" href="https://www.paypal.me/willfreed">PayPal</a>
-
 </div>
 
 <div class="card musician-tip-card">
   <h2>KaTanya Ingram</h2>
 
-	<img src="/images/musicians/katanya_ingram.jpg" alt="Katanya Ingram" />
+	<img src="/images/musicians/KaTanyaIngram.jpg" alt="Katanya Ingram" />
 
 	<h3>About KaTanya</h3>
 	<p>
@@ -54,6 +53,110 @@
 	<h3>Tip KaTanya</h3>
 	<a role="button" class="button" href="https://cash.app/$GirlNowWhat">CashApp</a>
 	<a role="button" class="button" href="https://venmo.com/GirlNowWhat">Venmo</a>
+</div>
+
+<div class="card musician-tip-card">
+  <h2>Jason Bennett</h2>
+
+	<img src="/images/musicians/JasonBennett.jpg" alt="Jason" />
+
+	<h3>About Jason</h3>
+	<p>
+		Jason Bennett plays original old school Americana as well as classic country and classic rock covers, usually solo acoustic guitar, singing and playing harmonica.
+	</p>
+
+	<h3>Jason's Social</h3>
+	<ul>
+		<li><a href="https://twitter.com/YodelingGrandpa">Twitter</a></li>
+		<li><a href="https://www.facebook.com/JasonBennettAmericana">Facebook</a></li>
+	</ul>
+
+	<h3>Tip Jason</h3>
+	<a role="button" class="button" href="https://cash.app/$pbetftdi">CashApp</a>
+	<a role="button" class="button" href="https://venmo.com/Jason-Greenwald-4">Venmo</a>
+	<a role="button" class="button" href="https://www.paypal.me/JasonBennettMusic">PayPal</a>
+</div>
+
+<div class="card musician-tip-card">
+  <h2>Scottie G</h2>
+
+	<img src="/images/musicians/ScottieG.jpg" alt="Scottie G" />
+
+	<h3>About Scottie</h3>
+	<p>
+	Scottie G is a performing singer and multi-instrumentalist. He is driven by his passion for emotional expression through music. A professional musician, he has been teaching guitar and offering contemporary voice counsel to students of all ages for years.
+	</p>
+
+	<h3>Scottie's Social</h3>
+	<ul>
+		<li><a href="https://www.instagram.com/scottie_g_yo">Instagram</a></li>
+	</ul>
+
+	<h3>Tip Scottie</h3>
+	<a role="button" class="button" href="https://cash.app/$scottiegyo">CashApp</a>
+	<a role="button" class="button" href="https://venmo.com/scottiegyo">Venmo</a>
+	<a role="button" class="button" href="https://www.paypal.me/scottiegyo">PayPal</a>
+</div>
+
+<div class="card musician-tip-card">
+  <h2>Caroline Inspires</h2>
+
+	<img src="/images/musicians/CarolineInspires.jpg" alt="Caroline Inspires" />
+
+	<h3>About Caroline</h3>
+	<p>
+		Caroline Inspires is a singer/songwriter who grew up in West Virginia, but now calls Columbus home. Caroline began playing for a living at an early age – developing his own style, writing music and learning how to play 100s of covers in his own unique, heartwarming tone. He lives in Grove City with his wife Ashley.
+	</p>
+
+	<h3>Caroline's Social</h3>
+	<ul>
+		<li><a href="https://www.instagram.com/CarolineInspires">Instagram</a></li>
+		<li><a href="https://www.facebook.com/caroline.bennett.982845">Facebook</a></li>
+	</ul>
+
+	<h3>Tip Caroline</h3>
+	<a role="button" class="button" href="https://cash.app/$CarolineInspires">CashApp</a>
+	<a role="button" class="button" href="https://venmo.com/CarolineInspires">Venmo</a>
+</div>
+
+<div class="card musician-tip-card">
+  <h2>Joanie Calem</h2>
+
+	<img src="/images/musicians/JoanieCalem.jpg" alt="Joanie Calem" />
+
+	<h3>About Joanie</h3>
+	<p>
+		Joanie Calem is a musician, singer/song-writer, and teacher.  She has been creating music and teaching people of all ages since 1983. Her goal in both performances and teaching is to invite audiences and students to share a sense of creating community through singing and playing together.
+	</p>
+
+	<h3>Joanie's Social</h3>
+	<ul>
+		<li><a href="https://www.facebook.com/joanie.calem">Facebook</a></li>
+	</ul>
+
+	<h3>Tip Joanie</h3>
+	<a role="button" class="button" href="https://venmo.com/Joanie-Calem">Venmo</a>
+</div>
+
+
+<div class="card musician-tip-card">
+  <h2>Race Lerma</h2>
+
+	<img src="/images/musicians/RaceLerma.jpg" alt="Race Lerma" />
+
+	<h3>About Race</h3>
+	<p>
+		Race is a gigging freelance musician from Findlay, Ohio, currently residing in Columbus. As predominantly a solo cover artist, his genres include blues, folk, jazz, americana, indie, pop, and classic rock. In addition to guitar, Race is also the bassist for award-winning local band Null Set, and a classically trained violinist of 15 years. He is currently majoring in violin performance at Capital University's Conservatory of Music.
+	</p>
+
+	<h3>Race's Social</h3>
+	<ul>
+		<li><a href="https://www.instagram.com/racelerma">Instagram</a></li>
+	</ul>
+
+	<h3>Tip Race</h3>
+	<a role="button" class="button" href="https://venmo.com/race-lerma">Venmo</a>
+	<a role="button" class="button" href="https://www.paypal.me/racelerma">PayPal</a>
 </div>
 
 <div class="card musician-tip-card">
