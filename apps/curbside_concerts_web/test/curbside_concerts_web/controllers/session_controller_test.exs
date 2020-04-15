@@ -32,10 +32,11 @@ defmodule CurbsideConcertsWeb.SessionControllerTest do
         conn
         |> get(Routes.session_path(conn, :index))
         |> html_response(200)
+        |> Floki.parse_document!()
 
-      assert html =~ "Sessions"
-      assert html =~ active_session_name
-      refute html =~ archived_session_name
+      assert "Sessions" == html |> Floki.find("h1") |> Floki.text()
+      assert html |> Floki.text() =~ active_session_name
+      refute html |> Floki.text() =~ archived_session_name
     end
 
     test "lists all archived sessions", %{conn: conn} do
@@ -53,10 +54,11 @@ defmodule CurbsideConcertsWeb.SessionControllerTest do
         conn
         |> get(Routes.session_path(conn, :index, %{"archived" => "true"}))
         |> html_response(200)
+        |> Floki.parse_document!()
 
-      assert html =~ "Sessions"
-      refute html =~ active_session_name
-      assert html =~ archived_session_name
+      assert "Archived Sessions" == html |> Floki.find("h1") |> Floki.text()
+      refute html |> Floki.text() =~ active_session_name
+      assert html |> Floki.text() =~ archived_session_name
     end
   end
 
@@ -66,8 +68,9 @@ defmodule CurbsideConcertsWeb.SessionControllerTest do
         conn
         |> get(Routes.session_path(conn, :new))
         |> html_response(200)
+        |> Floki.parse_document!()
 
-      assert html =~ "New Session"
+      assert "New Session" == html |> Floki.find("h1") |> Floki.text()
     end
   end
 
@@ -84,9 +87,10 @@ defmodule CurbsideConcertsWeb.SessionControllerTest do
         conn
         |> get(Routes.session_path(conn, :show, id))
         |> html_response(200)
+        |> Floki.parse_document!()
 
-      assert html =~ "View Session"
-      assert html =~ "Session created successfully"
+      assert "View Session" == html |> Floki.find("h1") |> Floki.text()
+      assert "Session created successfully." == html |> Floki.find(".alert-info") |> Floki.text()
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
@@ -96,8 +100,9 @@ defmodule CurbsideConcertsWeb.SessionControllerTest do
         conn
         |> post(Routes.session_path(conn, :create), session: invalid_attrs)
         |> html_response(200)
+        |> Floki.parse_document!()
 
-      assert html =~ "New Session"
+      assert "New Session" == html |> Floki.find("h1") |> Floki.text()
     end
   end
 
@@ -109,8 +114,9 @@ defmodule CurbsideConcertsWeb.SessionControllerTest do
         conn
         |> get(Routes.session_path(conn, :edit, session))
         |> html_response(200)
+        |> Floki.parse_document!()
 
-      assert html =~ "Edit Session"
+      assert "Edit Session" == html |> Floki.find("h1") |> Floki.text()
     end
   end
 
@@ -129,10 +135,11 @@ defmodule CurbsideConcertsWeb.SessionControllerTest do
         conn
         |> get(Routes.session_path(conn, :show, session))
         |> html_response(200)
+        |> Floki.parse_document!()
 
-      assert html =~ "View Session"
-      assert html =~ "Session updated successfully."
-      assert html =~ "updated name"
+      assert "View Session" == html |> Floki.find("h1") |> Floki.text()
+      assert "Session updated successfully." == html |> Floki.find(".alert-info") |> Floki.text()
+      assert html |> Floki.text() =~ "updated name"
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
@@ -140,8 +147,13 @@ defmodule CurbsideConcertsWeb.SessionControllerTest do
 
       invalid_attrs = %{name: nil}
 
-      conn = put(conn, Routes.session_path(conn, :update, session), session: invalid_attrs)
-      assert html_response(conn, 200) =~ "Edit Session"
+      html =
+        conn
+        |> put(Routes.session_path(conn, :update, session), session: invalid_attrs)
+        |> html_response(200)
+        |> Floki.parse_document!()
+
+      assert "Edit Session" == html |> Floki.find("h1") |> Floki.text()
     end
   end
 
@@ -150,14 +162,19 @@ defmodule CurbsideConcertsWeb.SessionControllerTest do
       %Session{name: name} = session = insert!(:session)
 
       conn = get(conn, Routes.session_path(conn, :index))
-      assert html_response(conn, 200) =~ name
+      assert conn |> html_response(200) |> Floki.parse_document!() |> Floki.text() =~ name
 
       conn = put(conn, Routes.session_path(conn, :archive, session))
       assert redirected_to(conn) == Routes.session_path(conn, :index)
 
-      conn = get(conn, Routes.session_path(conn, :index))
-      assert html_response(conn, 200) =~ "Session archived successfully."
-      refute html_response(conn, 200) =~ name
+      html =
+        conn
+        |> get(Routes.session_path(conn, :index))
+        |> html_response(200)
+        |> Floki.parse_document!()
+
+      assert "Session archived successfully." == html |> Floki.find(".alert-info") |> Floki.text()
+      refute html |> Floki.text() =~ name
     end
   end
 end

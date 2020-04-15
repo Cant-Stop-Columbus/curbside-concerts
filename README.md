@@ -2,7 +2,17 @@
 
 [![Build Status](https://travis-ci.org/testdouble/curbside-concerts.svg?branch=master)](https://travis-ci.org/testdouble/curbside-concerts)
 
-This repository contains the source code for Curbside Concerts / Send a Concert, a charity project that Test Double is working on with [Can't Stop Columbus](https://cantstopcolumbus.web.app/). The codebase is structured as a [Phoenix Umbrella project](https://elixirschool.com/en/lessons/advanced/umbrella-projects/) into two "apps":
+This repository contains the source code for Curbside Concerts / Send a Concert, a charity project that Test Double is working on with [Can't Stop Columbus](https://cantstopcolumbus.web.app/).
+
+## About this App
+
+Stack:
+
+- Elixir / Phoenix / Phoenix LiveView
+- HTML / CSS / JavaScript
+- Postgres database
+
+The codebase is structured as a [Phoenix Umbrella project](https://elixirschool.com/en/lessons/advanced/umbrella-projects/) into two "apps":
 
 - `curbside_concerts` - An Ecto application containing the data contexts; this is responsible for interfacing with the database.
 - `curbside_concerts_web` - A Phoenix application containing the front-end routes, controllers, views, and templates.
@@ -11,7 +21,9 @@ This repository contains the source code for Curbside Concerts / Send a Concert,
 
 1. Elixir
 
-We recommend using [exenv](https://github.com/exenv/exenv), to automatically use the local version defined in `.exenv-version`. Alternatively, follow the instructions in the [Elixir Install Page](https://elixir-lang.org/install.html).
+We recommend using [asdf](https://github.com/asdf-vm/asdf) or [exenv](https://github.com/exenv/exenv), to manage your Elixir versions and automatically use the local version defined in the local `*-version` files. Alternatively, follow the instructions in the [Elixir Install Page](https://elixir-lang.org/install.html).
+
+_Note_: It's important to have the correct Elixir version when developing locally, to help avoid build failures in Travis due to a mismatch in available methods, etc.
 
 2. Erlang
 
@@ -91,7 +103,7 @@ heroku pg:backups:capture -a sendaconcert
 heroku pg:backups:download -a sendaconcert
 
 # Replace your local db with the downloaded dump.
-pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d curbside_converts_dev latest.dump
+pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d curbside_concerts_dev latest.dump
 ```
 
 ## Deployment

@@ -1,5 +1,5 @@
 <div class="card">
-  <h1><%= if @show_archived, do: "Archived" %> Sessions</h1>
+  <h1><%= if @show_archived, do: "Archived " %>Sessions</h1>
     <%= link "Back to Admin", to: Routes.admin_path(@conn, :index) %>
     | <%= link "Create a new session", to: Routes.session_path(@conn, :new) %>
     <%= if @show_archived do %>

@@ -1,4 +1,9 @@
 defmodule CurbsideConcertsWeb.RequestController do
+  @moduledoc """
+  A controller for the request CRUD. This covers both creating a request on the
+  requester side, and managing requests on the admin side.
+  """
+
   use CurbsideConcertsWeb, :controller
 
   alias CurbsideConcerts.Requests
@@ -7,8 +12,9 @@ defmodule CurbsideConcertsWeb.RequestController do
   alias CurbsideConcertsWeb.RequestView
   alias CurbsideConcertsWeb.TrackerCypher
 
+  @spec new(Plug.Conn.t(), any) :: Plug.Conn.t()
   def new(conn, _params) do
-    genres = Musicians.all_genres()
+    genres = Musicians.all_active_genres()
 
     changeset =
       Requests.change_request(%Request{
@@ -18,6 +24,7 @@ defmodule CurbsideConcertsWeb.RequestController do
     render(conn, "new.html", changeset: changeset, genres: genres)
   end
 
+  @spec create(Plug.Conn.t(), map) :: Plug.Conn.t()
   def create(conn, %{"request" => request_params}) do
     case Requests.create_request(request_params) do
       {:ok, %Request{id: request_id, nominee_name: nominee_name}} ->
@@ -43,6 +50,7 @@ defmodule CurbsideConcertsWeb.RequestController do
     end
   end
 
+  @spec index(Plug.Conn.t(), any) :: Plug.Conn.t()
   def index(conn, %{"musician" => gigs_id}) do
     musician = Musicians.find_musician_by_gigs_id(gigs_id)
     requests = Requests.get_by_gigs_id(gigs_id)
@@ -69,13 +77,16 @@ defmodule CurbsideConcertsWeb.RequestController do
     |> render("index.html")
   end
 
+  @spec last_minute_gigs(Plug.Conn.t(), any) :: Plug.Conn.t()
   def last_minute_gigs(conn, _) do
     conn
     |> assign(:requests, Requests.all_last_minute_requests())
     |> assign(:request_type, "unbooked")
+    |> assign(:route, Routes.request_path(conn, :last_minute_gigs))
     |> render("index.html")
   end
 
+  @spec tracker(Plug.Conn.t(), map) :: Plug.Conn.t()
   def tracker(conn, %{"tracker_id" => tracker_id}) do
     request_id = TrackerCypher.decode(tracker_id)
     request = Requests.find_request(request_id)
@@ -87,6 +98,7 @@ defmodule CurbsideConcertsWeb.RequestController do
     |> render("tracker.html")
   end
 
+  @spec cancel_request(Plug.Conn.t(), map) :: Plug.Conn.t()
   def cancel_request(conn, %{"tracker_id" => tracker_id}) do
     request_id = TrackerCypher.decode(tracker_id)
     request = Requests.find_request(request_id)
@@ -104,17 +116,20 @@ defmodule CurbsideConcertsWeb.RequestController do
     end
   end
 
+  @spec show(Plug.Conn.t(), map) :: Plug.Conn.t()
   def show(conn, %{"id" => id}) do
     request = Requests.get_request(id, preloads: [:session, :genres])
     render(conn, "show.html", request: request)
   end
 
+  @spec edit(Plug.Conn.t(), map) :: Plug.Conn.t()
   def edit(conn, %{"id" => id}) do
     request = Requests.get_request(id, preloads: [:session, :genres])
     changeset = Requests.change_request(request)
     render(conn, "edit.html", request: request, changeset: changeset)
   end
 
+  @spec update(Plug.Conn.t(), map) :: Plug.Conn.t()
   def update(conn, %{"id" => id, "request" => request_params}) do
     request = Requests.get_request(id)
 
@@ -129,13 +144,14 @@ defmodule CurbsideConcertsWeb.RequestController do
     end
   end
 
-  def archive(conn, %{"id" => id}) do
+  @spec archive(Plug.Conn.t(), map) :: Plug.Conn.t()
+  def archive(conn, %{"id" => id, "redirect" => redirect}) do
     request = Requests.get_request(id)
     {:ok, _request} = Requests.archive_request(request)
 
     conn
     |> put_flash(:info, "Request archived successfully.")
-    |> redirect(to: Routes.request_path(conn, :index))
+    |> redirect(to: redirect)
   end
 
   @doc """

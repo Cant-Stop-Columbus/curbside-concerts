@@ -8,11 +8,19 @@ import {
 	requestTrackerPage,
 } from "./../support/pages";
 
+const genreData1 = {
+	name: faker.lorem.words(3),
+};
+
+const genreData2 = {
+	name: faker.lorem.words(2),
+};
+
 const requestData = {
 	nomineeName: faker.name.findName(),
 	contactPreference: "call_nominee",
 	nomineePhone: faker.phone.phoneNumberFormat(),
-	genres: ["Country", "Marching Band"],
+	genres: [genreData1.name, genreData2.name],
 	nomineeAddress: buildFakeAddress(),
 	specialMessage: faker.lorem.paragraph(),
 	requesterName: faker.name.findName(),
@@ -25,6 +33,20 @@ function buildFakeAddress() {
 }
 
 describe("Request", () => {
+	before(() => {
+		cy.login();
+		cy.createGenre(genreData1);
+		cy.createGenre(genreData2);
+		cy.logout();
+	});
+
+	after(() => {
+		cy.login();
+		cy.archiveGenre(genreData1);
+		cy.archiveGenre(genreData2);
+		cy.logout();
+	});
+
 	describe("Submit a request for a concert as an unauthenticated user.", () => {
 		it("Should submit a new request", () => {
 			landingPage.visit();
@@ -65,7 +87,7 @@ describe("Request", () => {
 				requestData.nomineeName,
 				requestData.requesterName,
 				requestData.specialMessage,
-				["Country", "Marching Band"]
+				requestData.genres
 			);
 		});
 

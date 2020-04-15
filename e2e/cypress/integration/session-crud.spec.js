@@ -5,7 +5,7 @@ import {
 	sessionShowPage,
 	sessionEditPage,
 	signInPage,
-} from "./../support/pages";
+} from "../support/pages";
 
 const sessionData = {
 	name: faker.lorem.sentence(),

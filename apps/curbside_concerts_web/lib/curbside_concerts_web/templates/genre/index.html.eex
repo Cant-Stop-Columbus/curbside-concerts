@@ -2,6 +2,11 @@
   <h1>Genres</h1>
   <%= link "Back to Admin", to: Routes.admin_path(@conn, :index) %>
   | <%= link "Create a new genre", to: Routes.genre_path(@conn, :new) %>
+  <%= if @show_archived do %>
+    | <%= link "Show active genres", to: Routes.genre_path(@conn, :index) %>
+  <% else %>
+    | <%= link "Show archived genres", to: Routes.genre_path(@conn, :index, %{"archived" => "true"}) %>
+  <% end %>
 </div>
 
 <%= for %Genre{
@@ -10,10 +15,12 @@
 } = genre <- @genres do %>
   <div class="card">
     <div>Name: <%= name %></div>
-    <div>Archived: <%= archived %></div>
     <div>
       <%= link "View", to: Routes.genre_path(@conn, :show, genre) %>
-      | <%= link "Edit", to: Routes.genre_path(@conn, :edit, genre) %>
+      <%= if !archived do %>
+        | <%= link "Edit", to: Routes.genre_path(@conn, :edit, genre) %>
+        | <%= link "Archive this Genre", to: Routes.genre_path(@conn, :archive, genre), method: :put, data: [confirm: "Are you sure?"] %>
+      <% end %>
     </div>
   </div>
 <% end %>

@@ -5,13 +5,9 @@ import {
 	genreShowPage,
 	genreEditPage,
 	signInPage,
-} from "./../support/pages";
+} from "../support/pages";
 
 const genreData = {
-	name: faker.company.companyName(),
-};
-
-const updatedGenreData = {
 	name: faker.company.companyName(),
 };
 
@@ -46,13 +42,28 @@ describe("Genre CRUD", () => {
 
 		genreEditPage.assert();
 
-		genreEditPage.fillInNameField(updatedGenreData.name);
+		genreData.name = faker.company.companyName();
+		genreEditPage.fillInNameField(genreData.name);
 		genreEditPage.clickSubmit();
 
-		genreShowPage.assert(updatedGenreData.name);
+		genreShowPage.assert(genreData.name);
 		genreShowPage.assertUpdateSuccessAlert();
 		genreShowPage.clickBackLink();
 
 		genreIndexPage.assert();
+	});
+
+	it("should archive a genre", () => {
+		cy.login();
+
+		genreIndexPage.assertArchiveConfirmationPopUp();
+
+		genreIndexPage.visit();
+		genreIndexPage.clickArchiveLink(genreData.name);
+
+		genreIndexPage.refuteGenre(genreData.name);
+
+		genreIndexPage.clickArchivedNavLink();
+		genreIndexPage.assertGenre(genreData.name);
 	});
 });
