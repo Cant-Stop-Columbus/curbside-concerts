@@ -1,8 +1,11 @@
 defmodule CurbsideConcertsWeb.ReportsController do
+  @moduledoc """
+  A controller for admin report pages.
+  """
+
   use CurbsideConcertsWeb, :controller
 
   alias CurbsideConcerts.Requests
-  # alias CurbsideConcerts.Requests.Request
 
   def genres(conn, _params) do
     unbooked_requests = Requests.all_unbooked_requests()

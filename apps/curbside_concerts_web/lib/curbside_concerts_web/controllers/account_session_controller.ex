@@ -1,12 +1,18 @@
 defmodule CurbsideConcertsWeb.AccountSessionController do
+  @moduledoc """
+  The controller for session management, which is used to track authenticated users.
+  """
+
   use CurbsideConcertsWeb, :controller
 
   alias CurbsideConcerts.Accounts
 
+  @spec new(Plug.Conn.t(), any) :: Plug.Conn.t()
   def new(conn, _params) do
     render(conn, "new.html")
   end
 
+  @spec create(Plug.Conn.t(), map) :: Plug.Conn.t()
   def create(conn, %{"session" => auth_params}) do
     case Accounts.get_authenticated_user(auth_params["username"], auth_params["password"]) do
       {:ok, user} ->
@@ -22,6 +28,7 @@ defmodule CurbsideConcertsWeb.AccountSessionController do
     end
   end
 
+  @spec delete(Plug.Conn.t(), any) :: Plug.Conn.t()
   def delete(conn, _params) do
     conn
     |> delete_session(:current_user_id)

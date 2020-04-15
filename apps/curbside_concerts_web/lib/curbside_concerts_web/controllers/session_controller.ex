@@ -1,10 +1,15 @@
 defmodule CurbsideConcertsWeb.SessionController do
+  @moduledoc """
+  The controller for session CRUD.
+  """
+
   use CurbsideConcertsWeb, :controller
 
   alias CurbsideConcerts.Musicians
   alias CurbsideConcerts.Musicians.Session
   alias CurbsideConcertsWeb.TrackerCypher
 
+  @spec index(Plug.Conn.t(), any) :: Plug.Conn.t()
   def index(conn, %{"archived" => "true"}) do
     conn
     |> assign(:sessions, Musicians.all_archived_sessions())
@@ -17,6 +22,7 @@ defmodule CurbsideConcertsWeb.SessionController do
     |> render("index.html", show_archived: false)
   end
 
+  @spec new(Plug.Conn.t(), any) :: Plug.Conn.t()
   def new(conn, _params) do
     conn
     |> assign(:changeset, Musicians.change_session(%Session{}))
@@ -24,6 +30,7 @@ defmodule CurbsideConcertsWeb.SessionController do
     |> render("new.html")
   end
 
+  @spec create(Plug.Conn.t(), map) :: Plug.Conn.t()
   def create(conn, %{"session" => session_params}) do
     case Musicians.create_session(session_params) do
       {:ok, session} ->
@@ -43,12 +50,14 @@ defmodule CurbsideConcertsWeb.SessionController do
     end
   end
 
+  @spec show(Plug.Conn.t(), map) :: Plug.Conn.t()
   def show(conn, %{"id" => id}) do
     conn
     |> assign(:session, Musicians.find_session(id))
     |> render("show.html")
   end
 
+  @spec edit(Plug.Conn.t(), map) :: Plug.Conn.t()
   def edit(conn, %{"id" => id}) do
     changeset =
       id
@@ -61,6 +70,7 @@ defmodule CurbsideConcertsWeb.SessionController do
     |> render("edit.html")
   end
 
+  @spec update(Plug.Conn.t(), map) :: Plug.Conn.t()
   def update(conn, %{"id" => id, "session" => session_params}) do
     session = Musicians.find_session(id)
 
@@ -82,6 +92,7 @@ defmodule CurbsideConcertsWeb.SessionController do
     end
   end
 
+  @spec archive(Plug.Conn.t(), map) :: Plug.Conn.t()
   def archive(conn, %{"id" => id}) do
     session = Musicians.get_session(id)
     {:ok, _session} = Musicians.archive_session(session)
@@ -91,6 +102,7 @@ defmodule CurbsideConcertsWeb.SessionController do
     |> redirect(to: Routes.session_path(conn, :index))
   end
 
+  @spec session_route_driver(Plug.Conn.t(), map) :: Plug.Conn.t()
   def session_route_driver(conn, %{"driver_id" => driver_id}) do
     driver_id = TrackerCypher.decode(driver_id)
     session = Musicians.find_session(driver_id)
@@ -100,6 +112,7 @@ defmodule CurbsideConcertsWeb.SessionController do
     |> render("driver_session_route.html")
   end
 
+  @spec session_route_artist(Plug.Conn.t(), map) :: Plug.Conn.t()
   def session_route_artist(conn, %{"artist_id" => musician_id}) do
     musician_id = TrackerCypher.decode(musician_id)
     session = Musicians.find_session(musician_id)

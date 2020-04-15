@@ -1,12 +1,15 @@
 defmodule CurbsideConcertsWeb.AdminControllerTest do
-  use CurbsideConcertsWeb.ConnCase
+  use CurbsideConcertsWeb.ConnCase, async: true
 
   describe "index/2" do
     test "should render the admin index page", %{conn: conn} do
-      conn = get(conn, Routes.admin_path(conn, :index))
+      html =
+        conn
+        |> get(Routes.admin_path(conn, :index))
+        |> html_response(200)
+        |> Floki.parse_document!()
 
-      assert html_response(conn, 200) =~
-               "Admin Page"
+      assert "Admin Page" == html |> Floki.find("h1") |> Floki.text()
     end
   end
 end

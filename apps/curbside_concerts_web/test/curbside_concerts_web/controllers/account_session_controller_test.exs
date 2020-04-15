@@ -1,5 +1,5 @@
 defmodule CurbsideConcertsWeb.AccountSessionControllerTest do
-  use CurbsideConcertsWeb.ConnCase
+  use CurbsideConcertsWeb.ConnCase, async: true
 
   alias CurbsideConcerts.Accounts.User
 
@@ -7,8 +7,13 @@ defmodule CurbsideConcertsWeb.AccountSessionControllerTest do
 
   describe "new/2" do
     test "renders form", %{conn: conn} do
-      conn = get(conn, Routes.account_session_path(conn, :new))
-      assert html_response(conn, 200) =~ "Sign In"
+      html =
+        conn
+        |> get(Routes.account_session_path(conn, :new))
+        |> html_response(200)
+        |> Floki.parse_document!()
+
+      assert "Sign In" == html |> Floki.find("h1") |> Floki.text()
     end
   end
 
@@ -23,28 +28,35 @@ defmodule CurbsideConcertsWeb.AccountSessionControllerTest do
 
       assert redirected_to(conn) == Routes.admin_path(conn, :index)
 
-      conn = get(conn, Routes.admin_path(conn, :index))
-      assert html_response(conn, 200) =~ "Sign Out"
+      html =
+        conn
+        |> get(Routes.admin_path(conn, :index))
+        |> html_response(200)
+        |> Floki.parse_document!()
+
+      assert "Admin Page" == html |> Floki.find("h1") |> Floki.text()
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn =
-        post(conn, Routes.account_session_path(conn, :create),
+      html =
+        conn
+        |> post(Routes.account_session_path(conn, :create),
           session: %{password: nil, username: nil}
         )
+        |> html_response(200)
+        |> Floki.parse_document!()
 
-      assert html_response(conn, 200) =~ "Sign In"
+      assert "Sign In" == html |> Floki.find("h1") |> Floki.text()
     end
   end
 
   describe "delete/2" do
     setup %{conn: conn} do
-      %User{username: username, password: password} = insert!(:user)
+      user = insert!(:user)
 
       conn =
-        post(conn, Routes.account_session_path(conn, :create),
-          session: %{password: password, username: username}
-        )
+        conn
+        |> with_authenticated_user(user)
 
       %{conn: conn}
     end
@@ -54,8 +66,13 @@ defmodule CurbsideConcertsWeb.AccountSessionControllerTest do
 
       assert redirected_to(conn) == Routes.admin_path(conn, :index)
 
-      conn = get(conn, Routes.admin_path(conn, :index))
-      assert html_response(conn, 200) =~ "Sign In"
+      html =
+        conn
+        |> get(Routes.admin_path(conn, :index))
+        |> html_response(200)
+        |> Floki.parse_document!()
+
+      assert "Admin Page" == html |> Floki.find("h1") |> Floki.text()
     end
   end
 end

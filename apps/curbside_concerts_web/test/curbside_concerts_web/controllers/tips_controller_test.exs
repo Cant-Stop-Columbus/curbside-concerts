@@ -3,8 +3,13 @@ defmodule CurbsideConcertsWeb.TipsControllerTest do
 
   describe "index/2" do
     test "should render the index view", %{conn: conn} do
-      conn = get(conn, Routes.tips_path(conn, :index))
-      assert html_response(conn, 200) =~ "Tip your curbside musician"
+      html =
+        conn
+        |> get(Routes.tips_path(conn, :index))
+        |> html_response(200)
+        |> Floki.parse_document!()
+
+      assert "Tip your curbside musician" == html |> Floki.find("h1") |> Floki.text()
     end
   end
 end
