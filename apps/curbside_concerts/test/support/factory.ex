@@ -69,6 +69,10 @@ defmodule CurbsideConcerts.Factory do
     struct(Genre, attrs(:genre))
   end
 
+  def build(:user) do
+    struct(User, attrs(:user))
+  end
+
   def build(:request) do
     struct(
       Request,

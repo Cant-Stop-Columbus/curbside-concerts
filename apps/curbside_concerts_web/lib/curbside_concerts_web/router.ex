@@ -1,13 +1,16 @@
 defmodule CurbsideConcertsWeb.Router do
   use CurbsideConcertsWeb, :router
 
+  alias CurbsideConcertsWeb.Plugs.AuthenticateUser
+  alias CurbsideConcertsWeb.Plugs.SetCurrentUser
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug(CurbsideConcertsWeb.Plugs.SetCurrentUser)
+    plug(SetCurrentUser)
   end
 
   pipeline :api do
@@ -15,7 +18,7 @@ defmodule CurbsideConcertsWeb.Router do
   end
 
   pipeline :requires_auth do
-    plug CurbsideConcertsWeb.Plugs.AuthenticateUser
+    plug AuthenticateUser
   end
 
   # This scope contains unauthenticated routes.
