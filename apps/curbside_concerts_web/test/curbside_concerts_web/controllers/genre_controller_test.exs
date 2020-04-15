@@ -6,6 +6,9 @@ defmodule CurbsideConcertsWeb.GenreControllerTest do
   alias CurbsideConcerts.Accounts.User
   alias CurbsideConcerts.Musicians.Genre
 
+  @archive_genre_name "something_archived"
+  @active_genre_name "something_active"
+
   setup %{conn: conn} do
     %User{} = user = insert!(:user)
 
@@ -18,15 +21,15 @@ defmodule CurbsideConcertsWeb.GenreControllerTest do
 
   describe "index" do
     test "lists all active genres", %{conn: conn} do
-      %Genre{name: active_name} =
-        insert!(:genre, %{
-          archived: false
-        })
+      insert!(:genre, %{
+        archived: false,
+        name: @active_genre_name
+      })
 
-      %Genre{name: archived_name} =
-        insert!(:genre, %{
-          archived: true
-        })
+      insert!(:genre, %{
+        archived: true,
+        name: @archive_genre_name
+      })
 
       html =
         conn
@@ -35,20 +38,20 @@ defmodule CurbsideConcertsWeb.GenreControllerTest do
         |> Floki.parse_document!()
 
       assert "Genres" == html |> Floki.find("h1") |> Floki.text()
-      assert html |> Floki.text() =~ active_name
-      refute html |> Floki.text() =~ archived_name
+      assert html |> Floki.text() =~ @active_genre_name
+      refute html |> Floki.text() =~ @archive_genre_name
     end
 
     test "lists all archived genres", %{conn: conn} do
-      %Genre{name: active_name} =
-        insert!(:genre, %{
-          archived: false
-        })
+      insert!(:genre, %{
+        archived: false,
+        name: @active_genre_name
+      })
 
-      %Genre{name: archived_name} =
-        insert!(:genre, %{
-          archived: true
-        })
+      insert!(:genre, %{
+        archived: true,
+        name: @archive_genre_name
+      })
 
       html =
         conn
@@ -57,8 +60,8 @@ defmodule CurbsideConcertsWeb.GenreControllerTest do
         |> Floki.parse_document!()
 
       assert "Genres" == html |> Floki.find("h1") |> Floki.text()
-      refute html |> Floki.text() =~ active_name
-      assert html |> Floki.text() =~ archived_name
+      refute html |> Floki.text() =~ @active_genre_name
+      assert html |> Floki.text() =~ @archive_genre_name
     end
   end
 
