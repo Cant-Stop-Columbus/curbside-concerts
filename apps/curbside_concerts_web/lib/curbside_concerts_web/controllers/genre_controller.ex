@@ -4,9 +4,18 @@ defmodule CurbsideConcertsWeb.GenreController do
   alias CurbsideConcerts.Musicians
   alias CurbsideConcerts.Musicians.Genre
 
+  def index(conn, %{"archived" => "true"}) do
+    conn
+    |> assign(:genres, Musicians.all_archived_genres())
+    |> assign(:show_archived, true)
+    |> render("index.html")
+  end
+
   def index(conn, _params) do
-    genres = Musicians.all_genres()
-    render(conn, "index.html", genres: genres)
+    conn
+    |> assign(:genres, Musicians.all_active_genres())
+    |> assign(:show_archived, false)
+    |> render("index.html")
   end
 
   def new(conn, _params) do
@@ -49,5 +58,14 @@ defmodule CurbsideConcertsWeb.GenreController do
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", genre: genre, changeset: changeset)
     end
+  end
+
+  def archive(conn, %{"id" => id}) do
+    genre = Musicians.get_genre(id)
+    {:ok, _genre} = Musicians.archive_genre(genre)
+
+    conn
+    |> put_flash(:info, "Genre archived successfully.")
+    |> redirect(to: Routes.genre_path(conn, :index))
   end
 end

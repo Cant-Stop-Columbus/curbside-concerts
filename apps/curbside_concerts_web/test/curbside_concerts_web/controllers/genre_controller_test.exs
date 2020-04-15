@@ -4,6 +4,7 @@ defmodule CurbsideConcertsWeb.GenreControllerTest do
   import CurbsideConcerts.Factory
 
   alias CurbsideConcerts.Accounts.User
+  alias CurbsideConcerts.Musicians.Genre
 
   @create_attrs %{name: "some name"}
   @update_attrs %{name: "some updated name"}
@@ -102,6 +103,22 @@ defmodule CurbsideConcertsWeb.GenreControllerTest do
 
       conn = put(conn, Routes.genre_path(conn, :update, genre), genre: @invalid_attrs)
       assert html_response(conn, 200) =~ "Edit Genre"
+    end
+  end
+
+  describe "archive/2" do
+    test "archives genre", %{conn: conn} do
+      %Genre{name: name} = genre = insert!(:genre)
+
+      conn = get(conn, Routes.genre_path(conn, :index))
+      assert html_response(conn, 200) =~ name
+
+      conn = put(conn, Routes.genre_path(conn, :archive, genre))
+      assert redirected_to(conn) == Routes.genre_path(conn, :index)
+
+      conn = get(conn, Routes.genre_path(conn, :index))
+      assert html_response(conn, 200) =~ "Genre archived successfully."
+      refute html_response(conn, 200) =~ name
     end
   end
 end

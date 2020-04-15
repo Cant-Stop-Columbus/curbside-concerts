@@ -41,7 +41,10 @@ describe("Request", () => {
 	});
 
 	after(() => {
-		// TBD: Need to add ability to archive genres.
+		cy.login();
+		cy.archiveGenre(genreData1);
+		cy.archiveGenre(genreData2);
+		cy.logout();
 	});
 
 	describe("Submit a request for a concert as an unauthenticated user.", () => {

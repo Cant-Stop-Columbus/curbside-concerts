@@ -8,7 +8,7 @@ defmodule CurbsideConcertsWeb.RequestController do
   alias CurbsideConcertsWeb.TrackerCypher
 
   def new(conn, _params) do
-    genres = Musicians.all_genres()
+    genres = Musicians.all_active_genres()
 
     changeset =
       Requests.change_request(%Request{

@@ -81,9 +81,27 @@ defmodule CurbsideConcerts.Musicians do
   end
 
   ### Genres
+  def all_active_genres() do
+    Genre
+    |> where([g], g.archived == false)
+    |> Repo.all()
+  end
+
+  def all_archived_genres() do
+    Genre
+    |> where([g], g.archived == true)
+    |> Repo.all()
+  end
+
   def get_genres_by_ids(nil), do: []
 
   def get_genres_by_ids(ids) do
     Repo.all(from g in Genre, where: g.id in ^ids)
+  end
+
+  def archive_genre(genre) do
+    update_genre(genre, %{
+      archived: true
+    })
   end
 end

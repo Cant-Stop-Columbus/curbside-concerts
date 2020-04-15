@@ -45,5 +45,7 @@ Cypress.Commands.add("createGenre", ({ name: name }) => {
 	genreNewPage.clickSubmit();
 });
 
-// TBD
-Cypress.Commands.add("archiveGenre", () => {});
+Cypress.Commands.add("archiveGenre", ({ name: name }) => {
+	genreIndexPage.visit();
+	genreIndexPage.clickArchiveLink(name);
+});
