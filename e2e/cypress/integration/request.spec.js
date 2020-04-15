@@ -21,16 +21,15 @@ const requestData = {
 	contactPreference: "call_nominee",
 	nomineePhone: faker.phone.phoneNumberFormat(),
 	genres: [genreData1.name, genreData2.name],
-	nomineeAddress: buildFakeAddress(),
+	nomineeStreetAddress: faker.address.streetAddress(),
+	nomineeCity: faker.address.city(),
+	nomineeZipCode: faker.address.zipCode(),
+	nomineeAddressNotes: faker.lorem.paragraph(),
 	specialMessage: faker.lorem.paragraph(),
 	requesterName: faker.name.findName(),
 	requesterPhone: faker.phone.phoneNumberFormat(),
 	requesterEmail: faker.internet.email(),
 };
-
-function buildFakeAddress() {
-	return `${faker.address.streetAddress()} ${faker.address.city()}, ${faker.address.state()} ${faker.address.zipCode()}`;
-}
 
 describe("Request", () => {
 	before(() => {
@@ -60,7 +59,10 @@ describe("Request", () => {
 				requestData.contactPreference
 			);
 			requestFormPage.fillInNomineePhone(requestData.nomineePhone);
-			requestFormPage.fillInNomineeAddress(requestData.nomineeAddress);
+			requestFormPage.fillInNomineeStreetAddress(requestData.nomineeStreetAddress);
+			requestFormPage.fillInNomineeCity(requestData.nomineeCity);
+			requestFormPage.fillInNomineeZipCode(requestData.nomineeZipCode);
+			requestFormPage.fillInNomineeAddressNotes(requestData.nomineeAddressNotes);
 			requestData.genres.forEach((genre) => {
 				requestFormPage.clickGenreCheckbox(genre);
 			});
@@ -97,12 +99,19 @@ describe("Request", () => {
 
 			requestEditPage.assert();
 
-			requestData.address = buildFakeAddress();
-			requestEditPage.fillInLegacyAddressField(requestData.address);
+			const streetAddress = faker.address.streetAddress();
+			const city = faker.address.city();
+			const zipCode = faker.address.zipCode();
+
+			requestEditPage.fillInNomineeStreetAddress(streetAddress);
+			requestEditPage.fillInNomineeCity(city);
+			requestEditPage.fillInNomineeZipCode(zipCode);
+			requestEditPage.fillInNomineeAddressNotes(faker.lorem.paragraph());
+
 			requestEditPage.clickSubmitButton();
 
 			requestShowPage.assert(requestData.specialMessage);
-			requestShowPage.assertAddress(requestData.address);
+			requestShowPage.assertAddress(`${streetAddress} ${city} ${zipCode}`);
 		});
 
 		it("should be able to mark a request as off-mission, then back", () => {
@@ -147,7 +156,10 @@ describe("Request", () => {
 				requestData.contactPreference
 			);
 			requestFormPage.fillInNomineePhone(requestData.nomineePhone);
-			requestFormPage.fillInNomineeAddress(requestData.nomineeAddress);
+			requestFormPage.fillInNomineeStreetAddress(requestData.nomineeStreetAddress);
+			requestFormPage.fillInNomineeCity(requestData.nomineeCity);
+			requestFormPage.fillInNomineeZipCode(requestData.nomineeZipCode);
+			requestFormPage.fillInNomineeAddressNotes(requestData.nomineeAddressNotes);
 			requestData.genres.forEach((genre) => {
 				requestFormPage.clickGenreCheckbox(genre);
 			});

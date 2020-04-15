@@ -40,7 +40,10 @@ defmodule CurbsideConcerts.Factory do
       nominee_name: Faker.Name.name(),
       contact_preference: Faker.Util.pick(["call_nominee", "call_requester", "text_requester"]),
       nominee_phone: Faker.Phone.EnUs.phone(),
-      nominee_address: build_fake_address(),
+      nominee_street_address: Faker.Address.street_address(),
+      nominee_city: Faker.Address.city(),
+      nominee_zip_code: Faker.Address.zip_code(),
+      nominee_address_notes: Faker.StarWars.quote(),
       special_message: Faker.Lorem.Shakespeare.as_you_like_it(),
       requester_name: Faker.Name.name(),
       requester_phone: Faker.Phone.EnUs.phone(),
@@ -100,11 +103,5 @@ defmodule CurbsideConcerts.Factory do
 
   def insert!(factory_name, attributes \\ []) do
     Repo.insert!(build(factory_name, attributes))
-  end
-
-  defp build_fake_address() do
-    "#{Faker.Address.street_address()} #{Faker.Address.city()}, #{Faker.Address.state_abbr()} #{
-      Faker.Address.zip_code()
-    }"
   end
 end

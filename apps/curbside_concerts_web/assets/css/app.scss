@@ -75,8 +75,21 @@ textarea {
 	height: 60px;
 }
 
-input#request_nominee_address {
+input#request_nominee_street_address {
 	width: 100%;
+}
+
+div#address_container {
+	display: inline-block;
+	width: 100%;
+
+	label:first-child {
+		float: left;
+	}
+
+	label {
+    margin-right:15px;
+	}
 }
 
 .required {

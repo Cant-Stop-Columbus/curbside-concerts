@@ -32,7 +32,10 @@ defmodule CurbsideConcertsWeb.RequestControllerTest do
           nominee_name: Faker.Name.name(),
           contact_preference: "call_nominee",
           nominee_phone: Faker.Phone.EnUs.phone(),
-          nominee_address: Faker.Address.street_address(),
+          nominee_street_address: Faker.Address.street_address(),
+          nominee_city: Faker.Address.city(),
+          nominee_zip_code: Faker.Address.zip_code(),
+          nominee_address_notes: Faker.StarWars.quote(),
           song: Faker.String.base64(),
           special_message: Faker.StarWars.quote(),
           requester_name: Faker.Name.name(),
@@ -192,7 +195,7 @@ defmodule CurbsideConcertsWeb.RequestControllerTest do
       request = insert!(:request)
 
       invalid_attrs = %{
-        nominee_address: nil
+        nominee_street_address: nil
       }
 
       html =
