@@ -1,4 +1,4 @@
-defmodule CurbsideConcertsWeb.TipsView do
+defmodule CurbsideConcertsWeb.PerformView do
   @moduledoc false
 
   use CurbsideConcertsWeb, :view

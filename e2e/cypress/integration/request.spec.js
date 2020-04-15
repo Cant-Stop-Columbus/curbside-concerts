@@ -8,11 +8,19 @@ import {
 	requestTrackerPage,
 } from "./../support/pages";
 
+const genreData1 = {
+	name: faker.lorem.words(3),
+};
+
+const genreData2 = {
+	name: faker.lorem.words(2),
+};
+
 const requestData = {
 	nomineeName: faker.name.findName(),
 	contactPreference: "call_nominee",
 	nomineePhone: faker.phone.phoneNumberFormat(),
-	genres: ["Country", "Marching Band"],
+	genres: [genreData1.name, genreData2.name],
 	nomineeStreetAddress: faker.address.streetAddress(),
 	nomineeCity: faker.address.city(),
 	nomineeZipCode: faker.address.zipCode(),
@@ -24,6 +32,17 @@ const requestData = {
 };
 
 describe("Request", () => {
+	before(() => {
+		cy.login();
+		cy.createGenre(genreData1);
+		cy.createGenre(genreData2);
+		cy.logout();
+	});
+
+	after(() => {
+		// TBD: Need to add ability to archive genres.
+	});
+
 	describe("Submit a request for a concert as an unauthenticated user.", () => {
 		it("Should submit a new request", () => {
 			landingPage.visit();
@@ -67,7 +86,7 @@ describe("Request", () => {
 				requestData.nomineeName,
 				requestData.requesterName,
 				requestData.specialMessage,
-				["Country", "Marching Band"]
+				requestData.genres
 			);
 		});
 

@@ -91,7 +91,7 @@ heroku pg:backups:capture -a sendaconcert
 heroku pg:backups:download -a sendaconcert
 
 # Replace your local db with the downloaded dump.
-pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d curbside_converts_dev latest.dump
+pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d curbside_concerts_dev latest.dump
 ```
 
 ## Deployment

@@ -5,7 +5,7 @@ import {
 	genreShowPage,
 	genreEditPage,
 	signInPage,
-} from "./../support/pages";
+} from "../support/pages";
 
 const genreData = {
 	name: faker.company.companyName(),

@@ -7,6 +7,7 @@ defmodule CurbsideConcertsWeb.RequestView do
   alias CurbsideConcerts.Musicians.Musician
   alias CurbsideConcerts.Musicians.Session
   alias CurbsideConcertsWeb.Helpers.RequestAddress
+  alias CurbsideConcertsWeb.LayoutView
 
   def required_star do
     ~E|<span class="required">*</span>|

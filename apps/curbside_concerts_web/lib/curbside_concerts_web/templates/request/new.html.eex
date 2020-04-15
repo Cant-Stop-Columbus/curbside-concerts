@@ -1,11 +1,7 @@
 <%= form_for @changeset, Routes.request_path(@conn, :create), fn f -> %>
 <div class="card card-with-nav">
-  <nav>
-		<%# the comment tags remove the white space between nav elements, keeping spacing consistent between pages %>
-    <%= link "HOME", to: Routes.landing_path(@conn, :index), class: "link" %><!--
-    --><span class="link current">REQUEST</span><!--
-		--><%= link "TIPS", to: Routes.tips_path(@conn, :index), class: "link" %>
-  </nav>
+	<%= LayoutView.render_nav_links(LayoutView.get_nav_links("REQUEST")) %>
+	
   <header class="request-form">
     <h1>Request a concert</h1>
 		<h2>Fill out the form below to make your "musical request" for an older person who may be feeling isolated at this time.</h2>
