@@ -1,6 +1,6 @@
 import layout from "./layout";
 
-const heading = () => cy.get("h2");
+const heading = () => cy.get("h1");
 const usernameField = () => cy.get('input[name="session[username]"]');
 const passwordField = () => cy.get('input[name="session[password]"]');
 const submitButton = () => cy.get('button[type="submit"]');
