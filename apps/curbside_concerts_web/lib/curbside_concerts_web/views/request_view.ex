@@ -123,7 +123,7 @@ defmodule CurbsideConcertsWeb.RequestView do
     class = class(form, field)
 
     ~E"""
-    <%= telephone_input(form, field, class: class, placeholder: "Your answer") %>
+    <%= telephone_input(form, field, data: [{:mask, nil}], class: class, placeholder: "Your answer") %>
     <%= error_tag form, field %>
     """
   end
