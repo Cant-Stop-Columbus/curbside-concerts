@@ -25,7 +25,7 @@
   </div>
 
   <%= if nominee_address_notes do %>
-    <div> 
+    <div>
       <b>Address Instructions:</b><br>
       <%= raw nominee_address_notes %>
     </div>

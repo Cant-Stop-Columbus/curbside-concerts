@@ -236,7 +236,8 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
          assigns,
          %Request{
            id: request_id,
-           special_message: special_message
+           special_message: special_message,
+           nominee_address_notes: address_notes
          } = request,
          comparing_requests
        ) do
@@ -249,7 +250,7 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
         <%= zip_score(assigns, request, comparing_requests) %>
         <b>email:</b> <%= request.requester_email %><br>
         <b>genres:</b> <%= Enum.map(request.genres, fn g -> g.name end) |> Enum.join(", ") %><br>
-        <b>Address:</b> <%= RequestAddress.full_address(request) %><br>
+        <b>Address:</b> <%= RequestAddress.full_address(request) %> <%= address_notes %><br>
         <b>Special Message:</b> <%= special_message %><br>
         <b>state:</b> <%= request.state %><br>
         <b>contact_preference:</b> <%= request.contact_preference %><br>
@@ -278,6 +279,8 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
     <div class="badge <%= class %>"><%= score %></div>
     """
   end
+
+  defp zip(%Request{nominee_zip_code: zip}) when is_binary(zip), do: zip
 
   defp zip(%Request{nominee_address: nominee_address}) do
     case Regex.run(~r/43\d{3}/, nominee_address) do
