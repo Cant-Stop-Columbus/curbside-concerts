@@ -86,6 +86,14 @@ defmodule CurbsideConcertsWeb.RequestController do
     |> render("index.html")
   end
 
+  def archived(conn, _) do
+    conn
+    |> assign(:requests, Requests.all_archived_requests())
+    |> assign(:request_type, "archived")
+    |> assign(:route, Routes.request_path(conn, :archived))
+    |> render("index.html")
+  end
+
   @spec tracker(Plug.Conn.t(), map) :: Plug.Conn.t()
   def tracker(conn, %{"tracker_id" => tracker_id}) do
     request_id = TrackerCypher.decode(tracker_id)

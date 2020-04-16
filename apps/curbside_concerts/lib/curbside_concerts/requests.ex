@@ -153,6 +153,14 @@ defmodule CurbsideConcerts.Requests do
     |> Repo.all()
   end
 
+  def all_archived_requests do
+    Request
+    |> where([r], r.archived == true)
+    |> preload([:genres])
+    |> order_by({:desc, :updated_at})
+    |> Repo.all()
+  end
+
   def get_by_gigs_id(gigs_id) do
     query =
       from(

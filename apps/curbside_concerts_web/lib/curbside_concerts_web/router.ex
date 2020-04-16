@@ -60,6 +60,7 @@ defmodule CurbsideConcertsWeb.Router do
 
     # gig view
     get "/last_minute_gigs", RequestController, :last_minute_gigs
+    get "/archived_requests", RequestController, :archived
     get "/gigs", RequestController, :index
     get "/gigs/:musician", RequestController, :index
 
