@@ -1,0 +1,25 @@
+.badge {
+  display: inline-block;
+  min-width: 1.5em;
+  min-height: 1.5em;
+  padding: .3em;
+  border-radius: 50%;
+  font-size: 16px;
+  text-align: center;
+  background: #1779ba;
+  color: #fefefe;
+
+  &.best {
+    background: green;
+  }
+  &.better {
+    background: yellowgreen;
+  }
+  &.good {
+    background: yellowgreen;
+  }
+  &.bad {
+    background: #880000;
+  }
+
+}

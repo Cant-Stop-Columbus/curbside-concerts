@@ -11,6 +11,7 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
   alias CurbsideConcerts.Requests.Request
   alias CurbsideConcertsWeb.RequestView
   alias CurbsideConcertsWeb.Helpers.RequestAddress
+  alias CurbsideConcertsWeb.ZipCodeSessionScorer
 
   def mount(%{"session_id" => session_id} = _params, _session, socket) do
     unbooked_requests = Requests.all_unbooked_requests()
@@ -194,13 +195,15 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
         <%= if @saved do %>
           <br><br>SAVED!
         <% end %>
+        <br>
+        Badge scores <span class="badge good">70</span> are based on the requests' ZIP codes and how close they are to the locations on the route booked so far, including the truck pickup location.
       </div>
       <div class="columns">
         <div class="column">
           <h2>Unbooked Requests (<%= length(@unbooked_requests) %>)</h2>
 
           <%= for request <- @unbooked_requests do %>
-            <%= render_request_card(assigns, request) %>
+            <%= render_request_card(assigns, request, @session_requests) %>
           <% end %>
           <%= if @unbooked_requests == [] do %>
             <div class="card">
@@ -216,7 +219,7 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
             <%= RequestView.map_route_link(@session_requests) %>
           <% end %>
           <%= for request <- @session_requests do %>
-            <%= render_request_card(assigns, request) %>
+            <%= render_request_card(assigns, request, @session_requests) %>
           <% end %>
           <%= if @session_requests == [] do %>
             <div class="card">
@@ -233,8 +236,10 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
          assigns,
          %Request{
            id: request_id,
-           special_message: special_message
-         } = request
+           special_message: special_message,
+           nominee_address_notes: address_notes
+         } = request,
+         comparing_requests
        ) do
     ~L"""
     <div phx-hook="RequestBookerCard"
@@ -242,9 +247,10 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
          class="draggable-card"
          draggable="true">
       <div class="card">
+        <%= zip_score(assigns, request, comparing_requests) %>
         <b>email:</b> <%= request.requester_email %><br>
         <b>genres:</b> <%= Enum.map(request.genres, fn g -> g.name end) |> Enum.join(", ") %><br>
-        <b>Address:</b> <%= RequestAddress.full_address(request) %><br>
+        <b>Address:</b> <%= RequestAddress.full_address(request) %> <%= address_notes %><br>
         <b>Special Message:</b> <%= special_message %><br>
         <b>state:</b> <%= request.state %><br>
         <b>contact_preference:</b> <%= request.contact_preference %><br>
@@ -255,5 +261,31 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
       </div>
     </div>
     """
+  end
+
+  defp zip_score(assigns, request, comparing_requests) do
+    other_zips = ["43215" | Enum.map(comparing_requests, &zip/1)]
+    score = ZipCodeSessionScorer.score(zip(request), other_zips)
+
+    class =
+      case score do
+        score when score >= 80 -> "best"
+        score when score >= 60 -> "better"
+        score when score >= 40 -> "good"
+        _ -> "bad"
+      end
+
+    ~L"""
+    <div class="badge <%= class %>"><%= score %></div>
+    """
+  end
+
+  defp zip(%Request{nominee_zip_code: zip}) when is_binary(zip), do: zip
+
+  defp zip(%Request{nominee_address: nominee_address}) do
+    case Regex.run(~r/43\d{3}/, nominee_address) do
+      [zip] -> zip
+      _ -> "439#{Enum.random(10..99)}"
+    end
   end
 end

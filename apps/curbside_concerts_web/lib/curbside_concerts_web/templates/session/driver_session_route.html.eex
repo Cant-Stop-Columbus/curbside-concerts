@@ -4,6 +4,7 @@
 <%= for %Request{
   nominee_name: nominee_name,
   nominee_phone: nominee_phone,
+  nominee_address_notes: nominee_address_notes,
   requester_name: requester_name,
   requester_phone: requester_phone,
   requester_email: requester_email,
@@ -19,6 +20,12 @@
       <b>Map to <%= nominee_name %>'s house:</b>
       <a href="http://maps.google.com/?q=<%= URI.encode(RequestAddress.full_address(request)) %>"><%= RequestAddress.full_address(request) %></a>
     </div>
+
+    <%= if nominee_address_notes do %>
+      <div>
+        <b>Address Instructions:</b> <%= raw nominee_address_notes %>
+      </div>
+    <% end %>
 
     <br>
 
