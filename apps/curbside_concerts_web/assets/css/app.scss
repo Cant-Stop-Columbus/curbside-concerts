@@ -4,6 +4,7 @@
 @import "./landing";
 @import "./request-form";
 @import "./tips";
+@import "./badge";
 
 .field {
 	display: block;
@@ -133,6 +134,13 @@ div#address_container {
 
 				.card {
 					margin: 8px 0;
+					position: relative;
+
+					.badge {
+						position: absolute;
+						top: 4px;
+						right: 4px;
+					}
 				}
 			}
 		}

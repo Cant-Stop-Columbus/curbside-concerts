@@ -35,6 +35,7 @@ tmp
 e2e/node_modules
 e2e/cypress/screenshots
 e2e/cypress/videos
+e2e/cypress/fixtures
 
 # VSCode keeps generating these, need to investigate.
 *.tmp
