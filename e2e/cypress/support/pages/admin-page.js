@@ -1,6 +1,6 @@
 import layout from "./layout";
 
-const gigsLink = () => cy.contains("View Gigs");
+const gigsLink = () => cy.contains("All");
 const heading = () => cy.get("h1");
 const signOutLink = () => cy.contains("Sign Out");
 
