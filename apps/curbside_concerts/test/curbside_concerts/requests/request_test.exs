@@ -1,21 +1,15 @@
 defmodule CurbsideConcerts.Requests.RequestTest do
   use CurbsideConcerts.DataCase
 
+  import CurbsideConcerts.Factory
+
   alias CurbsideConcerts.Requests.Request
 
   setup do
-    request = %Request{
-      nominee_name: Faker.Name.name(),
-      contact_preference: "call_requester",
-      nominee_phone: Faker.Phone.EnUs.phone(),
-      nominee_address: Faker.Address.street_address(),
-      song: Faker.String.base64(),
-      special_message: Faker.StarWars.quote(),
-      requester_name: Faker.Name.name(),
+    request = build(:request, %{
       # Faker.Phone.EnUs.phone(),
       requester_phone: "7405556789",
-      requester_email: Faker.Internet.email()
-    }
+    })
 
     {:ok, request: request}
   end
