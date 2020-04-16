@@ -11,7 +11,7 @@ const offMissionRequestLink = (specialMessage) =>
 const receiveRequestLink = (specialMessage) =>
 	requestCard(specialMessage).contains("Mark as Received");
 
-const offMissionNavLink = () => cy.contains("View Off-Mission Requests");
+const offMissionNavLink = () => cy.contains("Off-Mission");
 
 class GigsPage {
 	visit() {

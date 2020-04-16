@@ -249,4 +249,16 @@ defmodule CurbsideConcertsWeb.RequestView do
   defp class(form, field) do
     if form.errors[field], do: "not-valid", else: ""
   end
+
+  def request_list_links() do
+    endpoint = CurbsideConcertsWeb.Endpoint
+
+    ~E"""
+    <%= link "All", to: Routes.request_path(endpoint, :index) %>
+    | <%= link "Unbooked", to: Routes.request_path(endpoint, :last_minute_gigs) %>
+    | <%= link "Off-Mission", to: Routes.request_path(endpoint, :index, %{"state" => "offmission"})%>
+    | <%= link "Canceled", to: Routes.request_path(endpoint, :index, %{"state" => "canceled"}) %>
+    | <%= link "Archived", to: Routes.request_path(endpoint, :archived) %>
+    """
+  end
 end

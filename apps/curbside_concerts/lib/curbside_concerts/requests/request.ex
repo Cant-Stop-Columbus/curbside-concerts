@@ -30,7 +30,6 @@ defmodule CurbsideConcerts.Requests.Request do
     field(:rank, :string)
     field(:archived, :boolean)
 
-    
     # deprecated fields
     field(:song, :string)
     field(:nominee_address, :string)
