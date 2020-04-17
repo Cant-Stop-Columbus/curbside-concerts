@@ -100,7 +100,7 @@ defmodule CurbsideConcertsWeb.RequestView do
 
     addresses =
       requests
-      |> Enum.map(fn %Request{nominee_address: address} -> address end)
+      |> Enum.map(&RequestAddress.full_address/1)
       |> Enum.join("/")
 
     link("Map this #{length(requests)} concert route",
