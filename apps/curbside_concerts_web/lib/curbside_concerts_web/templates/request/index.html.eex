@@ -14,14 +14,13 @@
 			nominee_phone: nominee_phone,
       nominee_address_notes: nominee_address_notes,
 			genres: genres,
-			inserted_at: inserted_at,
 			special_message: special_message,
 			state: state
 		} = request <- @requests do %>
 
     <div class="card">
+      <div><%= days_ago_message(request) %></div>
       <div><b>Status:</b> <%= display_state(request) %></div>
-      <div><b>Date of Request:</b> <%= inserted_at %></div>
 
       <br>
 

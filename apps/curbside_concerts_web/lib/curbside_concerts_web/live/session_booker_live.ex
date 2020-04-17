@@ -248,6 +248,7 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
          draggable="true">
       <div class="card">
         <%= zip_score(assigns, request, comparing_requests) %>
+        <%= RequestView.days_ago_message(request) %><br>
         <b>email:</b> <%= request.requester_email %><br>
         <b>genres:</b> <%= Enum.map(request.genres, fn g -> g.name end) |> Enum.join(", ") %><br>
         <b>Address:</b> <%= RequestAddress.full_address(request) %> <%= address_notes %><br>
