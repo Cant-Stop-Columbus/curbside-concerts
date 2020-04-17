@@ -7,6 +7,7 @@ defmodule CurbsideConcertsWeb.RequestView do
   alias CurbsideConcerts.Musicians.Musician
   alias CurbsideConcerts.Musicians.Session
   alias CurbsideConcertsWeb.Helpers.RequestAddress
+  alias CurbsideConcertsWeb.Helpers.TimeUtil
   alias CurbsideConcertsWeb.LayoutView
 
   def required_star do
@@ -260,5 +261,16 @@ defmodule CurbsideConcertsWeb.RequestView do
     | <%= link "Canceled", to: Routes.request_path(endpoint, :index, %{"state" => "canceled"}) %>
     | <%= link "Archived", to: Routes.request_path(endpoint, :archived) %>
     """
+  end
+
+  def days_ago_message(%Request{} = request) do
+    days_ago = TimeUtil.days_ago(request)
+
+    case(days_ago) do
+      0 -> gettext("Created <b>today</b>")
+      1 -> gettext("Created <b>yesterday</b>")
+      n -> gettext("Created <b>%{count}</b> days ago", count: n)
+    end
+    |> raw()
   end
 end
