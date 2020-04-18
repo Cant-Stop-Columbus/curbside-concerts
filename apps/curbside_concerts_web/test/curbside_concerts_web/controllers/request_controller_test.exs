@@ -27,21 +27,7 @@ defmodule CurbsideConcertsWeb.RequestControllerTest do
 
   describe "create/2" do
     test "redirects to tracker confirmation when data is valid", %{conn: conn} do
-      %{nominee_name: nominee_name} =
-        valid_attrs = %{
-          nominee_name: Faker.Name.name(),
-          contact_preference: "call_nominee",
-          nominee_phone: Faker.Phone.EnUs.phone(),
-          nominee_street_address: Faker.Address.street_address(),
-          nominee_city: Faker.Address.city(),
-          nominee_zip_code: Faker.Address.zip_code(),
-          nominee_address_notes: Faker.StarWars.quote(),
-          song: Faker.String.base64(),
-          special_message: Faker.StarWars.quote(),
-          requester_name: Faker.Name.name(),
-          requester_phone: Faker.Phone.EnUs.phone(),
-          requester_email: Faker.Internet.email()
-        }
+      %{nominee_name: nominee_name} = valid_attrs = attrs(:request)
 
       conn = post(conn, Routes.request_path(conn, :create), request: valid_attrs)
       %Request{id: request_id} = Requests.all_requests() |> List.first()

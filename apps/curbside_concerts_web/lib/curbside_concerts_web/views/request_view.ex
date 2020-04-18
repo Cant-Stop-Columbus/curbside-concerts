@@ -138,7 +138,7 @@ defmodule CurbsideConcertsWeb.RequestView do
     """
   end
 
-  def request_input(form, field) when field in ~w|special_message nominee_address_notes|a do
+  def request_input(form, field) when field in ~w|special_message nominee_address_notes request_reason nominee_description nominee_favorite_music_notes request_occasion special_instructions|a do
     class = class(form, field)
 
     ~E"""
@@ -165,11 +165,24 @@ defmodule CurbsideConcertsWeb.RequestView do
     """
   end
 
+  def request_date(form, field) do
+    ~E"""
+    <%= date_input(form, field, placeholder: "mm/dd/yyyy") %>
+    <%= error_tag form, field %>
+    """
+  end
+
+  def request_checkbox(form, field) do
+    ~E"""
+    <%= checkbox(form, field)%>
+    <%= error_tag form, field %>
+    """
+  end
+
   def contact_preference_radio(form) do
     class = class(form, :contact_preference)
 
     ~E"""
-    <div>We'll call ahead when we're on our way (about 15 to 30 minutes before we arrive). Given that some older folks can be skeptical of calls... you have the option for us to call you, or the nominee - please choose an option below. <%= required_star() %></div>
       <label class="radio-button">
         <%= radio_button form, :contact_preference, :call_nominee, class: class %> <span>Call the nominee.</span>
       </label>

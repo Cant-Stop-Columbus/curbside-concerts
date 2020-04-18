@@ -34,7 +34,7 @@ class RequestFormPage {
 	}
 
 	assert() {
-		heading().should("have.text", "Request a concert");
+		heading().should("have.text", "Request a Curbside Concert");
 	}
 
 	fillInNomineeName(name) {
