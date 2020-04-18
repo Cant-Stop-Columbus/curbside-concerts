@@ -47,7 +47,9 @@ defmodule CurbsideConcerts.Factory do
       special_message: Faker.Lorem.Shakespeare.as_you_like_it(),
       requester_name: Faker.Name.name(),
       requester_phone: Faker.Phone.EnUs.phone(),
-      requester_email: Faker.Internet.email()
+      requester_email: Faker.Internet.email(),
+      request_reason: Faker.Lorem.paragraph(1..2),
+      nominee_description: Faker.Lorem.paragraph(1..2)
     }
   end
 

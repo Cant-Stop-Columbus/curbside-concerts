@@ -11,7 +11,7 @@ defmodule CurbsideConcerts.Requests.Request do
   alias CurbsideConcerts.Musicians.Genre
   alias CurbsideConcerts.Requests.RequestGenre
 
-  @allowed_attrs ~w|state contact_preference nominee_name nominee_phone nominee_address nominee_street_address nominee_city nominee_zip_code nominee_address_notes special_message requester_name requester_phone requester_email rank session_id archived|a
+  @allowed_attrs ~w|state contact_preference nominee_name nominee_phone nominee_address nominee_street_address nominee_city nominee_zip_code nominee_address_notes special_message requester_name requester_phone requester_email rank session_id archived request_reason nominee_description special_message_sender_name nominee_favorite_music_notes request_occasion preferred_date nominee_email requester_relationship special_instructions requester_newsletter_interest|a
   @required_attrs ~w|state contact_preference nominee_name nominee_street_address nominee_city nominee_zip_code special_message requester_name requester_phone requester_email|a
 
   schema "requests" do
@@ -29,6 +29,17 @@ defmodule CurbsideConcerts.Requests.Request do
     field(:requester_email, :string)
     field(:rank, :string)
     field(:archived, :boolean)
+    field(:request_reason, :string)
+    field(:nominee_description, :string)
+    field(:special_message_sender_name, :string)
+    field(:nominee_favorite_music_notes, :string)
+    field(:request_occasion, :string)
+    field(:preferred_date, :date)
+    field(:nominee_email, :string)
+    field(:requester_relationship, :string)
+    field(:special_instructions, :string)
+    field(:requester_newsletter_interest, :boolean, default: false)
+
 
     # deprecated fields
     field(:song, :string)

@@ -1,23 +1,12 @@
 defmodule CurbsideConcerts.RequestsTest do
   use CurbsideConcerts.DataCase
 
+  import CurbsideConcerts.Factory
+
   alias CurbsideConcerts.Requests
   alias CurbsideConcerts.Requests.Request
 
-  @valid_request_attrs %{
-    nominee_name: Faker.Name.name(),
-    contact_preference: "call_requester",
-    nominee_phone: Faker.Phone.EnUs.phone(),
-    nominee_street_address: Faker.Address.street_address(),
-    nominee_city: Faker.Address.city(),
-    nominee_zip_code: Faker.Address.zip_code(),
-    nominee_address_notes: Faker.StarWars.quote(),
-    song: Faker.String.base64(),
-    special_message: Faker.StarWars.quote(),
-    requester_name: Faker.Name.name(),
-    requester_phone: Faker.Phone.EnUs.phone(),
-    requester_email: Faker.Internet.email()
-  }
+  @valid_request_attrs attrs(:request)
 
   describe "create_request/1 state management" do
     test "create_request/1 defaults to pending" do
