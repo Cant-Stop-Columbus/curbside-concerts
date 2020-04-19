@@ -21,7 +21,7 @@ defmodule CurbsideConcertsWeb.RequestControllerTest do
         |> Floki.find("h1")
         |> Floki.text()
 
-      assert title == "Request a concert"
+      assert title == "Request a Curbside Concert"
     end
   end
 
@@ -65,7 +65,7 @@ defmodule CurbsideConcertsWeb.RequestControllerTest do
         |> Floki.find("h1")
         |> Floki.text()
 
-      assert header == "Request a concert"
+      assert header == "Request a Curbside Concert"
 
       error_message =
         html
