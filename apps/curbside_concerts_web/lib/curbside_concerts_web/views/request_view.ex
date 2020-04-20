@@ -138,7 +138,8 @@ defmodule CurbsideConcertsWeb.RequestView do
     """
   end
 
-  def request_input(form, field) when field in ~w|special_message nominee_address_notes request_reason nominee_description nominee_favorite_music_notes request_occasion special_instructions|a do
+  def request_input(form, field)
+      when field in ~w|special_message nominee_address_notes request_reason nominee_description nominee_favorite_music_notes request_occasion special_instructions|a do
     class = class(form, field)
 
     ~E"""
@@ -280,10 +281,24 @@ defmodule CurbsideConcertsWeb.RequestView do
     days_ago = TimeUtil.days_ago(request)
 
     case(days_ago) do
-      0 -> gettext("Created <b>today</b>")
-      1 -> gettext("Created <b>yesterday</b>")
-      n -> gettext("Created <b>%{count}</b> days ago", count: n)
+      0 -> gettext("Today")
+      1 -> gettext("<b>1 day</b>")
+      n -> gettext("<b>%{count} days</b>", count: n)
     end
     |> raw()
+  end
+
+  def days_ago_number(%Request{} = request) do
+    TimeUtil.days_ago(request)
+  end
+
+  def days_ago_badge(%Request{} = request) do
+    ~E"""
+    <div class="days-ago-badge">
+      <div class="days-text">
+        <%= TimeUtil.days_ago(request) %>
+      </div>
+    </div>
+    """
   end
 end

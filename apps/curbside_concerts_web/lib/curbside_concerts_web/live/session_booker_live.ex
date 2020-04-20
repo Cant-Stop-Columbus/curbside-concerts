@@ -6,6 +6,7 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
 
   alias CurbsideConcerts.LexoRanker
   alias CurbsideConcerts.Musicians
+  alias CurbsideConcerts.Musicians.Genre
   alias CurbsideConcerts.Musicians.Session
   alias CurbsideConcerts.Requests
   alias CurbsideConcerts.Requests.Request
@@ -26,6 +27,10 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
       |> assign(:unbooked_requests, unbooked_requests)
       |> assign(:session_requests, session.requests)
       |> assign(:session, session)
+      |> assign(:filters, %{})
+      |> assign(:sort_by, nil)
+      |> assign(:genre_filter, nil)
+      |> assign(:show_full_request, false)
       |> assign(:saved, false)
 
     {:ok, socket}
@@ -122,6 +127,17 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
      )}
   end
 
+  def handle_event("update-filters", params, socket) do
+    socket =
+      assign(socket, %{
+        sort_by: Map.get(params, "sort_by"),
+        genre_filter: Map.get(params, "genre_filter"),
+        show_full_request: Map.get(params, "show_full_request")
+      })
+
+    {:noreply, socket}
+  end
+
   defp internal_move_request(request_id, over_request_id, list) do
     request =
       Enum.find(list, fn %Request{id: id} ->
@@ -188,6 +204,10 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
   # end
 
   def render(assigns) do
+    filtered_requests = apply_filters(assigns, assigns[:unbooked_requests])
+    filtered_length = length(filtered_requests)
+    unbooked_length = length(assigns[:unbooked_requests])
+
     ~L"""
     <div class="booker">
       <div class="card">
@@ -196,20 +216,26 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
           <br><br>SAVED!
         <% end %>
         <br>
-        Badge scores <span class="badge good">70</span> are based on the requests' ZIP codes and how close they are to the locations on the route booked so far, including the truck pickup location.
+        <b>Legend:</b>
+        <br><span class="days-ago-badge"><div class="days-text">8</div></span> request days old
+        <br><span class="badge good">70</span> based on the requests' ZIP codes and how close they are to the locations on the route booked so far, including the truck pickup location.
       </div>
       <div class="columns">
         <div class="column">
-          <h2>Unbooked Requests (<%= length(@unbooked_requests) %>)</h2>
+          <% length = if filtered_length == unbooked_length, do: unbooked_length, else: "#{filtered_length} filtered from #{unbooked_length}" %>
+          <h2>Unbooked Requests (<%= length %>)</h2>
+          <%= render_filters(assigns) %>
 
-          <%= for request <- @unbooked_requests do %>
-            <%= render_request_card(assigns, request, @session_requests) %>
-          <% end %>
-          <%= if @unbooked_requests == [] do %>
-            <div class="card">
-              There are no unbooked requests.
-            </div>
-          <% end %>
+          <div class="scrollable">
+            <%= for request <- filtered_requests do %>
+              <%= render_request_card(assigns, request, @session_requests) %>
+            <% end %>
+            <%= if filtered_requests == [] do %>
+              <div class="card">
+                There are no unbooked requests.
+              </div>
+            <% end %>
+          </div>
         </div>
 
         <div class="column" phx-value-session-id="<%= @session.id %>">
@@ -218,47 +244,168 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
           <%= unless @session_requests == [] do %>
             <%= RequestView.map_route_link(@session_requests) %>
           <% end %>
-          <%= for request <- @session_requests do %>
-            <%= render_request_card(assigns, request, @session_requests) %>
-          <% end %>
-          <%= if @session_requests == [] do %>
-            <div class="card">
-              There are no requests in this session yet.
-            </div>
-          <% end %>
+          <div class="scrollable">
+            <%= for request <- @session_requests do %>
+              <%= render_request_card(assigns, request, @session_requests) %>
+            <% end %>
+            <%= if @session_requests == [] do %>
+              <div class="card">
+                There are no requests in this session yet.
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
     """
   end
 
+  defp render_filters(assigns) do
+    genres =
+      (assigns[:unbooked_requests] ++ assigns[:session_requests])
+      |> Enum.flat_map(fn request ->
+        Enum.map(request.genres, fn %Genre{id: genre_id, name: genre_name} ->
+          {genre_id, genre_name}
+        end)
+      end)
+      |> Enum.uniq()
+      |> Enum.sort_by(&elem(&1, 1))
+
+    assigns = Map.put(assigns, :genres, genres)
+
+    ~L"""
+    <form phx-change="update-filters">
+    Sort by:
+      <%= render_sorts(assigns) %>
+    <br>Filter by:
+      <%= render_genre_filter(assigns) %>
+    <br>
+      <%= render_show_amount(assigns) %>
+    </form>
+    """
+  end
+
+  defp render_sorts(assigns) do
+    ~E"""
+    <select name="sort_by">
+      <option value="" <%= if !@sort_by or @sort_by == "", do: "selected" %>>No Sort Applied</option>
+      <option value="special_day_first" <%= if @sort_by == "special_day_first", do: "selected" %>>Special Day First</option>
+      <option value="oldest_first" <%= if @sort_by == "oldest_first", do: "selected" %>>Oldest First</option>
+      <option value="newest_first" <%= if @sort_by == "newest_first", do: "selected" %>>Newest First</option>
+    </select>
+    """
+  end
+
+  defp render_genre_filter(assigns) do
+    ~L"""
+    <select name="genre_filter">
+      <option value="" <%= if !@genre_filter or @genre_filter == "", do: "selected" %>>All Genres</option>
+      <%= for {genre_id, genre_name} <- @genres do %>
+        <option value="<%= genre_id %>" <%= if @genre_filter == "#{genre_id}", do: "selected" %>><%= genre_name %></option>
+      <% end %>
+    </select>
+    """
+  end
+
+  defp render_show_amount(assigns) do
+    ~E"""
+    <label>
+      <input type="checkbox" name="show_full_request" value="true" <%= if @show_full_request == "true", do: "checked" %>/>
+      Show full request
+    </label>
+    """
+  end
+
+  defp apply_filters(%{sort_by: sort_by, genre_filter: genre_filter} = _assigns, requests) do
+    requests
+    |> apply_filter("sort_by", sort_by)
+    |> apply_filter("genre_filter", genre_filter)
+  end
+
+  defp apply_filter(requests, "sort_by", sort_by) do
+    case sort_by do
+      "special_day_first" ->
+        Enum.sort_by(
+          requests,
+          fn %Request{preferred_date: preferred_date} -> "#{preferred_date}" end,
+          &>/2
+        )
+
+      "oldest_first" ->
+        Enum.sort_by(requests, fn %Request{inserted_at: inserted_at} -> inserted_at end)
+
+      "newest_first" ->
+        Enum.sort_by(requests, fn %Request{inserted_at: inserted_at} -> inserted_at end, &>/2)
+
+      _ ->
+        requests
+    end
+  end
+
+  defp apply_filter(requests, "genre_filter", genre_id)
+       when is_binary(genre_id) and genre_id != "" do
+    requests
+    |> Enum.filter(fn %Request{genres: genres} ->
+      Enum.any?(genres, fn %Genre{id: id} -> "#{id}" == genre_id end)
+    end)
+  end
+
+  defp apply_filter(requests, _, _), do: requests
+
   defp render_request_card(
          assigns,
          %Request{
            id: request_id,
            special_message: special_message,
-           nominee_address_notes: address_notes
+           request_reason: request_reason,
+           nominee_address_notes: address_notes,
+           special_instructions: special_instructions
          } = request,
          comparing_requests
        ) do
+    # request_reason
+    # nominee_description
+    # special_message_sender_name
+    # nominee_favorite_music_notes
+    # request_occasion
+    # nominee_email
+    # requester_relationship
+    # special_instructions
+
     ~L"""
     <div phx-hook="RequestBookerCard"
          phx-value-request-id="<%= request_id %>"
          class="draggable-card"
+         ondblclick="window.open('<%= Routes.request_path(CurbsideConcertsWeb.Endpoint, :show, request) %>', 'request_view')"
          draggable="true">
       <div class="card">
-        <%= zip_score(assigns, request, comparing_requests) %>
-        <%= RequestView.days_ago_message(request) %><br>
-        <b>email:</b> <%= request.requester_email %><br>
-        <b>genres:</b> <%= Enum.map(request.genres, fn g -> g.name end) |> Enum.join(", ") %><br>
-        <b>Address:</b> <%= RequestAddress.full_address(request) %> <%= address_notes %><br>
+        <div class="card-quick-stats">
+          <%= if request.preferred_date do %>
+            <b>Special Day: </b><%= request.preferred_date %> &nbsp;
+          <% end %>
+          <%= RequestView.days_ago_badge(request) %>
+          <%= zip_score(assigns, request, comparing_requests) %>
+        </div>
+        <b>Address:</b> <%= RequestAddress.full_address(request) %>
+        <%= if @show_full_request do %>
+          <br><%= address_notes %><br>
+        <% end %>
+        <b>Genres:</b> <%= Enum.map(request.genres, fn g -> g.name end) |> Enum.join(", ") %><br>
+        <%= if request_reason do %>
+          <b>Request Reason:</b> <%= request_reason %> <br>
+        <% end %>
         <b>Special Message:</b> <%= special_message %><br>
-        <b>state:</b> <%= request.state %><br>
-        <b>contact_preference:</b> <%= request.contact_preference %><br>
-        <b>nominee_name:</b> <%= request.nominee_name %><br>
-        <b>nominee_phone:</b> <%= request.nominee_phone %><br>
-        <b>requester_name:</b> <%= request.requester_name %><br>
-        <b>requester_phone:</b> <%= request.requester_phone %><br>
+        <%= if special_instructions do %>
+          <b>Special Instructions:</b> <%= special_instructions %><br>
+        <% end %>
+        <%= if @show_full_request == "true" do %>
+          <b>Contact Pref:</b> <%= request.contact_preference %><br>
+          <b>Nominee:</b> <%= request.nominee_name %><br>
+          <b>Nominee Phone:</b> <%= request.nominee_phone %><br>
+          <b>Requester:</b> <%= request.requester_name %><br>
+          <b>Requester Phone:</b> <%= request.requester_phone %><br>
+          <b>Requester Email:</b> <%= request.requester_email %><br>
+        <% end %>
       </div>
     </div>
     """

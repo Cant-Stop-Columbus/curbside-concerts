@@ -105,14 +105,6 @@ Hooks.RequestBookerCard = {
     elem.addEventListener('dragend', e => {
       e.currentTarget.classList.remove('dragging')
     });
-
-    elem.addEventListener("dblclick", e => {
-      // const toggle = this.el.querySelector(".toggle")
-
-      this.pushEvent("move_request", {
-        "todo-id": "double-click" //toggle.getAttribute("phx-value-todo-id")
-      })
-    })
   }
 }
 

@@ -22,3 +22,19 @@
     background: #880000;
   }
 }
+
+.days-ago-badge {
+  width: 1.7em;
+  height: 2em;
+	background-image: url(/images/icons/calendar.svg);
+	background-repeat: no-repeat;
+	display: inline-block;
+  text-align: center;
+  font-size: 16px;
+  margin-right: 2px;
+
+	.days-text {
+    display: inline-block;
+    padding-top: 7px;
+	}
+}
