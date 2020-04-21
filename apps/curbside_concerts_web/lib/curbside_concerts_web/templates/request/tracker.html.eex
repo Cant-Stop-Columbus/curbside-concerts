@@ -27,6 +27,17 @@
     <% current_status = display_state(@request) %>
     Current Status: <%= current_status %>
 
+		<%= if @request.session do %>
+		  <b><%= @request.session.name %></b>
+			<%= if @request.session.description do %>
+				<br><%= @request.session.description %>
+		  <% end %>
+
+			<%= if @request.session.musician do %>
+			  <%= @request.session.musician.name %>
+			<% end %>
+		<% end %>
+
     <br>
     <%= if cancellable_state(@request) do %>
       <%= link("Cancel Request", to: "#{Routes.request_path(@conn, :cancel_request, @tracker_id)}", method: :put, id: "cancel_request") %>

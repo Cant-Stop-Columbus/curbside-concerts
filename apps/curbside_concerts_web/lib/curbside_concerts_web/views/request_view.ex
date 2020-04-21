@@ -64,7 +64,7 @@ defmodule CurbsideConcertsWeb.RequestView do
   end
 
   def pending_message, do: "Received"
-  def accepted_message, do: "Accepted"
+  def accepted_message, do: "Booked"
   def enroute_message, do: "On the way"
   def arrived_message, do: "Arrived"
   def completed_message, do: "Completed"
@@ -82,17 +82,17 @@ defmodule CurbsideConcertsWeb.RequestView do
     ]
   end
 
-  def request_cards(requests) when is_list(requests) do
+  def request_cards(conn, requests) when is_list(requests) do
     ~E"""
     <%= for request <- requests do %>
-      <%= request_card(request) %>
+      <%= request_card(conn, request) %>
     <% end %>
     """
   end
 
-  def request_card(request) do
+  def request_card(conn, request) do
     ~E"""
-    <%= render "request_card.html", request: request %>
+    <%= render "request_card.html", request: request, conn: conn %>
     """
   end
 
@@ -138,7 +138,8 @@ defmodule CurbsideConcertsWeb.RequestView do
     """
   end
 
-  def request_input(form, field) when field in ~w|special_message nominee_address_notes request_reason nominee_description nominee_favorite_music_notes request_occasion special_instructions|a do
+  def request_input(form, field)
+      when field in ~w|special_message nominee_address_notes request_reason nominee_description nominee_favorite_music_notes request_occasion special_instructions|a do
     class = class(form, field)
 
     ~E"""
@@ -231,15 +232,26 @@ defmodule CurbsideConcertsWeb.RequestView do
     ~E"Text Requester (<%= requester_name %>) @ <%= text_link(phone, message) %>"
   end
 
+  def contact_preference(%Request{
+        contact_preference: "text_requester",
+        requester_name: name,
+        requester_phone: phone
+      }),
+      do: ~E"Text Requester (<%= name %>) @ <%= text_link(phone) %>"
+
   def contact_preference(%Request{contact_preference: preference}), do: preference
 
-  def text_link(raw_number, message) do
+  def text_link(raw_number, message \\ "") do
     case simple_number(raw_number) do
       nil ->
         raw_number
 
       number ->
-        ~E|<a href="sms:<%= number %>&body=<%= message %>">Text <%= raw_number %></a>|
+        if message == "" do
+          ~E|<a href="sms:<%= number %>">Text <%= raw_number %></a>|
+        else
+          ~E|<a href="sms:<%= number %>&body=<%= message %>">Text <%= raw_number %></a>|
+        end
     end
   end
 
@@ -280,10 +292,38 @@ defmodule CurbsideConcertsWeb.RequestView do
     days_ago = TimeUtil.days_ago(request)
 
     case(days_ago) do
-      0 -> gettext("Created <b>today</b>")
-      1 -> gettext("Created <b>yesterday</b>")
-      n -> gettext("Created <b>%{count}</b> days ago", count: n)
+      0 -> gettext("Today")
+      1 -> gettext("<b>1 day</b>")
+      n -> gettext("<b>%{count} days</b>", count: n)
     end
     |> raw()
+  end
+
+  def days_ago_number(%Request{} = request) do
+    TimeUtil.days_ago(request)
+  end
+
+  def days_ago_badge(%Request{} = request) do
+    ~E"""
+    <div class="days-ago-badge">
+      <div class="days-text">
+        <%= TimeUtil.days_ago(request) %>
+      </div>
+    </div>
+    """
+  end
+
+  def request_action_links(%Request{state: state, archived: archived} = request, redirect_route) do
+    ~E"""
+    <%= if !archived do %>
+      <%= link "Edit", to: Routes.request_path(CurbsideConcertsWeb.Endpoint, :edit, request) %>
+      <%= if state !== Requests.offmission_state() do %>
+        | <%= link "Mark as Off-Mission", to: Routes.request_path(CurbsideConcertsWeb.Endpoint, :state, request, "offmission", %{redirect: redirect_route}), method: :put, data: [confirm: "Are you sure?"] %>
+      <% else %>
+        | <%= link "Mark as Received", to: Routes.request_path(CurbsideConcertsWeb.Endpoint, :state, request, "pending", %{redirect: redirect_route}), method: :put, data: [confirm: "Are you sure?"] %>
+      <% end %>
+      | <%= link "Archive This Request", to: Routes.request_path(CurbsideConcertsWeb.Endpoint, :archive, request, %{redirect: redirect_route}), method: :put, data: [confirm: "Are you sure?"] %>
+    <% end %>
+    """
   end
 end

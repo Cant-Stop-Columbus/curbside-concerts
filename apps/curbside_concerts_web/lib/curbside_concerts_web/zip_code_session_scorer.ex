@@ -110,7 +110,9 @@ defmodule CurbsideConcertsWeb.ZipCodeSessionScorer do
   end
 
   def zip_to_code("43" <> <<rest::binary>>) do
-    String.to_integer(rest)
+    rest
+    |> String.replace(~r/\D/, "")
+    |> String.to_integer()
   end
 
   def zip_to_code(_), do: 999

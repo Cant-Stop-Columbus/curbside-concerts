@@ -61,6 +61,10 @@ defmodule CurbsideConcerts.Requests do
 
   def offmission_state, do: @offmission
 
+  def accept_requests(list) when is_list(list) do
+    Enum.each(list, &accept_request/1)
+  end
+
   def accept_request(%Request{} = request) do
     Machinery.transition_to(request, __MODULE__, @accepted)
   end
@@ -79,6 +83,10 @@ defmodule CurbsideConcerts.Requests do
 
   def complete_request(%Request{} = request) do
     Machinery.transition_to(request, __MODULE__, @completed)
+  end
+
+  def back_to_pending_requests(list) when is_list(list) do
+    Enum.each(list, &back_to_pending_request/1)
   end
 
   def back_to_pending_request(%Request{} = request) do
@@ -113,6 +121,7 @@ defmodule CurbsideConcerts.Requests do
   def find_request(request_id) do
     Request
     |> where([r], r.id == ^request_id)
+    |> preload([:genres, [session: :musician]])
     |> Repo.one()
   end
 

@@ -125,6 +125,11 @@ div#address_container {
 		.column {
 			padding: 0 8px;
 
+			.scrollable {
+				overflow-y: auto;
+				height: 600px;
+			}
+
 			&.over {
 				border: 1px solid purple;
 			}
@@ -151,10 +156,19 @@ div#address_container {
 					margin: 8px 0;
 					position: relative;
 
-					.badge {
+					&.priority-request {
+						box-shadow: 0 0 5px purple;
+						background-color: lightpink;
+					}
+
+					.card-quick-stats {
 						position: absolute;
 						top: 4px;
 						right: 4px;
+						width: 100%;
+						display: flex;
+						justify-content: flex-end;
+						align-items: flex-end;
 					}
 				}
 			}

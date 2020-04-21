@@ -1,50 +1,86 @@
 <h2><%= if @session.musician, do: @session.musician.name, else: "Musician" %>'s page for <%= @session.name %></h2>
 <%= RequestView.map_route_link(@session.requests) %>
 
-<%= for %Request{
-  nominee_address_notes: nominee_address_notes,
-  nominee_name: nominee_name,
-  requester_name: requester_name,
-  special_message: special_message,
-  genres: genres
-} = request <- @session.requests do %>
+<%= for request <- @session.requests do %>
+  <% %Request{
+    inserted_at: _inserted_at,
+    genres: genres,
+    state: _state,
+    contact_preference: _contact_preference,
+    nominee_name: nominee_name,
+    nominee_description: nominee_description,
+    request_reason: request_reason,
+    nominee_street_address: _nominee_street_address,
+    nominee_city: _nominee_city,
+    nominee_zip_code: _nominee_zip_code,
+    nominee_address_notes: _nominee_address_notes,
+    nominee_phone: _nominee_phone,
+    special_message: special_message,
+    special_message_sender_name: special_message_sender_name,
+    requester_name: requester_name,
+    requester_relationship: requester_relationship,
+    requester_email: _requester_email,
+    requester_phone: _requester_phone,
+    archived: _archived?,
+    nominee_favorite_music_notes: favorite_notes,
+    request_occasion: occasion,
+    preferred_date: preferred_date,
+    nominee_email: _nominee_email,
+    special_instructions: special_instructions,
+    requester_newsletter_interest: _newsletter_interest?
+  } = request %>
   <div class="card">
-    <div>
-      <b>Arriving at:</b> <%= RequestAddress.full_address(request) %> <%= nominee_address_notes %>
-    </div>
+    <div><b>Preferred Date:</b> <%= preferred_date %></div>
+    <div><b>Request Occasion:</b> <%= occasion %></div>
+    <div><b>Request Reason:</b> <%= request_reason %></div>
+    <div><b>Nominee Description:</b> <%= nominee_description %></div>
 
     <br>
 
-    <div>
-      <b>Preferred Genres:</b>
-      <%= if genres != [] do %>
-        <ul>
-          <%= for %Genre{name: name} <- genres do %>
-            <li><%= name %></li>
-          <% end %>
-        </ul>
-      <% else %>
-        No genres specified
-      <% end %>
-    </div>
+    <%= if special_instructions do %>
+      <div>
+        <b>Special Instructions:</b><br>
+        <%= raw special_instructions %>
+      </div>
+    <% end %>
+
+    <%= if favorite_notes do %>
+      <div>
+        <b>Favorite Music Notes:</b><br>
+        <%= raw favorite_notes %>
+      </div>
+    <% end %>
 
     <br>
 
     <div style="display: flex">
       <div style="margin-right: 16px">
         <b>To:</b><br>
-        <%= nominee_name %>
+        <%= nominee_name %><br>
       </div>
       <div>
         <b>From:</b><br>
-        <%= requester_name %>
+        <%= requester_name %><br>
+        <%= requester_relationship %><br>
       </div>
     </div>
 
     <br>
 
+    <div>
+      <b>Preferred Genres:</b>
+      <ul>
+        <%= for %Genre{name: name} <- genres do %>
+          <li><%= name %></li>
+        <% end %>
+      </ul>
+    </div>
+
     <div><b>Special Message:</b><br>
-      <%= special_message %>
+      <%= raw special_message %>
+      <%= if special_message_sender_name do %>
+        <br> - <%= special_message_sender_name  %>
+      <% end %>
     </div>
   </div>
 <% end %>

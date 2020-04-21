@@ -1,16 +1,36 @@
 <% %Request{
+	inserted_at: inserted_at,
+  genres: genres,
+  state: _state,
+  contact_preference: _contact_preference,
+  nominee_name: nominee_name,
+  nominee_description: nominee_description,
+  request_reason: request_reason,
+  nominee_street_address: _nominee_street_address,
+  nominee_city: _nominee_city,
+  nominee_zip_code: _nominee_zip_code,
+  nominee_address_notes: nominee_address_notes,
+  nominee_phone: nominee_phone,
+  special_message: special_message,
+  special_message_sender_name: special_message_sender_name,
   requester_name: requester_name,
+  requester_relationship: requester_relationship,
 	requester_email: requester_email,
   requester_phone: requester_phone,
-  nominee_name: nominee_name,
-  nominee_phone: nominee_phone,
-  nominee_address_notes: nominee_address_notes,
-  genres: genres,
-	inserted_at: inserted_at,
-  special_message: special_message
+  archived: archived?,
+  nominee_favorite_music_notes: favorite_notes,
+  request_occasion: occasion,
+  preferred_date: preferred_date,
+  nominee_email: nominee_email,
+  special_instructions: special_instructions,
+  requester_newsletter_interest: _newsletter_interest?
 } = @request %>
 <div class="card">
-  <div><b>Status:</b> <%= display_state(@request) %></div>
+  <div><b>Preferred Date:</b> <%= preferred_date %></div>
+  <div><b>Request Occasion:</b> <%= occasion %></div>
+  <div><b>Request Reason:</b> <%= request_reason %></div>
+  <div><b>Nominee Description:</b> <%= nominee_description %></div>
+  <div><b>Status:</b> <%= display_state(@request) %> <%= if archived?, do: "ARCHIVED" %></div>
   <div><b>Date of Request:</b> <%= inserted_at %></div>
 
   <br>
@@ -31,17 +51,33 @@
     </div>
   <% end %>
 
+  <%= if special_instructions do %>
+    <div>
+      <b>Special Instructions:</b><br>
+      <%= raw special_instructions %>
+    </div>
+  <% end %>
+
+  <%= if favorite_notes do %>
+    <div>
+      <b>Favorite Music Notes:</b><br>
+      <%= raw favorite_notes %>
+    </div>
+  <% end %>
+
   <br>
 
   <div style="display: flex">
     <div style="margin-right: 16px">
       <b>To:</b><br>
       <%= nominee_name %><br>
-      <%= nominee_phone %>
+      <%= nominee_phone %><br>
+      <%= nominee_email %>
     </div>
     <div>
       <b>From:</b><br>
       <%= requester_name %><br>
+      <%= requester_relationship %><br>
       <%= requester_phone %><br>
       <%= requester_email %>
     </div>
@@ -57,5 +93,12 @@
   </div>
   <div><b>Special Message:</b><br>
     <%= raw special_message %>
+    <%= if special_message_sender_name do %>
+      <br> - <%= special_message_sender_name  %>
+    <% end %>
+  </div>
+
+  <div>
+    <%= request_action_links(@request, Phoenix.Controller.current_url(@conn)) %>
   </div>
 </div>
