@@ -8,14 +8,6 @@ defmodule CurbsideConcertsWeb.EmailRequest do
   alias CurbsideConcertsWeb.Mailer
 
   def send_session_booked(request_id) do
-    # IO.puts("********************** sending " <> to_email)
-    # Process.sleep(5000)
-    # if(to_email =~ "some") do
-    #   throw("Error")
-    # end
-    # test_email(to_email) 
-    # |>  CurbsideConcertsWeb.Mailer.deliver_now()
-    # IO.puts("********************** sent " <> to_email)
     request = Requests.find_request_with_children(request_id)
     email(request) 
     |>  Mailer.deliver_now()
