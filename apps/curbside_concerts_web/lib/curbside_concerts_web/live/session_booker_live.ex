@@ -27,17 +27,18 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
       |> assign(:unbooked_requests, unbooked_requests)
       |> assign(:session_requests, session.requests)
       |> assign(:session, session)
-      |> assign(:filters, %{})
       |> assign(:sort_by, nil)
       |> assign(:genre_filter, nil)
       |> assign(:show_full_request, false)
       |> assign(:saved, false)
+      |> assign(:saved_as_draft, false)
+      |> assign(:saved_as_final, false)
 
     {:ok, socket}
   end
 
   def handle_event(
-        "session_booked_up",
+        "save_as_draft",
         _params,
         %{
           assigns: %{
@@ -59,14 +60,40 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
       last_rank
     end)
 
-    # TODO change status of the session_requests
+    unbooked_requests = Requests.all_unbooked_requests()
+    session = Musicians.find_session(session_id)
+
+    {:noreply,
+     assign(socket,
+       saved_as_draft: true,
+       saved_as_final: false,
+       unbooked_requests: unbooked_requests,
+       session_requests: session.requests,
+       session: session
+     )}
+  end
+
+  def handle_event(
+        "save_as_final",
+        _params,
+        %{
+          assigns: %{
+            session: %Session{id: session_id},
+            unbooked_requests: unbooked_requests,
+            session_requests: session_requests
+          }
+        } = socket
+      ) do
+    Requests.back_to_pending_requests(unbooked_requests)
+    Requests.accept_requests(session_requests)
 
     unbooked_requests = Requests.all_unbooked_requests()
     session = Musicians.find_session(session_id)
 
     {:noreply,
      assign(socket,
-       saved: true,
+       saved_as_draft: false,
+       saved_as_final: true,
        unbooked_requests: unbooked_requests,
        session_requests: session.requests,
        session: session
@@ -123,7 +150,8 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
      assign(socket,
        unbooked_requests: unbooked_requests,
        session_requests: session_requests,
-       saved: false
+       saved_as_draft: false,
+       saved_as_final: false
      )}
   end
 
@@ -211,9 +239,19 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
     ~L"""
     <div class="booker">
       <div class="card">
-        Drag and drop requests. <button phx-click="session_booked_up">Click here</button> when you are done.
-        <%= if @saved do %>
-          <br><br>SAVED!
+        Drag and drop requests. <br>
+        <%= if @saved_as_draft do %>
+          <button phx-click="save_as_final">Make final</button> to mark sessions as Booked.
+        <% end %>
+        <%= unless @saved_as_draft or @saved_as_final do %>
+          <button phx-click="save_as_draft">Save as Draft</button> to remember your changes.<br>
+        <% end %>
+
+        <%= if @saved_as_draft do %>
+          <br><br>Saved as draft!
+        <% end %>
+        <%= if @saved_as_final do %>
+          <br><br>Saved as final!
         <% end %>
         <br>
         <b>Legend:</b>
@@ -388,9 +426,9 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
         </div>
         <b>Address:</b> <%= RequestAddress.full_address(request) %>
         <%= if @show_full_request do %>
-          <br><%= address_notes %><br>
+          <br><%= address_notes %>
         <% end %>
-        <b>Genres:</b> <%= Enum.map(request.genres, fn g -> g.name end) |> Enum.join(", ") %><br>
+        <br><b>Genres:</b> <%= Enum.map(request.genres, fn g -> g.name end) |> Enum.join(", ") %><br>
         <%= if request_reason do %>
           <b>Request Reason:</b> <%= request_reason %> <br>
         <% end %>

@@ -26,10 +26,10 @@
   requester_newsletter_interest: _newsletter_interest?
 } = @request %>
 <div class="card">
-  <div><b>Preferred Date:</b><%= preferred_date %></div>
-  <div><b>Request Occasion:</b><%= occasion %></div>
-  <div><b>Request Reason:</b><%= request_reason %></div>
-  <div><b>Nominee Description:</b><%= nominee_description %></div>
+  <div><b>Preferred Date:</b> <%= preferred_date %></div>
+  <div><b>Request Occasion:</b> <%= occasion %></div>
+  <div><b>Request Reason:</b> <%= request_reason %></div>
+  <div><b>Nominee Description:</b> <%= nominee_description %></div>
   <div><b>Status:</b> <%= display_state(@request) %> <%= if archived?, do: "ARCHIVED" %></div>
   <div><b>Date of Request:</b> <%= inserted_at %></div>
 

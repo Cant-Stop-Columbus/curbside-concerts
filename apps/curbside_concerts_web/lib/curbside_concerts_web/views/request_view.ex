@@ -64,7 +64,7 @@ defmodule CurbsideConcertsWeb.RequestView do
   end
 
   def pending_message, do: "Received"
-  def accepted_message, do: "Accepted"
+  def accepted_message, do: "Booked"
   def enroute_message, do: "On the way"
   def arrived_message, do: "Arrived"
   def completed_message, do: "Completed"
@@ -232,15 +232,26 @@ defmodule CurbsideConcertsWeb.RequestView do
     ~E"Text Requester (<%= requester_name %>) @ <%= text_link(phone, message) %>"
   end
 
+  def contact_preference(%Request{
+        contact_preference: "text_requester",
+        requester_name: name,
+        requester_phone: phone
+      }),
+      do: ~E"Text Requester (<%= name %>) @ <%= text_link(phone) %>"
+
   def contact_preference(%Request{contact_preference: preference}), do: preference
 
-  def text_link(raw_number, message) do
+  def text_link(raw_number, message \\ "") do
     case simple_number(raw_number) do
       nil ->
         raw_number
 
       number ->
-        ~E|<a href="sms:<%= number %>&body=<%= message %>">Text <%= raw_number %></a>|
+        if message == "" do
+          ~E|<a href="sms:<%= number %>">Text <%= raw_number %></a>|
+        else
+          ~E|<a href="sms:<%= number %>&body=<%= message %>">Text <%= raw_number %></a>|
+        end
     end
   end
 
