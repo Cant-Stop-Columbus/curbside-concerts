@@ -116,6 +116,13 @@ defmodule CurbsideConcerts.Requests do
     |> Repo.one()
   end
 
+  def find_request_with_children(request_id) do
+    Request
+    |> where([r], r.id == ^request_id)
+    |> preload([{:session, :musician}, :genres])
+    |> Repo.one()
+  end
+
   def all_active_requests_by_state(state) do
     Request
     |> where([s], s.archived == false and s.state == ^state)

@@ -34,7 +34,8 @@ config :phoenix, :json_library, Jason
 config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
 
 config :curbside_concerts_web, CurbsideConcertsWeb.Mailer,
-  adapter: Bamboo.MandrillAdapter
+  adapter: Bamboo.LocalAdapter
+
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
