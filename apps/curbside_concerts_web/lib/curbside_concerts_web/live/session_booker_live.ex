@@ -101,6 +101,32 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
   end
 
   def handle_event(
+        "priority_toggle",
+        %{
+          "request_id" => request_id,
+          "toggle_to" => toggle_to
+        },
+        %{assigns: %{unbooked_requests: unbooked_requests, session_requests: session_requests}} =
+          socket
+      ) do
+    IO.inspect({request_id, toggle_to}, label: "priority_toggle")
+    priority? = toggle_to == "on"
+
+    request_id
+    |> Requests.find_request()
+    |> Requests.update_request(%{priority: priority?})
+
+    unbooked_requests = adjust_priority(unbooked_requests, request_id, priority?)
+    session_requests = adjust_priority(session_requests, request_id, priority?)
+
+    {:noreply,
+     assign(socket, %{
+       unbooked_requests: unbooked_requests,
+       session_requests: session_requests
+     })}
+  end
+
+  def handle_event(
         "move_request",
         %{
           "request_id" => request_id,
@@ -255,6 +281,8 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
         <% end %>
         <br>
         <b>Legend:</b>
+        <br><span class="priority-toggle priority-off"></span>Priority OFF
+          <span class="priority-toggle priority-on"></span>Priority ON (clickable)
         <br><span class="days-ago-badge"><div class="days-text">8</div></span> request days old
         <br><span class="badge good">70</span> based on the requests' ZIP codes and how close they are to the locations on the route booked so far, including the truck pickup location.
       </div>
@@ -328,6 +356,7 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
     <select name="sort_by">
       <option value="" <%= if !@sort_by or @sort_by == "", do: "selected" %>>No Sort Applied</option>
       <option value="special_day_first" <%= if @sort_by == "special_day_first", do: "selected" %>>Special Day First</option>
+      <option value="priority_first" <%= if @sort_by == "priority_first", do: "selected" %>>Priority First</option>
       <option value="oldest_first" <%= if @sort_by == "oldest_first", do: "selected" %>>Oldest First</option>
       <option value="newest_first" <%= if @sort_by == "newest_first", do: "selected" %>>Newest First</option>
     </select>
@@ -369,6 +398,9 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
           &>/2
         )
 
+      "priority_first" ->
+        Enum.sort_by(requests, fn %Request{priority: priority?} -> priority? end, &>/2)
+
       "oldest_first" ->
         Enum.sort_by(requests, fn %Request{inserted_at: inserted_at} -> inserted_at end)
 
@@ -394,6 +426,7 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
          assigns,
          %Request{
            id: request_id,
+           priority: priority?,
            special_message: special_message,
            request_reason: request_reason,
            nominee_address_notes: address_notes,
@@ -416,10 +449,15 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
          class="draggable-card"
          ondblclick="window.open('<%= Routes.request_path(CurbsideConcertsWeb.Endpoint, :show, request) %>', 'request_view')"
          draggable="true">
-      <div class="card">
+      <div class="card <%= if priority?, do: "priority-request" %>">
         <div class="card-quick-stats">
           <%= if request.preferred_date do %>
             <b>Special Day: </b><%= request.preferred_date %> &nbsp;
+          <% end %>
+          <%= if priority? do %>
+            <div class="priority-toggle priority-on" phx-click="priority_toggle" phx-value-toggle_to="off" phx-value-request_id="<%= request_id %>"></div>
+          <% else %>
+            <div class="priority-toggle priority-off" phx-click="priority_toggle" phx-value-toggle_to="on" phx-value-request_id="<%= request_id %>"></div>
           <% end %>
           <%= RequestView.days_ago_badge(request) %>
           <%= zip_score(assigns, request, comparing_requests) %>
@@ -473,5 +511,16 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
       [zip] -> zip
       _ -> "439#{Enum.random(10..99)}"
     end
+  end
+
+  defp adjust_priority(list, request_id, priority?) do
+    Enum.map(list, fn request ->
+      if "#{request.id}" == request_id do
+        IO.inspect(priority?, label: "found #{request_id}")
+        %{request | priority: priority?}
+      else
+        request
+      end
+    end)
   end
 end

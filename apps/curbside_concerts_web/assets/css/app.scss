@@ -156,6 +156,11 @@ div#address_container {
 					margin: 8px 0;
 					position: relative;
 
+					&.priority-request {
+						box-shadow: 0 0 5px purple;
+						background-color: lightpink;
+					}
+
 					.card-quick-stats {
 						position: absolute;
 						top: 4px;
