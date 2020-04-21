@@ -82,17 +82,17 @@ defmodule CurbsideConcertsWeb.RequestView do
     ]
   end
 
-  def request_cards(requests) when is_list(requests) do
+  def request_cards(conn, requests) when is_list(requests) do
     ~E"""
     <%= for request <- requests do %>
-      <%= request_card(request) %>
+      <%= request_card(conn, request) %>
     <% end %>
     """
   end
 
-  def request_card(request) do
+  def request_card(conn, request) do
     ~E"""
-    <%= render "request_card.html", request: request %>
+    <%= render "request_card.html", request: request, conn: conn %>
     """
   end
 
@@ -299,6 +299,20 @@ defmodule CurbsideConcertsWeb.RequestView do
         <%= TimeUtil.days_ago(request) %>
       </div>
     </div>
+    """
+  end
+
+  def request_action_links(%Request{state: state, archived: archived} = request, redirect_route) do
+    ~E"""
+    <%= if !archived do %>
+      <%= link "Edit", to: Routes.request_path(CurbsideConcertsWeb.Endpoint, :edit, request) %>
+      <%= if state !== Requests.offmission_state() do %>
+        | <%= link "Mark as Off-Mission", to: Routes.request_path(CurbsideConcertsWeb.Endpoint, :state, request, "offmission", %{redirect: redirect_route}), method: :put, data: [confirm: "Are you sure?"] %>
+      <% else %>
+        | <%= link "Mark as Received", to: Routes.request_path(CurbsideConcertsWeb.Endpoint, :state, request, "pending", %{redirect: redirect_route}), method: :put, data: [confirm: "Are you sure?"] %>
+      <% end %>
+      | <%= link "Archive This Request", to: Routes.request_path(CurbsideConcertsWeb.Endpoint, :archive, request, %{redirect: redirect_route}), method: :put, data: [confirm: "Are you sure?"] %>
+    <% end %>
     """
   end
 end

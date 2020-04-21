@@ -29,5 +29,5 @@
 
 <h2>Requests in this Session (<%= length(@session.requests) %>)</h2>
 <div>
-  <%= RequestView.request_cards(@session.requests) %>
+  <%= RequestView.request_cards(@conn, @session.requests) %>
 </div>

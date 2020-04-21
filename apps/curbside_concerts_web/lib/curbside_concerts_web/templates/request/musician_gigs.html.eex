@@ -4,4 +4,4 @@
   <%= map_route_link(@requests) %>
 </div>
 
-<%= request_cards(@requests) %>
+<%= request_cards(@conn, @requests) %>
