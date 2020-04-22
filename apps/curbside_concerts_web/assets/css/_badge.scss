@@ -22,3 +22,35 @@
     background: #880000;
   }
 }
+
+.days-ago-badge {
+  width: 1.7em;
+  height: 2em;
+	background-image: url(/images/icons/calendar.svg);
+	background-repeat: no-repeat;
+	display: inline-block;
+  text-align: center;
+  font-size: 16px;
+  margin-right: 2px;
+
+	.days-text {
+    display: inline-block;
+    padding-top: 7px;
+	}
+}
+
+.priority-toggle {
+  width: 1.7em;
+  height: 2em;
+	background-repeat: no-repeat;
+  margin-right: 2px;
+  cursor: pointer;
+  display: inline-block;
+
+  &.priority-on {
+    background-image: url(/images/icons/priority-on.svg);
+  }
+  &.priority-off {
+    background-image: url(/images/icons/priority-off.svg);
+  }
+}

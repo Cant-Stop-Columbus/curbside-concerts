@@ -32,7 +32,7 @@ defmodule CurbsideConcertsWeb.Router do
 
     # status pages
     get "/tracker/:tracker_id", RequestController, :tracker
-    get "/session/driver/:driver_id", SessionController, :session_route_driver
+    live "/session/driver/:driver_id", DriverLive, as: :session_route_driver
     get "/session/artist/:artist_id", SessionController, :session_route_artist
 
     # request management
