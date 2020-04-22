@@ -28,7 +28,7 @@ defmodule CurbsideConcerts.Requests.RequestTest do
       attrs = %{"nominee_zip_code" => "12345aa"}
       changeset = Request.changeset(request, attrs)
 
-      assert changeset.errors == [{:nominee_zip_code, {"Please enter valid zip code", []}}]
+      assert changeset.errors == [{:nominee_zip_code, {"Please enter valid 5 digit zip code", []}}]
       assert changeset.changes.nominee_zip_code == "12345aa"
     end
   end

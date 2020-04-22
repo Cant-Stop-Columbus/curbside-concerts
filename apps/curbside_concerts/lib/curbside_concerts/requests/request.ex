@@ -80,8 +80,8 @@ defmodule CurbsideConcerts.Requests.Request do
 
   def validate_zip(changeset, field) when is_atom(field) do
     validate_change(changeset, field, fn f, value ->
-        if is_binary(value) and !String.match?(value,~r/\b\d{5}\b/) do
-          [{f, "Please enter valid zip code"}]
+        if is_binary(value) and !String.match?(value,~r/^\d{5}$/) do
+          [{f, "Please enter valid 5 digit zip code"}]
         else
           []
         end
