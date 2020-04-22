@@ -9,9 +9,28 @@ defmodule CurbsideConcerts.Requests.RequestTest do
     request = build(:request, %{
       # Faker.Phone.EnUs.phone(),
       requester_phone: "7405556789",
+      nominee_zip_code: "12345"
     })
 
     {:ok, request: request}
+  end
+
+  describe "nominee_zip_code" do
+    test "only numbers allowed", %{request: request} do
+      attrs = %{"nominee_zip_code" => "06810"}
+      changeset = Request.changeset(request, attrs)
+
+      assert changeset.errors == []
+      assert changeset.changes.nominee_zip_code == "06810"
+    end
+
+    test "letters not allowed", %{request: request} do
+      attrs = %{"nominee_zip_code" => "12345aa"}
+      changeset = Request.changeset(request, attrs)
+
+      assert changeset.errors == [{:nominee_zip_code, {"Please enter valid 5 digit zip code", []}}]
+      assert changeset.changes.nominee_zip_code == "12345aa"
+    end
   end
 
   describe "nominee_phone" do

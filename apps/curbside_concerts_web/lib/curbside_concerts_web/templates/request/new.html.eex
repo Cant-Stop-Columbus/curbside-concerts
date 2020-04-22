@@ -87,7 +87,7 @@
     </label>
     <label>
       <div>Zip Code  <%= required_star() %></div>
-      <%= request_input f, :nominee_zip_code %>
+      <%= request_zip f, :nominee_zip_code %>
     </label>
   </div>
   <label class="field">

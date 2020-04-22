@@ -42,7 +42,7 @@ defmodule CurbsideConcerts.Factory do
       nominee_phone: Faker.Phone.EnUs.phone(),
       nominee_street_address: Faker.Address.street_address(),
       nominee_city: Faker.Address.city(),
-      nominee_zip_code: Faker.Address.zip_code(),
+      nominee_zip_code: Faker.Address.En.zip_code(),
       nominee_address_notes: Faker.StarWars.quote(),
       special_message: Faker.Lorem.Shakespeare.as_you_like_it(),
       requester_name: Faker.Name.name(),

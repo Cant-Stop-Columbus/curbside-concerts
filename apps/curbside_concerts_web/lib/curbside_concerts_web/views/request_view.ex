@@ -157,6 +157,15 @@ defmodule CurbsideConcertsWeb.RequestView do
     """
   end
 
+  def request_zip(form, field) do
+    class = class(form, field)
+
+    ~E"""
+    <%= text_input(form, field, class: class, placeholder: "5-digit Zip") %>
+    <%= error_tag form, field %>
+    """
+  end
+
   def request_select(form, field, options) do
     class = class(form, field)
 
