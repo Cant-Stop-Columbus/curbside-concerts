@@ -62,6 +62,7 @@ defmodule CurbsideConcerts.Requests.Request do
     |> cast(attrs, @allowed_attrs)
     |> validate_required(@required_attrs, message: "Please provide an answer")
     |> validate_phone(:requester_phone)
+    |> validate_zip(:nominee_zip_code)
   end
 
   @doc """
@@ -75,6 +76,16 @@ defmodule CurbsideConcerts.Requests.Request do
         []
       end
     end)
+  end
+
+  def validate_zip(changeset, field) when is_atom(field) do
+    validate_change(changeset, field, fn f, value ->
+        if is_binary(value) and !String.match?(value,~r/\b\d{5}\b/) do
+          [{f, "Please enter valid zip code"}]
+        else
+          []
+        end
+      end)
   end
 
   defp trim_attrs(%{} = map, fields) when is_list(fields) do
