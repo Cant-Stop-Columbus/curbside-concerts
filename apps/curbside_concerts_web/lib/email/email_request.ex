@@ -8,7 +8,7 @@ defmodule CurbsideConcertsWeb.EmailRequest do
   alias CurbsideConcertsWeb.Mailer
 
   def send_session_booked(request_id) do
-    request = Requests.find_request_with_children(request_id)
+    request = Requests.find_request(request_id)
     email(request) 
     |>  Mailer.deliver_now()
   end
@@ -16,7 +16,7 @@ defmodule CurbsideConcertsWeb.EmailRequest do
   defp email(%Request{} = request) do
     new_email()
     |> to(request.requester_email)
-    |> from({"Curbside Concerts", "testuser@sendaconcert.com"})
+    |> from({"Curbside Concerts", System.get_env("SMTP_USERNAME") || "testuser@sendaconcert.com"})
     |> subject("Your session has been booked!")
     |> assign(:request, request)
     |> assign(:session, request.session)

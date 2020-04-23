@@ -13,7 +13,6 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
   alias CurbsideConcertsWeb.RequestView
   alias CurbsideConcertsWeb.Helpers.RequestAddress
   alias CurbsideConcertsWeb.ZipCodeSessionScorer
-  alias CurbsideConcertsWeb.EmailRequest
 
   def mount(%{"session_id" => session_id} = _params, _session, socket) do
     unbooked_requests = Requests.all_unbooked_requests()
@@ -58,9 +57,6 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
     Enum.reduce(session_requests, nil, fn request, last_rank ->
       last_rank = LexoRanker.calculate(last_rank, nil)
       Requests.update_request(request, %{rank: last_rank, session_id: session_id})
-      if(request.session_id == nil) do
-        Task.start(fn -> EmailRequest.send_session_booked(request.id) end)
-      end
       last_rank
     end)
 

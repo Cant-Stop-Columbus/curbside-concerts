@@ -17,14 +17,16 @@
       <%= if @session.start_time && @session.end_time do %>
       <li>
         <strong>Time:</strong>
-        <%= @session.start_time %> to <%= @session.end_time%>
+        <%= @session.start_time %> to <%= @session.end_time %>
       </li>
       <% end %>
 
+      <%= if @musician.name do %>
       <li>
         <strong>Artist:</strong>
-        <%= @musician.name%>
+        <%= @musician.name %>
       </li>
+      <% end %>
     </ul>
   </div>
 
@@ -43,12 +45,12 @@
 
       <li>
         <strong>Nominee Name:</strong>
-        <%= @request.nominee_name%>
+        <%= @request.nominee_name %>
       </li>
 
       <li>
         <strong>Nominee phone:</strong>
-        <%= @request.requester_phone%>
+        <%= @request.requester_phone %>
       </li>
 
       <li>
@@ -58,7 +60,7 @@
 
       <li>
         <strong>Special Message:</strong>
-        <%= @request.special_message%>
+        <%= @request.special_message %>
       </li>
     </ul>
   </div>
