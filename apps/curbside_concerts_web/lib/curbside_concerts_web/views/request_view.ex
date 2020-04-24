@@ -175,9 +175,30 @@ defmodule CurbsideConcertsWeb.RequestView do
     """
   end
 
-  def request_date(form, field) do
+  @months Enum.zip(
+            1..12,
+            ~w[January February March April May June July August September October November December]
+          )
+          |> Map.new()
+  @weekdays Enum.zip(1..7, ~w[Monday Tuesday Wednesday Thursday Friday Saturday Sunday])
+            |> Map.new()
+  @spec request_date(atom | Phoenix.HTML.Form.t(), atom) :: {:safe, [...]}
+  def request_date(form, field, prompt \\ "Select a day") do
+    today = Date.utc_today()
+
+    prompt = {prompt, ""}
+
+    options =
+      1..90
+      |> Enum.map(fn n ->
+        date = Date.add(today, n)
+        weekday = Date.day_of_week(date)
+        display = "#{@weekdays[weekday]}, #{@months[date.month]} #{date.day}"
+        {display, "#{date}"}
+      end)
+
     ~E"""
-    <%= date_input(form, field, placeholder: "mm/dd/yyyy") %>
+    <%= select(form, field, [prompt | options]) %>
     <%= error_tag form, field %>
     """
   end

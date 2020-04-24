@@ -54,7 +54,7 @@
   <label class="field">
     <div>Is having the concert on a specific date really important?</div>
     <p class="negative">(Note: if a specific day isn’t essential, do not not fill out this date as that will increase our ability to book your request. If you do select a date and we can’t book that date, we won’t book your request).</p>
-    <%= request_date f, :preferred_date %>
+    <%= request_date f, :preferred_date, "Select Special Day (optional)" %>
   </label>
   <br/>
   <div>Which type of music would your nominee enjoy hearing at their Curbside Concert? (please check all that apply):  </div>
