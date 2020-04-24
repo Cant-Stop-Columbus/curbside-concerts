@@ -23,7 +23,7 @@ const requestData = {
 	genres: [genreData1.name, genreData2.name],
 	nomineeStreetAddress: faker.address.streetAddress(),
 	nomineeCity: faker.address.city(),
-	nomineeZipCode: faker.address.zipCode(),
+	nomineeZipCode: faker.address.zipCode("#####"),
 	nomineeAddressNotes: faker.lorem.paragraph(),
 	specialMessage: faker.lorem.paragraph(),
 	requesterName: faker.name.findName(),
@@ -101,7 +101,7 @@ describe("Request", () => {
 
 			const streetAddress = faker.address.streetAddress();
 			const city = faker.address.city();
-			const zipCode = faker.address.zipCode();
+			const zipCode = faker.address.zipCode("#####");
 
 			requestEditPage.fillInNomineeStreetAddress(streetAddress);
 			requestEditPage.fillInNomineeCity(city);
