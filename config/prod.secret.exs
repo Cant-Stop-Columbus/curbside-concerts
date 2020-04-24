@@ -30,6 +30,9 @@ config :curbside_concerts_web, CurbsideConcertsWeb.Endpoint,
   ],
   secret_key_base: secret_key_base
 
+["SMTP_SERVER", "SMTP_HOSTNAME", "SMTP_PORT", "SMTP_USERNAME", "SMTP_PASSWORD"]
+|> Enum.each(fn var -> Set.get_env(var) || raise "#{var} must be set for this environment" end)
+
 config :curbside_concerts_web, CurbsideConcertsWeb.Mailer,
   adapter: Bamboo.SMTPAdapter,
   server: System.get_env("SMTP_SERVER"),

@@ -13,6 +13,7 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
   alias CurbsideConcertsWeb.RequestView
   alias CurbsideConcertsWeb.Helpers.RequestAddress
   alias CurbsideConcertsWeb.ZipCodeSessionScorer
+  alias CurbsideConcertsWeb.EmailRequest
 
   def mount(%{"session_id" => session_id} = _params, _session, socket) do
     unbooked_requests = Requests.all_unbooked_requests()
@@ -86,6 +87,14 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
       ) do
     Requests.back_to_pending_requests(unbooked_requests)
     Requests.accept_requests(session_requests)
+
+    session_requests
+    |> Enum.each(fn request -> 
+      if(request.state == Requests.pending_state) do
+        Task.start(fn -> EmailRequest.send_session_booked(request.id) end)
+      end
+    end)
+
 
     unbooked_requests = Requests.all_unbooked_requests()
     session = Musicians.find_session(session_id)

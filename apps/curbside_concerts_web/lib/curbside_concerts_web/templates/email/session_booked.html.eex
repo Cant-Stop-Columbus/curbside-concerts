@@ -21,7 +21,7 @@
       </li>
       <% end %>
 
-      <%= if @musician.name do %>
+      <%= if @musician && @musician.name do %>
       <li>
         <strong>Artist:</strong>
         <%= @musician.name %>

@@ -40,7 +40,6 @@ defmodule CurbsideConcerts.Requests do
   alias CurbsideConcerts.Musicians
   alias CurbsideConcerts.Musicians.Musician
   alias CurbsideConcerts.Musicians.Session
-  alias CurbsideConcertsWeb.EmailRequest
 
   use EctoResource
 
@@ -67,9 +66,6 @@ defmodule CurbsideConcerts.Requests do
   end
 
   def accept_request(%Request{} = request) do
-    if(request.state == @pending) do
-      Task.start(fn -> EmailRequest.send_session_booked(request.id) end)
-    end
     Machinery.transition_to(request, __MODULE__, @accepted)
   end
 
