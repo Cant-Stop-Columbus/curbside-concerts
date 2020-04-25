@@ -11,6 +11,26 @@
 </div>
 
 <div class="card musician-tip-card">
+	<h2>Dan Orr</h2>
+
+	<img src="/images/musicians/DanOrr.jpg" alt="DanOrr" />
+
+	<h3>About Dan</h3>
+	<p>
+		Dan is a musician and radio personality with over 25 years of experience performing for audiences. He has a real gift for relating to people and uses his vast knowledge of all genres of music  – primarily classic rock and pop, oldies – to take requests and play people’s favorites. Dan has a quick-witted humor and has been known to do “audience appropriate" comedy/parody songs when asked. He often performs with his wife, Kim, an amazing performer and singer. Dan does solo acts, performs for events like weddings and also plays with his band, The Dan Orr Project.
+	</p>
+
+	<h3>Dan's Social</h3>
+	<ul>
+		<li><a href="https://DanOrrLive.com">Website</a></li>
+		<li><a href="https://www.facebook.com/The-Dan-Orr-Project-113266572482/">Facebook</a></li>
+	</ul>
+
+	<h3>Tip Dan</h3>
+	<a role="button" class="button" href="https://venmo.com/HeyDanOrr">Venmo</a>
+</div>
+
+<div class="card musician-tip-card">
   <h2>Will Freed</h2>
 
 	<img src="/images/musicians/WillFreed.jpg" alt="Will Freed" />
@@ -34,7 +54,68 @@
 </div>
 
 <div class="card musician-tip-card">
-  <h2>KaTanya Ingram</h2>
+	<h2>Kevin Buckland</h2>
+
+	<img src="/images/musicians/KevinBuckland.png" alt="KevinBuckland" />
+
+	<h3>About Kevin</h3>
+	<p>
+		Kevin is a live jazz drummer who plays solo performances with accompaniment soundtracks. You can find him playing at many events around Ohio – helping  “jazz them up” with his smooth performances and lively drumming.
+	</p>
+
+	<h3>Kevin’s Social</h3>
+	<ul>
+		<li><a href="https://kevin2517.wixsite.com/kbjazz">Website</a></li>
+	</ul>
+
+	<h3>Tip Kevin</h3>
+	<a role="button" class="button" href="https://www.paypal.me/peegeebee470">PayPal</a>
+</div>
+
+<div class="card musician-tip-card">
+	<h2>Francisco Rojas</h2>
+
+	<img src="/images/musicians/FranciscoRojas.jpg" alt="FranciscoRojas" />
+
+	<h3>About Francisco</h3>
+	<p>
+		Francisco Rojas is a Columbus native, growing up in Upper Arlington, OH. He began playing guitar at the age of 13, attending the Fort Hayes Vocational Music program in his final year of high school, and going on to study music in college. Francisco has since managed a career as a solo-acoustic guitarist & singer, band front-man, lead-guitarist/back-up vocalist, and teacher. He has been playing professionally for over 15 years and has been teaching for over 10 years. As a solo performer, he does a lot of looping and plays covers from many different artists/eras.
+	</p>
+
+	<h3>Francisco’s Social</h3>
+	<ul>
+		<li><a href="https://franciscorojas.org">Website</a></li>
+		<li><a href="https://www.instagram.com/Rojazzbg">Instagram</a></li>
+	</ul>
+
+	<h3>Tip Francisco</h3>
+	<a role="button" class="button" href="https://cash.app/$frojasguitar">CashApp</a>
+</div>
+
+<div class="card musician-tip-card">
+  <h2>Scottie G</h2>
+
+	<img src="/images/musicians/ScottieG.jpg" alt="Scottie G" />
+
+	<h3>About Scottie</h3>
+	<p>
+	Scottie G is a performing singer and multi-instrumentalist. He is driven by his passion for emotional expression through music. A professional musician, he has been teaching guitar and offering contemporary voice counsel to students of all ages for years.
+	</p>
+
+	<h3>Scottie's Social</h3>
+	<ul>
+		<li><a href="https://www.facebook.com/scott.greene.33">Facebook</a></li>
+		<li><a href="https://www.instagram.com/scottie_g_yo">Instagram</a></li>
+	</ul>
+
+	<h3>Tip Scottie</h3>
+	<a role="button" class="button" href="https://cash.app/$scottiegyo">CashApp</a>
+	<a role="button" class="button" href="https://venmo.com/scottiegyo">Venmo</a>
+	<a role="button" class="button" href="https://www.paypal.me/scottiegyo">PayPal</a>
+</div>
+
+<div class="card musician-tip-card">
+	<h2>KaTanya Ingram</h2>
 
 	<img src="/images/musicians/KaTanyaIngram.jpg" alt="Katanya Ingram" />
 
@@ -53,49 +134,6 @@
 	<h3>Tip KaTanya</h3>
 	<a role="button" class="button" href="https://cash.app/$GirlNowWhat">CashApp</a>
 	<a role="button" class="button" href="https://venmo.com/GirlNowWhat">Venmo</a>
-</div>
-
-<div class="card musician-tip-card">
-  <h2>Jason Bennett</h2>
-
-	<img src="/images/musicians/JasonBennett.jpg" alt="Jason" />
-
-	<h3>About Jason</h3>
-	<p>
-		Jason Bennett plays original old school Americana as well as classic country and classic rock covers, usually solo acoustic guitar, singing and playing harmonica.
-	</p>
-
-	<h3>Jason's Social</h3>
-	<ul>
-		<li><a href="https://twitter.com/YodelingGrandpa">Twitter</a></li>
-		<li><a href="https://www.facebook.com/JasonBennettAmericana">Facebook</a></li>
-	</ul>
-
-	<h3>Tip Jason</h3>
-	<a role="button" class="button" href="https://cash.app/$pbetftdi">CashApp</a>
-	<a role="button" class="button" href="https://venmo.com/Jason-Greenwald-4">Venmo</a>
-	<a role="button" class="button" href="https://www.paypal.me/JasonBennettMusic">PayPal</a>
-</div>
-
-<div class="card musician-tip-card">
-  <h2>Scottie G</h2>
-
-	<img src="/images/musicians/ScottieG.jpg" alt="Scottie G" />
-
-	<h3>About Scottie</h3>
-	<p>
-	Scottie G is a performing singer and multi-instrumentalist. He is driven by his passion for emotional expression through music. A professional musician, he has been teaching guitar and offering contemporary voice counsel to students of all ages for years.
-	</p>
-
-	<h3>Scottie's Social</h3>
-	<ul>
-		<li><a href="https://www.instagram.com/scottie_g_yo">Instagram</a></li>
-	</ul>
-
-	<h3>Tip Scottie</h3>
-	<a role="button" class="button" href="https://cash.app/$scottiegyo">CashApp</a>
-	<a role="button" class="button" href="https://venmo.com/scottiegyo">Venmo</a>
-	<a role="button" class="button" href="https://www.paypal.me/scottiegyo">PayPal</a>
 </div>
 
 <div class="card musician-tip-card">
@@ -137,7 +175,6 @@
 	<h3>Tip Joanie</h3>
 	<a role="button" class="button" href="https://venmo.com/Joanie-Calem">Venmo</a>
 </div>
-
 
 <div class="card musician-tip-card">
   <h2>Race Lerma</h2>
