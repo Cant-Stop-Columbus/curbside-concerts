@@ -31,6 +31,49 @@
 </div>
 
 <div class="card musician-tip-card">
+  <h2>Paisha Thomas</h2>
+
+	<img src="/images/musicians/PaishaThomas.png" alt="PaishaThomas" />
+
+	<h3>About Paisha</h3>
+	<p>
+		Paisha creates music about love, politics, self-discovery, and the condition of the world. She incorporates elements of gospel, blues and soul into her earthy compositions which she performs in local venues with a band and sometimes as a solo artist. Paisha has a drive to prove that equality and justice are important. She uses her music and who she is as a person to change things for the better through volunteer work and supportive connections. Her causes involve promoting cultural awareness and understanding, ensuring child safety and health, and developing communities.  
+	</p>
+
+	<h3>Paisha's Social</h3>
+	<ul>
+		<li><a href="https://www.paishathomas.com">Website</a></li>
+		<li><a href="https://twitter.com/paishasplace">Twitter</a></li>
+		<li><a href="https://www.instagram.com/iampaisha/">Instagram</a></li>
+		<li><a href="https://www.facebook.com/paishaband/">Facebook</a></li>
+	</ul>
+
+	<h3>Tip Paisha</h3>
+	<a role="button" class="button" href="https://cash.app/$Paisha">CashApp</a>
+</div>
+
+<div class="card musician-tip-card">
+  <h2>Doug Hare</h2>
+
+	<img src="/images/musicians/DougHare.jpeg" alt="DougHare" />
+
+	<h3>About Doug</h3>
+	<p>
+		Drawing from over twenty years of experience, Doug plays a diversity of musical performances – from solo piano, mellow acoustic, to rock and roll sing-alongs. But what he loves to do most is really understand his audience so he can tailor a performance that leaves them with a smile. Doug regularly plays at country clubs, restaurants and private parties all over Columbus. Because he knows so many songs, Doug takes an extremely personalized approach to each performance, which makes him (and those who get to watch) really happy.
+	</p>
+
+	<h3>Doug 's Social</h3>
+	<ul>
+		<li><a href="http://www.dougharemusic.com">Website</a></li>
+		<li><a href="https://www.instagram.com/dougharemusic/">Instagram</a></li>
+		<li><a href="https://www.facebook.com/dougharemusic/">Facebook</a></li>
+	</ul>
+
+	<h3>Tip Doug</h3>
+	<a role="button" class="button" href="https://venmo.com/dougharemusic">Venmo</a>
+</div>
+
+<div class="card musician-tip-card">
   <h2>Will Freed</h2>
 
 	<img src="/images/musicians/WillFreed.jpg" alt="Will Freed" />
