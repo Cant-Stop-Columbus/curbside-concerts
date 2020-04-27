@@ -26,10 +26,12 @@
       </div>
       <div>
         <%= link "View", to: Routes.session_path(CurbsideConcertsWeb.Endpoint, :show, session) %>
-        <%= if !archived do %>
+        <%= if archived do %>
+          | <%= link "Unarchive this Session", to: Routes.session_path(CurbsideConcertsWeb.Endpoint, :unarchive, session), method: :put, data: [confirm: "Are you sure?"] %>
+        <% else %>
           | <%= link "Edit", to: Routes.session_path(CurbsideConcertsWeb.Endpoint, :edit, session) %>
           | <%= link "Book Requests", to: Routes.session_booker_path(CurbsideConcertsWeb.Endpoint, CurbsideConcertsWeb.SessionBookerLive, session) %>
-          | <%= link "Archive This Session", to: Routes.session_path(CurbsideConcertsWeb.Endpoint, :archive, session), method: :put, data: [confirm: "Are you sure?"] %>
+          | <%= link "Archive this Session", to: Routes.session_path(CurbsideConcertsWeb.Endpoint, :archive, session), method: :put, data: [confirm: "Are you sure?"] %>
           <br>
           <%= driver_musician_links(session) %>
         <% end %>

@@ -17,7 +17,9 @@
     <div>Name: <%= name %></div>
     <div>
       <%= link "View", to: Routes.genre_path(@conn, :show, genre) %>
-      <%= if !archived do %>
+      <%= if archived do %>
+        | <%= link "Unarchive this Genre", to: Routes.genre_path(@conn, :unarchive, genre), method: :put, data: [confirm: "Are you sure?"] %>
+      <% else %>
         | <%= link "Edit", to: Routes.genre_path(@conn, :edit, genre) %>
         | <%= link "Archive this Genre", to: Routes.genre_path(@conn, :archive, genre), method: :put, data: [confirm: "Are you sure?"] %>
       <% end %>

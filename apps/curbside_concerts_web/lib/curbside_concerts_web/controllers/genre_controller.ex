@@ -79,4 +79,14 @@ defmodule CurbsideConcertsWeb.GenreController do
     |> put_flash(:info, "Genre archived successfully.")
     |> redirect(to: Routes.genre_path(conn, :index))
   end
+
+  @spec unarchive(Plug.Conn.t(), map) :: Plug.Conn.t()
+  def unarchive(conn, %{"id" => id}) do
+    genre = Musicians.get_genre(id)
+    {:ok, _genre} = Musicians.unarchive_genre(genre)
+
+    conn
+    |> put_flash(:info, "Genre unarchived successfully.")
+    |> redirect(to: Routes.genre_path(conn, :index))
+  end
 end

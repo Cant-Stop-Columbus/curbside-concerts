@@ -118,6 +118,12 @@ defmodule CurbsideConcerts.Requests do
     })
   end
 
+  def unarchive_request(request) do
+    __MODULE__.update_request(request, %{
+      archived: false
+    })
+  end
+
   def find_request(request_id) do
     Request
     |> where([r], r.id == ^request_id)
