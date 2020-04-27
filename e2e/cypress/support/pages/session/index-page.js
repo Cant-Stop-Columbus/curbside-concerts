@@ -8,7 +8,7 @@ const sessionCards = (name) => cy.get(".card");
 const sessionCard = (name) => cy.contains(name).parent(".card");
 const editSessionLink = (name) => sessionCard(name).contains("Edit");
 const archiveSessionLink = (name) =>
-	sessionCard(name).contains("Archive This Session");
+	sessionCard(name).contains("Archive this Session");
 
 class SessionIndexPage {
 	visit() {

@@ -80,6 +80,12 @@ defmodule CurbsideConcerts.Musicians do
     })
   end
 
+  def unarchive_session(session) do
+    update_session(session, %{
+      archived: false
+    })
+  end
+
   ### Genres
   def all_active_genres() do
     Genre
@@ -102,6 +108,12 @@ defmodule CurbsideConcerts.Musicians do
   def archive_genre(genre) do
     update_genre(genre, %{
       archived: true
+    })
+  end
+
+  def unarchive_genre(genre) do
+    update_genre(genre, %{
+      archived: false
     })
   end
 end

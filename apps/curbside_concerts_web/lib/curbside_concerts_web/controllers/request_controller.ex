@@ -162,6 +162,16 @@ defmodule CurbsideConcertsWeb.RequestController do
     |> redirect(to: redirect)
   end
 
+  @spec unarchive(Plug.Conn.t(), map) :: Plug.Conn.t()
+  def unarchive(conn, %{"id" => id, "redirect" => redirect}) do
+    request = Requests.get_request(id)
+    {:ok, _request} = Requests.unarchive_request(request)
+
+    conn
+    |> put_flash(:info, "Request unarchived successfully.")
+    |> redirect(to: redirect)
+  end
+
   @doc """
   This route can be used to change the status of a request.
 

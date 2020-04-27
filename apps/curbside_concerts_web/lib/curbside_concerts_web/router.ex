@@ -69,6 +69,7 @@ defmodule CurbsideConcertsWeb.Router do
     get "/request/:id/edit", RequestController, :edit
     put "/request/:id/update", RequestController, :update
     put "/request/:id/archive", RequestController, :archive
+    put "/request/:id/unarchive", RequestController, :unarchive
     put "/request/:id/state/:state", RequestController, :state
 
     # musician management
@@ -80,10 +81,12 @@ defmodule CurbsideConcertsWeb.Router do
     resources "/session", SessionController, only: [:create, :edit, :index, :new, :update, :show]
     get "/session/archived", SessionController, :index_archived
     put "/session/:id/archive", SessionController, :archive
+    put "/session/:id/unarchive", SessionController, :unarchive
 
     # genre management
     resources "/genre", GenreController, only: [:index, :create, :edit, :new, :update, :show]
     put "/genre/:id/archive", GenreController, :archive
+    put "/genre/:id/unarchive", GenreController, :unarchive
 
     # authentication
     delete("/sign-out", AccountSessionController, :delete)

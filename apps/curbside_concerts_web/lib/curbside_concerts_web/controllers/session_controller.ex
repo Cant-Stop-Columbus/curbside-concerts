@@ -102,6 +102,16 @@ defmodule CurbsideConcertsWeb.SessionController do
     |> redirect(to: Routes.session_path(conn, :index))
   end
 
+  @spec unarchive(Plug.Conn.t(), map) :: Plug.Conn.t()
+  def unarchive(conn, %{"id" => id}) do
+    session = Musicians.get_session(id)
+    {:ok, _session} = Musicians.unarchive_session(session)
+
+    conn
+    |> put_flash(:info, "Session unarchived successfully.")
+    |> redirect(to: Routes.session_path(conn, :index, archived: "true"))
+  end
+
   @spec session_route_driver(Plug.Conn.t(), map) :: Plug.Conn.t()
   def session_route_driver(conn, %{"driver_id" => driver_id}) do
     driver_id = TrackerCypher.decode(driver_id)

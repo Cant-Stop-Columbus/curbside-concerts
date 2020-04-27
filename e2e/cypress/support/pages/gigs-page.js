@@ -5,7 +5,7 @@ const requestCard = (specialMessage) =>
 const editRequestLink = (specialMessage) =>
 	requestCard(specialMessage).contains("Edit");
 const archiveRequestLink = (specialMessage) =>
-	requestCard(specialMessage).contains("Archive This Request");
+	requestCard(specialMessage).contains("Archive this Request");
 const offMissionRequestLink = (specialMessage) =>
 	requestCard(specialMessage).contains("Mark as Off-Mission");
 const receiveRequestLink = (specialMessage) =>
