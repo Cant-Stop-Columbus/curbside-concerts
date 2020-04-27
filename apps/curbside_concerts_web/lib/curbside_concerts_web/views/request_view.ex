@@ -346,7 +346,7 @@ defmodule CurbsideConcertsWeb.RequestView do
   def request_action_links(%Request{state: state, archived: archived} = request, redirect_route) do
     ~E"""
     <%= if archived do %>
-      | <%= link "Unarchive this Request", to: Routes.request_path(CurbsideConcertsWeb.Endpoint, :unarchive, request, %{redirect: redirect_route}), method: :put, data: [confirm: "Are you sure?"] %>
+      <%= link "Unarchive this Request", to: Routes.request_path(CurbsideConcertsWeb.Endpoint, :unarchive, request, %{redirect: redirect_route}), method: :put, data: [confirm: "Are you sure?"] %>
     <% else %>
       <%= link "Edit", to: Routes.request_path(CurbsideConcertsWeb.Endpoint, :edit, request) %>
       <%= if state !== Requests.offmission_state() do %>
