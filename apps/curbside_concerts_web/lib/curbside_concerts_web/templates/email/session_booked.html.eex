@@ -1,0 +1,73 @@
+<%# TODO This needs to be updated to reflect the copy changes %>
+<div>
+  <h2>Hey <%= @request.requester_name %>, you have been booked for a Curbside Concert!</h2>
+
+  <div class="card">
+    <h4>Here are some details for the upcoming concert:</h4>
+    <ul>
+      <li>
+        <strong>Concert name:</strong>
+        <%= @session.name %>
+      </li>
+
+      <li>
+        <strong>Concert description:</strong>
+        <%= @session.description %>
+      </li>
+
+      <%= if @session.start_time && @session.end_time do %>
+      <li>
+        <strong>Time:</strong>
+        <%= @session.start_time %> to <%= @session.end_time %>
+      </li>
+      <% end %>
+
+      <%= if @musician && @musician.name do %>
+      <li>
+        <strong>Artist:</strong>
+        <%= @musician.name %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h4>Request Summary</h4>
+    <ul>
+      <li>
+        <strong>Requester Name</strong>
+        <%= @request.requester_name %>
+      </li>
+
+      <li>
+        <strong>Contact Preference:</strong>
+        <%= preference_display_text(@request.contact_preference) %>
+      </li>
+
+      <li>
+        <strong>Nominee Name:</strong>
+        <%= @request.nominee_name %>
+      </li>
+
+      <li>
+        <strong>Nominee phone:</strong>
+        <%= @request.requester_phone %>
+      </li>
+
+      <li>
+        <strong>Nominee address:</strong>
+        <%= RequestAddress.full_address(@request) %>
+      </li>
+
+      <li>
+        <strong>Special Message:</strong>
+        <%= @request.special_message %>
+      </li>
+    </ul>
+  </div>
+
+  <p>You can track the progress of your request <%= link("here", to: HostPath.tracker_url(@request.id)) %>.</p>
+
+  <p>If you have any questions/comments about this request, please send us an email at <a href="mailto:support@sendaconcert.com">support@sendaconcert.com</a></p>
+</div>
+

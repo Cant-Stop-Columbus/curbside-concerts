@@ -16,3 +16,7 @@ config :curbside_concerts_web, CurbsideConcertsWeb.Endpoint,
   server: false
 
 config :logger, level: :warn
+
+config :curbside_concerts_web, CurbsideConcertsWeb.Mailer,
+  adapter: Bamboo.TestAdapter
+  

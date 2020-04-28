@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <style>
+      .card {
+        background-color: #fff;
+        border: 1px solid #dadce0;
+        border-radius: 8px;
+        padding: 16px;
+        position: relative;
+        margin-top: 10px;
+        max-width: 65%;
+      }
+    </style>
+  </head>
+  <body>
+    <%= render @view_module, @view_template, assigns %>
+  </body>
+</html> 

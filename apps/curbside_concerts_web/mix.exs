@@ -38,6 +38,7 @@ defmodule CurbsideConcertsWeb.MixProject do
   defp deps do
     [
       {:bamboo, "~> 1.4"},
+      {:bamboo_smtp, "~> 2.1.0"},
       {:curbside_concerts, in_umbrella: true},
       {:floki, "~> 0.26.0", only: :test},
       {:gettext, "~> 0.11"},
