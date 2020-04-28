@@ -13,6 +13,7 @@ defmodule CurbsideConcertsWeb.EmailRequest do
     |>  Mailer.deliver_now()
   end
   
+  # TODO add text version of email to payload
   defp email(%Request{} = request) do
     new_email()
     |> to(request.requester_email)
