@@ -7,22 +7,36 @@ defmodule CurbsideConcerts.Musicians.Musician do
 
   import Ecto.Changeset
 
-  @allowed_attrs ~w|gigs_id name photo playlist taking_requests|a
-  @required_attrs @allowed_attrs
+  @allowed_attrs ~w|first_name last_name bio url_pathname photo default_session_title default_session_description facebook_url twitter_url instagram_url website_url cash_app_url venmo_url paypal_url|a
+  @required_attrs ~w|first_name last_name bio url_pathname|a
 
   schema "musicians" do
-    field(:gigs_id, :string)
-    field(:name, :string)
+    field(:first_name, :string)
+    field(:last_name, :string)
+    field(:bio, :string)
+    field(:url_pathname, :string)
     field(:photo, :binary)
-    field(:playlist, {:array, :string})
-    field(:taking_requests, :boolean)
+    field(:default_session_title, :string)
+    field(:default_session_description, :string)
+    field(:facebook_url, :string)
+    field(:twitter_url, :string)
+    field(:instagram_url, :string)
+    field(:website_url, :string)
+    field(:cash_app_url, :string)
+    field(:venmo_url, :string)
+    field(:paypal_url, :string)
 
     timestamps()
+
+    # deprecated fields
+    field(:name, :string)
+    field(:gigs_id, :string)
   end
 
   def changeset(musician, attrs) do
     musician
     |> cast(attrs, @allowed_attrs)
     |> validate_required(@required_attrs, message: "Please provide an answer")
+    |> unique_constraint(:url_pathname)
   end
 end

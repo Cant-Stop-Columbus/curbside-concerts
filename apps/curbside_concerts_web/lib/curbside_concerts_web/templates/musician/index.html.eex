@@ -1,17 +1,9 @@
 <h1>All musicians</h1>
 
 <%= for %Musician{
-  name: name,
-  gigs_id: gigs_id,
   photo: photo,
-  playlist: playlist,
-  taking_requests: taking_requests
 } <- @musicians do %>
   <div class="card">
-    <div>Name: <%= name %></div>
-    <div>Gig Id: <%= gigs_id %></div>
     <div>Photo: <%= photo %></div>
-    <div>Playlist: <%= playlist %></div>
-    <div>Taking requests?: <%= taking_requests %></div>
   </div>
 <% end %>
