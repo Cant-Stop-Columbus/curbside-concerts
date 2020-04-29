@@ -358,4 +358,10 @@ defmodule CurbsideConcertsWeb.RequestView do
     <% end %>
     """
   end
+
+  def requester_can_see_session?(%Request{state: state, session: session}) do
+    hidden_states = [Requests.canceled_state(), Requests.pending_state()]
+    hidden? = session == nil or state in hidden_states
+    !hidden?
+  end
 end
