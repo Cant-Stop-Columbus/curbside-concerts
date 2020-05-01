@@ -1,7 +1,8 @@
-<%= form_for @changeset, @action, fn f -> %>
 <div class="card">
-  <label>Photo: <%= text_input f, :photo %></label>
+  <h1>New Musician</h1>
+  <span><%= link "Back", to: Routes.musician_path(@conn, :index) %></span>
 </div>
 
-  <button type="submit">Submit</button>
-<% end %>
+<div class="card">
+  <%= render "form.html", Map.put(assigns, :action, Routes.musician_path(@conn, :create)) %>
+</div>

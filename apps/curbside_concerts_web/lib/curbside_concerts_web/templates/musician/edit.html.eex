@@ -1,0 +1,8 @@
+<div class="card">
+  <h1>Edit Musician</h1>
+  <span><%= link "Back", to: Routes.musician_path(@conn, :index) %></span>
+</div>
+
+<div class="card">
+  <%= render "form.html", Map.put(assigns, :action, Routes.musician_path(@conn, :update, @changeset.data)) %>
+</div>

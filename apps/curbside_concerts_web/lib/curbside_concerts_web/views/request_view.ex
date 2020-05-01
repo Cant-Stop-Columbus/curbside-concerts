@@ -110,10 +110,8 @@ defmodule CurbsideConcertsWeb.RequestView do
     )
   end
 
-  def first_name(%Session{musician: %Musician{name: name}}) do
-    name
-    |> String.split()
-    |> List.first()
+  def first_name(%Session{musician: %Musician{first_name: first_name}}) do
+    first_name
   end
 
   def songs(playlist) when is_list(playlist) do
@@ -248,12 +246,13 @@ defmodule CurbsideConcertsWeb.RequestView do
         song: song,
         session: %Session{
           musician: %Musician{
-            name: musician_name
+            first_name: first_name,
+            last_name: last_name
           }
         }
       }) do
     message =
-      "Hi there, #{requester_name}! This text is to let you know #{musician_name} is coming soon to play #{
+      "Hi there, #{requester_name}! This text is to let you know #{first_name} #{last_name} is coming soon to play #{
         song
       } for #{nominee_name}."
       |> URI.encode()

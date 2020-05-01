@@ -1,9 +1,23 @@
 <h1>All musicians</h1>
+<div class="card">
+  <%= link "Back to Admin", to: Routes.admin_path(CurbsideConcertsWeb.Endpoint, :index) %> |
+  <%= link "Add musician", to: Routes.musician_path(CurbsideConcertsWeb.Endpoint, :new) %>
+</div>
 
 <%= for %Musician{
-  photo: photo,
-} <- @musicians do %>
+  first_name: first_name,
+  last_name: last_name,
+  url_pathname: url_pathname,
+  compensation_type: compensation_type,
+}  = musician <- @musicians do %>
   <div class="card">
-    <div>Photo: <%= photo %></div>
+    <div>Name: <%= first_name %> <%= last_name %></div>
+    <div>Compensation type: <%= compensation_type %></div>
+    <div>Site Page Name: <%= url_pathname %> </div>
+    <br>
+    <div>
+      <%= link "View", to: Routes.musician_path(CurbsideConcertsWeb.Endpoint, :show, musician) %> |
+      <%= link "Edit", to: Routes.musician_path(CurbsideConcertsWeb.Endpoint, :edit, musician) %>
+    </div>
   </div>
 <% end %>

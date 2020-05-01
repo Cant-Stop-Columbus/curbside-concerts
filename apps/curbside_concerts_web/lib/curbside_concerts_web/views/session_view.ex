@@ -9,8 +9,8 @@ defmodule CurbsideConcertsWeb.SessionView do
   alias CurbsideConcertsWeb.Helpers.RequestAddress
 
   def musician_options(musicians) do
-    Enum.map(musicians, fn %Musician{id: id, name: name} ->
-      {name, id}
+    Enum.map(musicians, fn %Musician{id: id, first_name: first_name, last_name: last_name} ->
+      {first_name <> " " <> last_name, id}
     end)
   end
 

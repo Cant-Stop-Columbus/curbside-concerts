@@ -1,0 +1,11 @@
+<div class="card">
+  <h1>View Musician</h1>
+  <%= link "Edit", to: Routes.musician_path(CurbsideConcertsWeb.Endpoint, :edit, @musician) %>
+  |
+  <span><%= link "Back", to: Routes.musician_path(CurbsideConcertsWeb.Endpoint, :index) %></span>
+
+</div>
+
+<div class="card">
+  <%= render "info.html", musician: @musician, conn: @conn %>
+</div>
