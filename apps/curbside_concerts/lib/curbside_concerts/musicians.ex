@@ -10,7 +10,7 @@ defmodule CurbsideConcerts.Musicians do
   use EctoResource
 
   using_repo(Repo) do
-    resource(Musician, only: [:all, :change])
+    resource(Musician, only: [:all, :change, :get, :update])
     resource(Session, only: [:change, :create, :get, :update])
     resource(Genre, only: [:all, :change, :create, :get, :update])
   end

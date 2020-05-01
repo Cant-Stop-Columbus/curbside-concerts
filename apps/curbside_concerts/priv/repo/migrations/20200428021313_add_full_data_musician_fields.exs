@@ -9,6 +9,7 @@ defmodule CurbsideConcerts.Repo.Migrations.AddFullDataMusicianFields do
       add :url_pathname, :string
       add :default_session_title, :string
       add :default_session_description, :text
+      add :compensation_type, :string
       add :facebook_url, :string
       add :twitter_url, :string
       add :instagram_url, :string

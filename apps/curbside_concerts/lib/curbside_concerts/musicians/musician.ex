@@ -7,7 +7,7 @@ defmodule CurbsideConcerts.Musicians.Musician do
 
   import Ecto.Changeset
 
-  @allowed_attrs ~w|first_name last_name bio url_pathname photo default_session_title default_session_description facebook_url twitter_url instagram_url website_url cash_app_url venmo_url paypal_url|a
+  @allowed_attrs ~w|first_name last_name bio url_pathname photo default_session_title default_session_description compensation_type facebook_url twitter_url instagram_url website_url cash_app_url venmo_url paypal_url|a
   @required_attrs ~w|first_name last_name bio url_pathname|a
 
   schema "musicians" do
@@ -18,6 +18,7 @@ defmodule CurbsideConcerts.Musicians.Musician do
     field(:photo, :binary)
     field(:default_session_title, :string)
     field(:default_session_description, :string)
+    field(:compensation_type, :string)
     field(:facebook_url, :string)
     field(:twitter_url, :string)
     field(:instagram_url, :string)
@@ -27,10 +28,6 @@ defmodule CurbsideConcerts.Musicians.Musician do
     field(:paypal_url, :string)
 
     timestamps()
-
-    # deprecated fields
-    field(:name, :string)
-    field(:gigs_id, :string)
   end
 
   def changeset(musician, attrs) do
