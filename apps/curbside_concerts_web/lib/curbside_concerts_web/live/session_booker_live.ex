@@ -55,6 +55,8 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
       last_rank
     end)
 
+    Requests.back_to_pending_requests(unbooked_requests)
+
     Enum.reduce(session_requests, nil, fn request, last_rank ->
       last_rank = LexoRanker.calculate(last_rank, nil)
       Requests.update_request(request, %{rank: last_rank, session_id: session_id})
@@ -89,12 +91,11 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
     Requests.accept_requests(session_requests)
 
     # session_requests
-    # |> Enum.each(fn request -> 
+    # |> Enum.each(fn request ->
     #   if(request.state == Requests.pending_state) do
     #     Task.start(fn -> EmailRequest.send_session_booked(request.id) end)
     #   end
     # end)
-
 
     unbooked_requests = Requests.all_unbooked_requests()
     session = Musicians.find_session(session_id)
@@ -118,7 +119,6 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
         %{assigns: %{unbooked_requests: unbooked_requests, session_requests: session_requests}} =
           socket
       ) do
-    IO.inspect({request_id, toggle_to}, label: "priority_toggle")
     priority? = toggle_to == "on"
 
     request_id
