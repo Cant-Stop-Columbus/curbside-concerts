@@ -5,15 +5,22 @@
 </div>
 
 <%= for %Musician{
-  first_name: first_name,
-  last_name: last_name,
+  name: name,
   url_pathname: url_pathname,
   compensation_type: compensation_type,
+  default_session_title: default_session_title,
+  default_session_description: default_session_description
 }  = musician <- @musicians do %>
   <div class="card">
-    <div>Name: <%= first_name %> <%= last_name %></div>
+    <div>Name: <%= name %></div>
     <div>Compensation type: <%= compensation_type %></div>
     <div>Site Page Name: <%= url_pathname %> </div>
+    <%= if default_session_title do %>
+      <div>Default Session Title: <%= default_session_title %></div>
+    <% end %>
+    <%= if default_session_description do %>
+      <div>Default Session Description: <%= default_session_description %></div>
+    <% end %>
     <br>
     <div>
       <%= link "View", to: Routes.musician_path(CurbsideConcertsWeb.Endpoint, :show, musician) %> |

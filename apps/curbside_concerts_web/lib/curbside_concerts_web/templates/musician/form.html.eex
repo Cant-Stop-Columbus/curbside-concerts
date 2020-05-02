@@ -1,20 +1,23 @@
 <%= form_for @changeset, @action, fn f -> %>
-<div class="card">
+<div class="card musician-form">
 
-  <label>First Name: <%= musician_input f, :first_name, "First Name" %></label>
-  <label>Last Name: <%= musician_input f, :last_name, "Last Name" %></label>
-  <label>Bio: <%= musician_textarea f, :bio, "Bio Description"%></label>
-  <label>Site Page Name: <%= musician_input f, :url_pathname, "/FirstNameLastName" %></label>
-  <label>Default Session Title: <%= musician_input f, :default_session_title, "Session Title" %></label>
-  <label>Default Session Description: <%= musician_textarea f, :default_session_description, "Session Description" %></label>
-  <label>Compenstation Type: <%= musician_select f, :compensation_type %></label>
-  <label>Facebook Link: <%= musician_input f, :facebook_url, "https://www.facebook.com/<page>", type: :url %></label>
-  <label>Twitter Link: <%= musician_input f, :twitter_url, "https://twitter.com/<username>", type: :url %></label>
-  <label>Instagram Link: <%= musician_input f, :instagram_url, "https://www.instagram.com/<username>", type: :url %></label>
-  <label>Personal Website Link: <%= musician_input f, :website_url, "https://www.their-personal-website.com", type: :url %></label>
-  <label>Cash App Link: <%= musician_input f, :cash_app_url, "https://cash.app/$<username>", type: :url %></label>
-  <label>Venmo Link: <%= musician_input f, :venmo_url, "https://venmo.com/<username>", type: :url %></label>
-  <label>Paypal Link: <%= musician_input f, :paypal_url, "https://www.paypal.me/<username>", type: :url %></label>  
+  <label>Artist Name <%= required_star() %> <%= musician_input f, :name,  "Name" %></label>
+  <label>Bio  <%= required_star() %> <%= musician_textarea f, :bio, "Bio Description"%></label>
+  <label>Site Page Name  <%= required_star() %>
+    <div>
+      <span>sendaconcert.com/<%= musician_inline_input f, :url_pathname, "PageName" %></span>
+    </div>
+  </label>
+  <label>Default Session Title <%= musician_input f, :default_session_title, "Session Title" %></label>
+  <label>Default Session Description <%= musician_textarea f, :default_session_description, "Session Description" %></label>
+  <label>Compenstation Type <%= musician_select f, :compensation_type %></label>
+  <label>Facebook Link <%= musician_input f, :facebook_url, "https://www.facebook.com/<page>", type: :url %></label>
+  <label>Twitter Link <%= musician_input f, :twitter_url, "https://twitter.com/<username>", type: :url %></label>
+  <label>Instagram Link <%= musician_input f, :instagram_url, "https://www.instagram.com/<username>", type: :url %></label>
+  <label>Personal Website Link <%= musician_input f, :website_url, "https://www.their-personal-website.com", type: :url %></label>
+  <label>Cash App Link <%= musician_input f, :cash_app_url, "https://cash.app/$<username>", type: :url %></label>
+  <label>Venmo Link <%= musician_input f, :venmo_url, "https://venmo.com/<username>", type: :url %></label>
+  <label>Paypal Link <%= musician_input f, :paypal_url, "https://www.paypal.me/<username>", type: :url %></label>  
 </div>
 
 <button type="submit">SUBMIT</button>

@@ -3,8 +3,6 @@ defmodule CurbsideConcerts.Repo.Migrations.AddFullDataMusicianFields do
 
   def change do
     alter table("musicians") do
-      add :first_name, :string
-      add :last_name, :string
       add :bio, :text
       add :url_pathname, :string
       add :default_session_title, :string

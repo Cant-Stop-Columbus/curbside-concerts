@@ -4,7 +4,6 @@ defmodule CurbsideConcerts.Repo.Migrations.RemoveOldMusicianFields do
   def change do
     alter table("musicians") do
       remove :gigs_id, :string
-      remove :name, :string
       remove :playlist, :jsonb
       remove :taking_requests, :boolean
     end

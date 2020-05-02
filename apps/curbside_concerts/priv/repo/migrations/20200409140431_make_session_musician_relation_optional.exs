@@ -15,7 +15,7 @@ defmodule CurbsideConcerts.Repo.Migrations.MakeSessionMusicianRelationOptional d
 
   def down do
     # Create a "null" musician to assign any unfilled columns to
-    %Musician{id: musician_id} = Repo.insert!(%Musician{name: "No Musician", gigs_id: "null"})
+    %Musician{id: musician_id} = Repo.insert!(%Musician{name: "No Musician"})
 
     from(session in "sessions", update: [set: [musician_id: ^musician_id]])
     |> Repo.update_all([])

@@ -1,4 +1,4 @@
-defmodule CurbsideConcerts.Requests.RequestTest do
+defmodule CurbsideConcerts.Requests.MusicianTest do
   use CurbsideConcerts.DataCase
 
   import CurbsideConcerts.Factory
@@ -17,19 +17,19 @@ defmodule CurbsideConcerts.Requests.RequestTest do
     end
 
     test "valid changeset for updates", %{musician: musician} do 
-      attrs = %{"first_name" => "someone"}
+      attrs = %{"name" => "someone"}
       changeset = Musician.changeset(musician, attrs)
       
       assert changeset.errors == []
-      assert changeset.changes.first_name == "someone"
+      assert changeset.changes.name == "someone"
     end
 
     test "invalid changeset", %{musician: musician} do
-      attrs = %{"first_name" => nil}
+      attrs = %{"name" => nil}
       changeset = Musician.changeset(musician, attrs)
       
       assert changeset.errors == [
-        {:first_name, {"Please provide an answer", [validation: :required]}}
+        {:name, {"Please provide an answer", [validation: :required]}}
       ]
       assert changeset.changes == %{}
     end

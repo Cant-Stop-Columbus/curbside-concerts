@@ -7,12 +7,11 @@ defmodule CurbsideConcerts.Musicians.Musician do
 
   import Ecto.Changeset
 
-  @allowed_attrs ~w|first_name last_name bio url_pathname photo default_session_title default_session_description compensation_type facebook_url twitter_url instagram_url website_url cash_app_url venmo_url paypal_url|a
-  @required_attrs ~w|first_name last_name bio url_pathname|a
+  @allowed_attrs ~w|name bio url_pathname photo default_session_title default_session_description compensation_type facebook_url twitter_url instagram_url website_url cash_app_url venmo_url paypal_url|a
+  @required_attrs ~w|name bio url_pathname|a
 
   schema "musicians" do
-    field(:first_name, :string)
-    field(:last_name, :string)
+    field(:name, :string)
     field(:bio, :string)
     field(:url_pathname, :string)
     field(:photo, :binary)

@@ -15,12 +15,11 @@ defmodule CurbsideConcertsWeb.MusicianView do
     """
   end
 
-  
-  def musician_textarea(form, field, placeholder \\ "") do
-    class = class(form, field)
+  def musician_inline_input(form, field, placeholder \\ "") do
+    class = "inline-input " <> class(form, field)
 
     ~E"""
-    <%= textarea(form, field, class: class, placeholder: placeholder) %>
+    <%= text_input(form, field, class: class, placeholder: placeholder) %>
     """
   end
 
@@ -31,6 +30,15 @@ defmodule CurbsideConcertsWeb.MusicianView do
     <%= url_input(form, field, class: class, placeholder: placeholder) %>
     """
   end
+
+  def musician_textarea(form, field, placeholder \\ "") do
+    class = class(form, field)
+
+    ~E"""
+    <%= textarea(form, field, class: class, placeholder: placeholder) %>
+    """
+  end
+
 
   def musician_select(form, field) do
     class = class(form, field)

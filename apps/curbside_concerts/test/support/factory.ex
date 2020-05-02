@@ -9,8 +9,7 @@ defmodule CurbsideConcerts.Factory do
 
   def attrs(:musician) do
     %{
-      first_name: Faker.Name.first_name(),
-      last_name: Faker.Name.last_name(),
+      name: Faker.Name.name(),
       bio: Faker.Lorem.Shakespeare.as_you_like_it(),
       url_pathname: Faker.Internet.user_name(),
       default_session_title: Faker.Name.name(),
