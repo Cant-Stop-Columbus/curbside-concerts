@@ -4,6 +4,7 @@
   facebook_url: facebook_url, 
   twitter_url: twitter_url, 
   instagram_url: instagram_url, 
+  youtube_url: youtube_url,
   website_url: website_url, 
   cash_app_url: cash_app_url, 
   venmo_url: venmo_url, 
@@ -29,6 +30,9 @@
     <% end %>
     <%= if facebook_url do %>
 		  <li> <%= link("Facebook", to: facebook_url) %> </li>
+    <% end %>
+    <%= if youtube_url do %>
+		  <li> <%= link("YouTube", to: youtube_url) %> </li>
     <% end %>
 	</ul>
 

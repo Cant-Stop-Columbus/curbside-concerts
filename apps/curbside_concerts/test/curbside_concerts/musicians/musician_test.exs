@@ -24,7 +24,7 @@ defmodule CurbsideConcerts.Requests.MusicianTest do
       assert changeset.changes.name == "someone"
     end
 
-    test "invalid changeset", %{musician: musician} do
+    test "invalid changeset without required parameter", %{musician: musician} do
       attrs = %{"name" => nil}
       changeset = Musician.changeset(musician, attrs)
       
@@ -32,6 +32,15 @@ defmodule CurbsideConcerts.Requests.MusicianTest do
         {:name, {"Please provide an answer", [validation: :required]}}
       ]
       assert changeset.changes == %{}
+    end
+
+    test "invalid changeset with a space in url_pathname", %{musician: musician} do
+      attrs = %{"url_pathname" => "some space"}
+      changeset = Musician.changeset(musician, attrs)
+      
+      assert changeset.errors == [
+        {:url_pathname, {"has invalid format", [validation: :format]}}
+      ]
     end
   end
 end

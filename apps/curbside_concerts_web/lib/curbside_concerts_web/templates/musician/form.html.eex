@@ -14,7 +14,8 @@
   <label>Facebook Link <%= musician_input f, :facebook_url, "https://www.facebook.com/<page>", type: :url %></label>
   <label>Twitter Link <%= musician_input f, :twitter_url, "https://twitter.com/<username>", type: :url %></label>
   <label>Instagram Link <%= musician_input f, :instagram_url, "https://www.instagram.com/<username>", type: :url %></label>
-  <label>Personal Website Link <%= musician_input f, :website_url, "https://www.their-personal-website.com", type: :url %></label>
+  <label>YouTube Link <%= musician_input f, :youtube_url, "https://www.youtube.com/channel/<channel>", type: :url %></label>
+  <label>Personal Website Link <%= musician_input f, :website_url, "https://www.their-personal-website.com", type: :url %></label>  
   <label>Cash App Link <%= musician_input f, :cash_app_url, "https://cash.app/$<username>", type: :url %></label>
   <label>Venmo Link <%= musician_input f, :venmo_url, "https://venmo.com/<username>", type: :url %></label>
   <label>Paypal Link <%= musician_input f, :paypal_url, "https://www.paypal.me/<username>", type: :url %></label>  

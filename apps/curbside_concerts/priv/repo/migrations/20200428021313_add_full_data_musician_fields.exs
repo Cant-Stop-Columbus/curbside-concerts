@@ -12,6 +12,7 @@ defmodule CurbsideConcerts.Repo.Migrations.AddFullDataMusicianFields do
       add :twitter_url, :string
       add :instagram_url, :string
       add :website_url, :string
+      add :youtube_url, :string
       add :cash_app_url, :string
       add :venmo_url, :string
       add :paypal_url, :string

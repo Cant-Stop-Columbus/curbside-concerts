@@ -17,6 +17,7 @@ defmodule CurbsideConcerts.Factory do
       facebook_url: Faker.Internet.url(),
       twitter_url: Faker.Internet.url(),
       instagram_url: Faker.Internet.url(),
+      youtube_url: Faker.Internet.url(),
       website_url: Faker.Internet.url(),
       cash_app_url: Faker.Internet.url(),
       venmo_url: Faker.Internet.url(),

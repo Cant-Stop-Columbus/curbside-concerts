@@ -7,7 +7,7 @@ defmodule CurbsideConcerts.Musicians.Musician do
 
   import Ecto.Changeset
 
-  @allowed_attrs ~w|name bio url_pathname photo default_session_title default_session_description compensation_type facebook_url twitter_url instagram_url website_url cash_app_url venmo_url paypal_url|a
+  @allowed_attrs ~w|name bio url_pathname photo default_session_title default_session_description compensation_type facebook_url twitter_url instagram_url website_url youtube_url cash_app_url venmo_url paypal_url|a
   @required_attrs ~w|name bio url_pathname|a
 
   schema "musicians" do
@@ -22,6 +22,7 @@ defmodule CurbsideConcerts.Musicians.Musician do
     field(:twitter_url, :string)
     field(:instagram_url, :string)
     field(:website_url, :string)
+    field(:youtube_url, :string)
     field(:cash_app_url, :string)
     field(:venmo_url, :string)
     field(:paypal_url, :string)
@@ -33,6 +34,7 @@ defmodule CurbsideConcerts.Musicians.Musician do
     musician
     |> cast(attrs, @allowed_attrs)
     |> validate_required(@required_attrs, message: "Please provide an answer")
+    |> validate_format(:url_pathname, ~r/^\S*$/)
     |> unique_constraint(:url_pathname)
   end
 end
