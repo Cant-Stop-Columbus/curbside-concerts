@@ -117,17 +117,21 @@ div#address_container {
 }
 
 .booker {
+	display: grid;
+	grid-template-rows: 10vh 90vh;
+
 	.columns {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: 1fr 1fr 1fr;
 		background-color: yellow;
 
 		.column {
 			padding: 0 8px;
+			border: 1px solid transparent;
 
 			.scrollable {
 				overflow-y: auto;
-				height: 600px;
+				height: 70vh;
 			}
 
 			&.over {
@@ -143,6 +147,7 @@ div#address_container {
 				/* Required to make elements draggable in old WebKit */
 				-khtml-user-drag: element;
 				-webkit-user-drag: element;
+				border-top: 2px solid transparent;
 
 				&.dragging {
 					box-shadow: 0 0 5px purple;
@@ -152,8 +157,15 @@ div#address_container {
 					border-top: 2px solid purple;
 				}
 
+				&.active {
+					.card {
+						box-shadow: 0 0 5px green;
+					}
+				}
+
 				.card {
-					margin: 8px 0;
+					margin: 4px 0;
+					padding-left: 50px;
 					position: relative;
 
 					.card-quick-stats {
@@ -161,9 +173,32 @@ div#address_container {
 						top: 4px;
 						right: 4px;
 						width: 100%;
-						display: flex;
-						justify-content: flex-end;
-						align-items: flex-end;
+
+						.icons {
+							display: flex;
+							justify-content: flex-end;
+							align-items: flex-end;
+						}
+
+						.special-day {
+							text-align: right;
+							width: 100%;
+						}
+					}
+
+					.index {
+						position: absolute;
+						top: 0;
+						left: 8px;
+						height: 100%;
+						width: 40px;
+						background-color: darkslategray;
+						color: white;
+						font-family: Helvetica;
+						text-align: center;
+						font-size: 24px;
+						line-height: 64px;
+						overflow: hidden;
 					}
 				}
 			}
