@@ -27,7 +27,7 @@
     <% current_status = display_state(@request) %>
     Current Status: <%= current_status %>
 
-		<%= if @request.session do %>
+		<%= if requester_can_see_session?(@request) do %>
 		  <b><%= @request.session.name %></b>
 			<%= if @request.session.description do %>
 				<br><%= @request.session.description %>
