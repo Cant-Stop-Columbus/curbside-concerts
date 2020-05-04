@@ -1,7 +1,6 @@
 let Hooks = {}
 
 const columns = document.querySelectorAll('.column')
-console.log(columns.length)
 
 columns.forEach(column => {
   column.addEventListener('dragover', e => {

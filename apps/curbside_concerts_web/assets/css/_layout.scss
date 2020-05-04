@@ -64,6 +64,16 @@ main.content {
 	}
 }
 
+main.live-content {
+	width: 100%;
+	max-width: none;
+	margin: 0;
+
+	.card {
+		padding: 8px;
+	}
+}
+
 nav {
 	text-align: right;
 	margin-bottom: 10px;

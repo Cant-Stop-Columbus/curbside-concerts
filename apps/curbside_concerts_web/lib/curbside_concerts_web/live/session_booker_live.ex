@@ -24,16 +24,17 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
     # CurbsideConcertsWeb.Endpoint.subscribe("unbooked")
 
     socket =
-      socket
-      |> assign(:unbooked_requests, unbooked_requests)
-      |> assign(:session_requests, session.requests)
-      |> assign(:session, session)
-      |> assign(:sort_by, nil)
-      |> assign(:genre_filter, nil)
-      |> assign(:show_full_request, false)
-      |> assign(:saved, false)
-      |> assign(:saved_as_draft, false)
-      |> assign(:saved_as_final, false)
+      assign(socket, %{
+        unbooked_requests: unbooked_requests,
+        session_requests: session.requests,
+        session: session,
+        sort_by: nil,
+        genre_filter: nil,
+        saved: false,
+        saved_as_draft: false,
+        saved_as_final: false,
+        active_request: nil
+      })
 
     {:ok, socket}
   end
@@ -108,6 +109,21 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
        session_requests: session.requests,
        session: session
      )}
+  end
+
+  def handle_event(
+        "make_request_active",
+        %{
+          "request-id" => request_id
+        },
+        socket
+      ) do
+    request = Requests.find_request(request_id)
+
+    {:noreply,
+     assign(socket, %{
+       active_request: request
+     })}
   end
 
   def handle_event(
@@ -194,8 +210,7 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
     socket =
       assign(socket, %{
         sort_by: Map.get(params, "sort_by"),
-        genre_filter: Map.get(params, "genre_filter"),
-        show_full_request: Map.get(params, "show_full_request")
+        genre_filter: Map.get(params, "genre_filter")
       })
 
     {:noreply, socket}
@@ -289,11 +304,13 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
           <br><br>Saved as final!
         <% end %>
         <br>
-        <b>Legend:</b>
-        <br><span class="priority-toggle priority-off"></span>Priority OFF
-          <span class="priority-toggle priority-on"></span>Priority ON (clickable)
-        <br><span class="days-ago-badge"><div class="days-text">8</div></span> request days old
-        <br><span class="badge good">70</span> based on the requests' ZIP codes and how close they are to the locations on the route booked so far, including the truck pickup location.
+        <%= if false do %>
+          <b>Legend:</b>
+          <br><span class="priority-toggle priority-off"></span>Priority OFF
+            <span class="priority-toggle priority-on"></span>Priority ON (clickable)
+          <br><span class="days-ago-badge"><div class="days-text">8</div></span> request days old
+          <br><span class="badge good">70</span> based on the requests' ZIP codes and how close they are to the locations on the route booked so far, including the truck pickup location.
+        <% end %>
       </div>
       <div class="columns">
         <div class="column">
@@ -302,8 +319,8 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
           <%= render_filters(assigns) %>
 
           <div class="scrollable">
-            <%= for request <- filtered_requests do %>
-              <%= render_request_card(assigns, request, @session_requests) %>
+            <%= for {request, index} <- Enum.with_index(filtered_requests) do %>
+              <%= render_mini_request_card(assigns, request, index + 1, @session_requests) %>
             <% end %>
             <%= if filtered_requests == [] do %>
               <div class="card">
@@ -320,8 +337,8 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
             <%= RequestView.map_route_link(@session_requests) %>
           <% end %>
           <div class="scrollable">
-            <%= for request <- @session_requests do %>
-              <%= render_request_card(assigns, request, @session_requests) %>
+            <%= for {request, index} <- Enum.with_index(@session_requests) do %>
+              <%= render_mini_request_card(assigns, request, index + 1, @session_requests) %>
             <% end %>
             <%= if @session_requests == [] do %>
               <div class="card">
@@ -329,6 +346,13 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
               </div>
             <% end %>
           </div>
+        </div>
+        <div class="column">
+          <%= if @active_request do %>
+            <div>
+              <%= render_request_card(assigns, @active_request, @session_requests) %>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>
@@ -338,8 +362,9 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
   defp render_filters(assigns) do
     genres =
       (assigns[:unbooked_requests] ++ assigns[:session_requests])
-      |> Enum.flat_map(fn request ->
-        Enum.map(request.genres, fn %Genre{id: genre_id, name: genre_name} ->
+      |> Enum.reject(&is_nil/1)
+      |> Enum.flat_map(fn %Request{genres: genres} ->
+        Enum.map(genres, fn %Genre{id: genre_id, name: genre_name} ->
           {genre_id, genre_name}
         end)
       end)
@@ -354,8 +379,6 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
       <%= render_sorts(assigns) %>
     <br>Filter by:
       <%= render_genre_filter(assigns) %>
-    <br>
-      <%= render_show_amount(assigns) %>
     </form>
     """
   end
@@ -380,15 +403,6 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
         <option value="<%= genre_id %>" <%= if @genre_filter == "#{genre_id}", do: "selected" %>><%= genre_name %></option>
       <% end %>
     </select>
-    """
-  end
-
-  defp render_show_amount(assigns) do
-    ~E"""
-    <label>
-      <input type="checkbox" name="show_full_request" value="true" <%= if @show_full_request == "true", do: "checked" %>/>
-      Show full request
-    </label>
     """
   end
 
@@ -425,11 +439,56 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
        when is_binary(genre_id) and genre_id != "" do
     requests
     |> Enum.filter(fn %Request{genres: genres} ->
-      Enum.any?(genres, fn %Genre{id: id} -> "#{id}" == genre_id end)
+      Enum.any?(genres || [], fn %Genre{id: id} -> "#{id}" == genre_id end)
     end)
   end
 
   defp apply_filter(requests, _, _), do: requests
+
+  defp render_mini_request_card(
+         assigns,
+         %Request{
+           id: request_id,
+           priority: priority?
+         } = request,
+         index,
+         comparing_requests
+       ) do
+    ~L"""
+    <div phx-hook="RequestBookerCard"
+         phx-value-request-id="<%= request_id %>"
+         class="draggable-card <%= if active?(request, @active_request), do: "active" %>"
+         phx-click="make_request_active"
+         ondblclick="window.open('<%= Routes.request_path(CurbsideConcertsWeb.Endpoint, :show, request) %>', 'request_view')"
+         draggable="true">
+      <div class="card <%= if priority?, do: "priority-request" %>">
+        <div class="card-quick-stats">
+          <div class="icons">
+            <%= if priority? do %>
+              <div class="priority-toggle priority-on" phx-click="priority_toggle" phx-value-toggle_to="off" phx-value-request_id="<%= request_id %>"></div>
+            <% else %>
+              <div class="priority-toggle priority-off" phx-click="priority_toggle" phx-value-toggle_to="on" phx-value-request_id="<%= request_id %>"></div>
+            <% end %>
+            <%= RequestView.days_ago_badge(request) %>
+            <%= zip_score(assigns, request, comparing_requests) %>
+          </div>
+
+          <div class="special-day">
+            <%= if request.preferred_date do %>
+              <%= request.preferred_date %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="index">
+          <%= index %>
+        </div>
+        <%= RequestAddress.full_address(request) %>
+        <br><%= Enum.map(request.genres, fn g -> g.name end) |> Enum.join(", ") %><br>
+      </div>
+    </div>
+    """
+  end
 
   defp render_request_card(
          assigns,
@@ -453,11 +512,7 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
     # special_instructions
 
     ~L"""
-    <div phx-hook="RequestBookerCard"
-         phx-value-request-id="<%= request_id %>"
-         class="draggable-card"
-         ondblclick="window.open('<%= Routes.request_path(CurbsideConcertsWeb.Endpoint, :show, request) %>', 'request_view')"
-         draggable="true">
+    <div>
       <div class="card <%= if priority?, do: "priority-request" %>">
         <div class="card-quick-stats">
           <%= if request.preferred_date do %>
@@ -472,9 +527,7 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
           <%= zip_score(assigns, request, comparing_requests) %>
         </div>
         <b>Address:</b> <%= RequestAddress.full_address(request) %>
-        <%= if @show_full_request do %>
-          <br><%= address_notes %>
-        <% end %>
+        <br><%= address_notes %>
         <br><b>Genres:</b> <%= Enum.map(request.genres, fn g -> g.name end) |> Enum.join(", ") %><br>
         <%= if request_reason do %>
           <b>Request Reason:</b> <%= request_reason %> <br>
@@ -483,14 +536,13 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
         <%= if special_instructions do %>
           <b>Special Instructions:</b> <%= special_instructions %><br>
         <% end %>
-        <%= if @show_full_request == "true" do %>
-          <b>Contact Pref:</b> <%= request.contact_preference %><br>
-          <b>Nominee:</b> <%= request.nominee_name %><br>
-          <b>Nominee Phone:</b> <%= request.nominee_phone %><br>
-          <b>Requester:</b> <%= request.requester_name %><br>
-          <b>Requester Phone:</b> <%= request.requester_phone %><br>
-          <b>Requester Email:</b> <%= request.requester_email %><br>
-        <% end %>
+
+        <b>Contact Pref:</b> <%= request.contact_preference %><br>
+        <b>Nominee:</b> <%= request.nominee_name %><br>
+        <b>Nominee Phone:</b> <%= request.nominee_phone %><br>
+        <b>Requester:</b> <%= request.requester_name %><br>
+        <b>Requester Phone:</b> <%= request.requester_phone %><br>
+        <b>Requester Email:</b> <%= request.requester_email %><br>
       </div>
     </div>
     """
@@ -531,5 +583,11 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
         request
       end
     end)
+  end
+
+  defp active?(_request, nil), do: false
+
+  defp active?(%Request{id: current_id}, %Request{id: active_id}) do
+    current_id == active_id
   end
 end

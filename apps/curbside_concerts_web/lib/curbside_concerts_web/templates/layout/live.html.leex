@@ -11,15 +11,12 @@
   <body>
     <header>
     </header>
-    <main role="main" class="content">
+    <main role="main" class="content live-content">
       <!-- render flash alerts, if needed -->
       <!-- REMOVED get_flash because @conn not available in LiveView -->
       <!-- render page content -->
       <%# <%= render @view_module, @view_template, assigns %>
       <%= @inner_content %>
-			<div class="card masthead">
-				Made with 💜 by <%= link "volunteers", to: "https://airtable.com/shrDrTCZQmDlCN8sg" %> as part of <%= link "Can't Stop Columbus", to: "https://cantstopcolumbus.com/" %> in Columbus, Ohio.
-			</div>
     </main>
     <script type="text/javascript" src="<%= Routes.static_path(CurbsideConcertsWeb.Endpoint, "/js/app.js") %>"></script>
   </body>
