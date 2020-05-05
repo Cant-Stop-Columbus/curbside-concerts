@@ -27,6 +27,7 @@ const genreCheckbox = (label) =>
 		cy.get('input[name="request[genres][]"]');
 	});
 const submitButton = () => cy.contains("SUBMIT");
+const disclaimerText = () => cy.get("#disclaimer");
 
 class RequestFormPage {
 	visit() {
@@ -34,7 +35,8 @@ class RequestFormPage {
 	}
 
 	assert() {
-		heading().should("have.text", "Request a Curbside Concert");
+    heading().should("have.text", "Request a Curbside Concert");
+    disclaimerText().should("have.text", "By requesting a concert, I agree to the following disclaimer.")
 	}
 
 	fillInNomineeName(name) {

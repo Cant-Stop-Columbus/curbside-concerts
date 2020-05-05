@@ -39,7 +39,7 @@ defmodule CurbsideConcertsWeb.Router do
     get "/request", RequestController, :new
     post "/request", RequestController, :create
     put "/cancel_request/:tracker_id", RequestController, :cancel_request
-
+    get "/request/disclaimer", RequestController, :disclaimer
     # admin landing page
     get "/admin", AdminController, :index
 

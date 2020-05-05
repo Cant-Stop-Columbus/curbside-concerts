@@ -277,6 +277,23 @@ defmodule CurbsideConcertsWeb.RequestControllerTest do
     end
   end
 
+  describe "disclaimer/2" do
+    test "renders the disclaimer page", %{conn: conn} do
+      html =
+        conn
+        |> get(Routes.request_path(conn, :disclaimer))
+        |> html_response(200)
+        |> Floki.parse_document!()
+
+      title =
+        html
+        |> Floki.find("h2")
+        |> Floki.text()
+
+      assert title == "Disclaimer"
+    end
+  end
+
   def auth_user(%{conn: conn}) do
     %User{} = user = insert!(:user)
 

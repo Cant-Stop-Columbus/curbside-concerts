@@ -147,5 +147,8 @@
   </label>
 </div>
 
-<button type="submit">SUBMIT</button>
+<div class="request-form">
+  <p id="disclaimer">By requesting a concert, I agree to <%= link "the following disclaimer.", to: Routes.request_path(@conn, :disclaimer), target: "_blank" %></p>
+  <button type="submit">SUBMIT</button>
+</div>
 <% end %>
