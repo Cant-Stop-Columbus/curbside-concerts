@@ -208,4 +208,9 @@ defmodule CurbsideConcertsWeb.RequestController do
     |> put_flash(:info, "Request state updated successfully.")
     |> redirect(to: redirect)
   end
+
+  @spec disclaimer(Plug.Conn.t(), any) :: Plug.Conn.t()
+  def disclaimer(conn, _params) do
+    render(conn, "disclaimer.html")
+  end
 end
