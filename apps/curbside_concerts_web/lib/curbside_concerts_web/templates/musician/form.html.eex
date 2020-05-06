@@ -5,7 +5,7 @@
   <label>Bio  <%= required_star() %> <%= musician_textarea f, :bio, "Bio Description"%></label>
   <label>Site Page Name  <%= required_star() %>
     <div>
-      <span>sendaconcert.com/<%= musician_inline_input f, :url_pathname, "PageName" %></span>
+      <span>sendaconcert.com/artists/<%= musician_inline_input f, :url_pathname, "PageName" %></span>
     </div>
   </label>
   <label>Default Session Title <%= musician_input f, :default_session_title, "Session Title" %></label>

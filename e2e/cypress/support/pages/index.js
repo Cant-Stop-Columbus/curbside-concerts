@@ -15,6 +15,9 @@ import genreIndexPage from "./genre/index-page";
 import genreNewPage from "./genre/new-page";
 import genreShowPage from "./genre/show-page";
 import genreEditPage from "./genre/edit-page";
+import musicianFormPage from  './musician/form-page';
+import musicianIndexPage from './musician/index-page';
+import musicianShowPage from './musician/show-page';
 
 export {
 	layout,
@@ -34,4 +37,7 @@ export {
 	genreNewPage,
 	genreShowPage,
 	genreEditPage,
+	musicianFormPage,
+	musicianIndexPage,
+	musicianShowPage,
 };
