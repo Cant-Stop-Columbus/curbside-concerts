@@ -1,17 +1,28 @@
 <h1>All musicians</h1>
+<div class="card">
+  <%= link "Back to Admin", to: Routes.admin_path(CurbsideConcertsWeb.Endpoint, :index) %> |
+  <%= link "Add musician", to: Routes.musician_path(CurbsideConcertsWeb.Endpoint, :new) %>
+</div>
 
 <%= for %Musician{
   name: name,
-  gigs_id: gigs_id,
-  photo: photo,
-  playlist: playlist,
-  taking_requests: taking_requests
-} <- @musicians do %>
+  url_pathname: url_pathname,
+  default_session_title: default_session_title,
+  default_session_description: default_session_description
+}  = musician <- @musicians do %>
   <div class="card">
     <div>Name: <%= name %></div>
-    <div>Gig Id: <%= gigs_id %></div>
-    <div>Photo: <%= photo %></div>
-    <div>Playlist: <%= playlist %></div>
-    <div>Taking requests?: <%= taking_requests %></div>
+    <div>Site Page Name: <%= url_pathname %> </div>
+    <%= if default_session_title do %>
+      <div>Default Session Title: <%= default_session_title %></div>
+    <% end %>
+    <%= if default_session_description do %>
+      <div>Default Session Description: <%= default_session_description %></div>
+    <% end %>
+    <br>
+    <div>
+      <%= link "View", to: Routes.musician_path(CurbsideConcertsWeb.Endpoint, :show, musician) %> |
+      <%= link "Edit", to: Routes.musician_path(CurbsideConcertsWeb.Endpoint, :edit, musician) %>
+    </div>
   </div>
 <% end %>

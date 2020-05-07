@@ -10,7 +10,7 @@ defmodule CurbsideConcerts.Musicians do
   use EctoResource
 
   using_repo(Repo) do
-    resource(Musician, only: [:all, :change])
+    resource(Musician, only: [:all, :change, :get, :update])
     resource(Session, only: [:change, :create, :get, :update])
     resource(Genre, only: [:all, :change, :create, :get, :update])
   end
@@ -18,8 +18,6 @@ defmodule CurbsideConcerts.Musicians do
   ### Musicians
 
   def create_musician(attrs \\ %{}) do
-    attrs = format_playlist(attrs)
-
     %Musician{}
     |> Musician.changeset(attrs)
     |> Repo.insert()
@@ -27,15 +25,6 @@ defmodule CurbsideConcerts.Musicians do
 
   def find_musician_by_gigs_id(gigs_id) do
     Repo.one(from m in Musician, where: m.gigs_id == ^gigs_id)
-  end
-
-  defp format_playlist(attrs) do
-    if is_binary(attrs["playlist"]) do
-      playlist = String.split(attrs["playlist"], "|")
-      Map.put(attrs, "playlist", playlist)
-    else
-      attrs
-    end
   end
 
   ### Sessions

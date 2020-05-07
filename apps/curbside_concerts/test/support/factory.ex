@@ -11,9 +11,17 @@ defmodule CurbsideConcerts.Factory do
     %{
       name: Faker.Name.name(),
       bio: Faker.Lorem.Shakespeare.as_you_like_it(),
-      # TBD: generate fake list of songs
-      playlist: [],
-      gigs_id: Faker.Internet.user_name()
+      url_pathname: Faker.Internet.user_name(),
+      default_session_title: Faker.Name.name(),
+      default_session_description: Faker.StarWars.quote(), 
+      facebook_url: Faker.Internet.url(),
+      twitter_url: Faker.Internet.url(),
+      instagram_url: Faker.Internet.url(),
+      youtube_url: Faker.Internet.url(),
+      website_url: Faker.Internet.url(),
+      cash_app_url: Faker.Internet.url(),
+      venmo_url: Faker.Internet.url(),
+      paypal_url: Faker.Internet.url()
     }
   end
 

@@ -45,4 +45,17 @@ defmodule CurbsideConcerts.MusiciansTest do
       assert Enum.member?(session_ids, id5)
     end
   end
+
+  describe "create_musician/2" do
+    test "duplicate url_pathname" do 
+      insert!(:musician, %{ url_pathname: "url"})
+
+      attrs = attrs(:musician, %{ url_pathname: "url"})
+      {:error, changeset} = Musicians.create_musician(attrs)
+      assert changeset.errors == [                                                                  
+        url_pathname: {"has already been taken",                                 
+         [constraint: :unique, constraint_name: "musicians_url_pathname_index"]} 
+      ]                                                                       
+    end
+  end
 end

@@ -1,0 +1,49 @@
+<% %Musician{
+  name: name,
+  bio: bio, 
+  facebook_url: facebook_url, 
+  twitter_url: twitter_url, 
+  instagram_url: instagram_url, 
+  youtube_url: youtube_url,
+  website_url: website_url, 
+  cash_app_url: cash_app_url, 
+  venmo_url: venmo_url, 
+  paypal_url: paypal_url
+} = @musician %>
+
+<div class="card musician-tip-card">
+	<h2><%= name %></h2>
+
+	<h3>About <%= name %></h3>
+	<p><%= bio %></p>
+
+	<h3>Social Media</h3>
+	<ul>
+    <%= if website_url do %>      
+		  <li> <%= link("Website", to: website_url) %> </li>
+    <% end %>
+    <%= if twitter_url do %>
+		  <li> <%= link("Twitter", to: twitter_url) %> </li>
+    <% end %>
+    <%= if instagram_url do %>
+		  <li> <%= link("Instagram", to: instagram_url) %> </li>
+    <% end %>
+    <%= if facebook_url do %>
+		  <li> <%= link("Facebook", to: facebook_url) %> </li>
+    <% end %>
+    <%= if youtube_url do %>
+		  <li> <%= link("YouTube", to: youtube_url) %> </li>
+    <% end %>
+	</ul>
+
+	<h3>Tip <%= name %></h3>
+  <%= if cash_app_url do %>
+  	<a role="button" class="button" href=<%= cash_app_url %>>CashApp</a>   
+  <% end %>
+  <%= if venmo_url do %>
+    	<a role="button" class="button" href=<%= venmo_url %>>Venmo</a>   
+  <% end %>
+  <%= if paypal_url do %>
+    <a role="button" class="button" href=<%= paypal_url %>>PayPal</a>   
+  <% end %>
+</div>
