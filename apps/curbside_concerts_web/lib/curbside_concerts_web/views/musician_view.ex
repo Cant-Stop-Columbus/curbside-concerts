@@ -39,17 +39,6 @@ defmodule CurbsideConcertsWeb.MusicianView do
     """
   end
 
-
-  def musician_select(form, field) do
-    class = class(form, field)
-
-    options = ["Voluneteer", "Paid"]
-
-    ~E"""
-    <%= select(form, field, options, class: class) %>
-    """
-  end
-
   defp class(form, field) do
     if form.errors[field], do: "not-valid", else: ""
   end

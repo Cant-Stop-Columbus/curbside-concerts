@@ -10,7 +10,6 @@
   </label>
   <label>Default Session Title <%= musician_input f, :default_session_title, "Session Title" %></label>
   <label>Default Session Description <%= musician_textarea f, :default_session_description, "Session Description" %></label>
-  <label>Compenstation Type <%= musician_select f, :compensation_type %></label>
   <label>Facebook Link <%= musician_input f, :facebook_url, "https://www.facebook.com/<page>", type: :url %></label>
   <label>Twitter Link <%= musician_input f, :twitter_url, "https://twitter.com/<username>", type: :url %></label>
   <label>Instagram Link <%= musician_input f, :instagram_url, "https://www.instagram.com/<username>", type: :url %></label>
