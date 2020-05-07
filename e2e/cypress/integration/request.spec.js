@@ -19,7 +19,7 @@ const genreData2 = {
 const requestData = {
 	nomineeName: faker.name.findName(),
 	contactPreference: "call_nominee",
-	nomineePhone: faker.phone.phoneNumberFormat(),
+	nomineePhone: faker.phone.phoneNumber('614-###-####'),
 	genres: [genreData1.name, genreData2.name],
 	nomineeStreetAddress: faker.address.streetAddress(),
 	nomineeCity: faker.address.city(),
@@ -27,7 +27,7 @@ const requestData = {
 	nomineeAddressNotes: faker.lorem.paragraph(),
 	specialMessage: faker.lorem.paragraph(),
 	requesterName: faker.name.findName(),
-	requesterPhone: faker.phone.phoneNumberFormat(),
+	requesterPhone: faker.phone.phoneNumber('614-###-####'),
 	requesterEmail: faker.internet.email(),
 };
 
