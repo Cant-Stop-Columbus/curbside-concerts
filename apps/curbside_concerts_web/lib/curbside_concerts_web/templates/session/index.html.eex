@@ -13,10 +13,13 @@
   name: name,
   musician: musician,
   description: description,
-	archived: archived
+	archived: archived,
+  requests: requests
 } = session <- @sessions do %>
     <div class="card">
-      <div>Name: <%= name %></div>
+      <h2><%= name %></h2>
+      <div><%= length(requests) %> Requests</div>
+      <div><b>Status:</b> <%= session_status(session) %></div>
       <%= if musician do %>
         <div>Musician: <%= musician.name %></div>
       <% end %>

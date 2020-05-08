@@ -30,7 +30,7 @@ defmodule CurbsideConcerts.Musicians do
   ### Sessions
   def all_sessions(queryable) do
     queryable
-    |> preload([:musician])
+    |> preload_session()
     |> Repo.all()
   end
 
@@ -51,16 +51,21 @@ defmodule CurbsideConcerts.Musicians do
 
     Session
     |> where([s], is_nil(s.start_time) or s.start_time >= ^now)
+    |> preload_session()
     |> Repo.all()
   end
 
   def find_session(session_id) do
-    requests_query = from(r in Request, order_by: r.rank, preload: [:genres])
 
     Session
     |> where([s], s.id == ^session_id)
-    |> preload([:musician, requests: ^requests_query])
+    |> preload_session()
     |> Repo.one()
+  end
+
+  defp preload_session(query) do
+    requests_query = from(r in Request, order_by: r.rank, preload: [:genres])
+    preload(query, [:musician, requests: ^requests_query])
   end
 
   def archive_session(session) do

@@ -11,6 +11,7 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
   alias CurbsideConcerts.Requests
   alias CurbsideConcerts.Requests.Request
   alias CurbsideConcertsWeb.RequestView
+  alias CurbsideConcertsWeb.SessionView
   alias CurbsideConcertsWeb.Helpers.RequestAddress
   alias CurbsideConcertsWeb.ZipCodeSessionScorer
   # alias CurbsideConcertsWeb.EmailRequest
@@ -332,6 +333,8 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
 
         <div class="column" phx-value-session-id="<%= @session.id %>">
           <h2>Requests in Session: <%= @session.name %></h2>
+
+          <div><b>Status:</b> <%= SessionView.session_status(@session) %></div>
 
           <%= unless @session_requests == [] do %>
             <%= RequestView.map_route_link(@session_requests) %>
