@@ -15,6 +15,14 @@ defmodule CurbsideConcertsWeb.MusicianView do
     """
   end
 
+  def musician_input(form, field, placeholder, type: :url) do
+    class = class(form, field)
+
+    ~E"""
+    <%= url_input(form, field, class: class, placeholder: placeholder) %>
+    """
+  end
+
   def musician_inline_input(form, field, placeholder \\ "") do
     class = "inline-input " <> class(form, field)
 
@@ -23,11 +31,9 @@ defmodule CurbsideConcertsWeb.MusicianView do
     """
   end
 
-  def musician_input(form, field, placeholder, type: :url) do
-    class = class(form, field)
-
+  def musician_image(alt_text, base64_img) do
     ~E"""
-    <%= url_input(form, field, class: class, placeholder: placeholder) %>
+    <img class="musician-img" alt=<%= alt_text %> src="data:image/png;base64, <%= base64_img %>"/>
     """
   end
 

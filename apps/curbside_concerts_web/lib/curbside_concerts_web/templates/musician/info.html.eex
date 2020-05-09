@@ -1,6 +1,7 @@
 <% %Musician{
   name: name,
   bio: bio, 
+  photo: photo,
   facebook_url: facebook_url, 
   twitter_url: twitter_url, 
   instagram_url: instagram_url, 
@@ -13,6 +14,10 @@
 
 <div class="card musician-tip-card">
 	<h2><%= name %></h2>
+
+  <%= if photo do %>
+    <%= musician_image(name, photo) %>
+  <% end %>
 
 	<h3>About <%= name %></h3>
 	<p><%= bio %></p>
