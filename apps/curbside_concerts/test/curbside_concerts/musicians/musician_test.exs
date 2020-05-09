@@ -16,6 +16,14 @@ defmodule CurbsideConcerts.Requests.MusicianTest do
       assert changeset.errors == []
     end
 
+    test "valid changeset with photo" do
+      photo = %Plug.Upload{path: "test/fixtures/test-image.png", filename: "test-image.png"}
+      changeset = Musician.changeset(%Musician{}, attrs(:musician, %{ photo: photo }))
+      assert changeset.errors == []
+      base64_string = :base64.encode(File.read!(photo.path))
+      assert changeset.changes.photo == base64_string
+    end
+
     test "valid changeset for updates", %{musician: musician} do 
       attrs = %{"name" => "someone"}
       changeset = Musician.changeset(musician, attrs)

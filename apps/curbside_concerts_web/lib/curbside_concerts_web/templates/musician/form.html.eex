@@ -1,4 +1,4 @@
-<%= form_for @changeset, @action, fn f -> %>
+<%= form_for @changeset, @action, [multipart: true],  fn f -> %>
 <div class="card musician-form">
 
   <label>Artist Name <%= required_star() %> <%= musician_input f, :name,  "Name" %></label>
@@ -17,7 +17,8 @@
   <label>Personal Website Link <%= musician_input f, :website_url, "https://www.their-personal-website.com", type: :url %></label>  
   <label>Cash App Link <%= musician_input f, :cash_app_url, "https://cash.app/$<username>", type: :url %></label>
   <label>Venmo Link <%= musician_input f, :venmo_url, "https://venmo.com/<username>", type: :url %></label>
-  <label>Paypal Link <%= musician_input f, :paypal_url, "https://www.paypal.me/<username>", type: :url %></label>  
+  <label>Paypal Link <%= musician_input f, :paypal_url, "https://www.paypal.me/<username>", type: :url %></label>
+  <label>Photo<%= file_input f, :photo, accept: "image/*" %></label>
 </div>
 
 <button type="submit">SUBMIT</button>
