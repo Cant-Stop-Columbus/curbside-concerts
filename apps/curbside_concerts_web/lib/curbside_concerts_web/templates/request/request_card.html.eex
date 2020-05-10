@@ -24,9 +24,13 @@
   preferred_date: preferred_date,
   nominee_email: nominee_email,
   special_instructions: special_instructions,
-  requester_newsletter_interest: _newsletter_interest?
+  requester_newsletter_interest: _newsletter_interest?,
+  admin_notes: admin_notes
 } = @request %>
 <div class="card <%= if priority?, do: "priority-request" %>">
+  <%= if admin_notes do %>
+    <div class="admin-notes-display"><%= admin_notes %></div>
+  <% end %>
   <div><b>Preferred Date:</b> <%= preferred_date %></div>
   <div><b>Request Occasion:</b> <%= occasion %></div>
   <div><b>Request Reason:</b> <%= request_reason %></div>

@@ -31,7 +31,6 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
         session: session,
         sort_by: nil,
         genre_filter: nil,
-        saved: false,
         saved_as_draft: false,
         saved_as_final: false,
         active_request: nil
@@ -119,12 +118,22 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
         },
         socket
       ) do
-    request = Requests.find_request(request_id)
+    request = find_request(socket, request_id)
 
     {:noreply,
      assign(socket, %{
        active_request: request
      })}
+  end
+
+  def handle_event("save_admin_notes", %{"request_id" => request_id, "admin_notes" => admin_notes}, socket) do
+    {:ok, fresh_request} = request_id
+      |> Requests.find_request()
+      |> Requests.update_request(%{admin_notes: admin_notes})
+
+    socket = refresh_request(socket, fresh_request)
+
+    {:noreply, socket}
   end
 
   def handle_event(
@@ -133,23 +142,17 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
           "request_id" => request_id,
           "toggle_to" => toggle_to
         },
-        %{assigns: %{unbooked_requests: unbooked_requests, session_requests: session_requests}} =
-          socket
+        socket
       ) do
     priority? = toggle_to == "on"
 
-    request_id
-    |> Requests.find_request()
-    |> Requests.update_request(%{priority: priority?})
+    fresh_request = request_id
+      |> Requests.find_request()
+      |> Requests.update_request(%{priority: priority?})
 
-    unbooked_requests = adjust_priority(unbooked_requests, request_id, priority?)
-    session_requests = adjust_priority(session_requests, request_id, priority?)
+    socket = refresh_request(socket, fresh_request)
 
-    {:noreply,
-     assign(socket, %{
-       unbooked_requests: unbooked_requests,
-       session_requests: session_requests
-     })}
+    {:noreply, socket}
   end
 
   def handle_event(
@@ -270,17 +273,6 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
 
     {from_list, to_list}
   end
-
-  # def handle_info(
-  #       %{event: "message", payload: %{session: session_id}},
-  #       %{assigns: %{logs: logs}} = socket
-  #     ) do
-  #   {:noreply,
-  #    assign(socket,
-  #      #  unbooked_requests: unbooked_requests,
-  #      logs: ["Them: Booking #{session_id}" | logs]
-  #    )}
-  # end
 
   def render(assigns) do
     filtered_requests = apply_filters(assigns, assigns[:unbooked_requests])
@@ -442,7 +434,7 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
        when is_binary(genre_id) and genre_id != "" do
     requests
     |> Enum.filter(fn %Request{genres: genres} ->
-      Enum.any?(genres || [], fn %Genre{id: id} -> "#{id}" == genre_id end)
+      genres == [] or Enum.any?(genres, fn %Genre{id: id} -> "#{id}" == genre_id end)
     end)
   end
 
@@ -452,7 +444,9 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
          assigns,
          %Request{
            id: request_id,
-           priority: priority?
+           priority: priority?,
+           admin_notes: admin_notes,
+           genres: genres
          } = request,
          index,
          comparing_requests
@@ -486,8 +480,13 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
         <div class="index">
           <%= index %>
         </div>
-        <%= RequestAddress.full_address(request) %>
-        <br><%= Enum.map(request.genres, fn g -> g.name end) |> Enum.join(", ") %><br>
+        <div>
+          <div><%= RequestAddress.full_address(request) %></div>
+          <div><%= if genres == [], do: "All types", else: Enum.map(request.genres, fn g -> g.name end) |> Enum.join(", ") %></div>
+          <%= if admin_notes do %>
+            <div class="admin-notes-display"><%= admin_notes %></div>
+          <% end %>
+        </div>
       </div>
     </div>
     """
@@ -501,18 +500,11 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
            special_message: special_message,
            request_reason: request_reason,
            nominee_address_notes: address_notes,
-           special_instructions: special_instructions
+           special_instructions: special_instructions,
+           admin_notes: admin_notes
          } = request,
          comparing_requests
        ) do
-    # request_reason
-    # nominee_description
-    # special_message_sender_name
-    # nominee_favorite_music_notes
-    # request_occasion
-    # nominee_email
-    # requester_relationship
-    # special_instructions
 
     ~L"""
     <div>
@@ -522,9 +514,9 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
             <b>Special Day: </b><%= request.preferred_date %> &nbsp;
           <% end %>
           <%= if priority? do %>
-            <div class="priority-toggle priority-on" phx-click="priority_toggle" phx-value-toggle_to="off" phx-value-request_id="<%= request_id %>"></div>
+            <div class="priority-toggle priority-on" phx-value-toggle_to="off" phx-value-request_id="<%= request_id %>"></div>
           <% else %>
-            <div class="priority-toggle priority-off" phx-click="priority_toggle" phx-value-toggle_to="on" phx-value-request_id="<%= request_id %>"></div>
+            <div class="priority-toggle priority-off" phx-value-toggle_to="on" phx-value-request_id="<%= request_id %>"></div>
           <% end %>
           <%= RequestView.days_ago_badge(request) %>
           <%= zip_score(assigns, request, comparing_requests) %>
@@ -546,6 +538,10 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
         <b>Requester:</b> <%= request.requester_name %><br>
         <b>Requester Phone:</b> <%= request.requester_phone %><br>
         <b>Requester Email:</b> <%= request.requester_email %><br>
+        <form phx-change="save_admin_notes">
+          <input type="hidden" name="request_id" value="<%= request_id %>" />
+          <textarea name="admin_notes" phx-debounce="blur"><%= admin_notes %></textarea>
+        </form>
       </div>
     </div>
     """
@@ -577,15 +573,27 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
     end
   end
 
-  defp adjust_priority(list, request_id, priority?) do
+  defp refresh_request(%{assigns: %{unbooked_requests: unbooked_requests, session_requests: session_requests, active_request: active_request}} = socket, fresh_request) do
+    unbooked_requests = refresh_request(unbooked_requests, fresh_request)
+    session_requests = refresh_request(session_requests, fresh_request)
+    active_request = if active_request.id == fresh_request.id, do: fresh_request, else: active_request
+
+    assign(socket, %{
+      unbooked_requests: unbooked_requests,
+      session_requests: session_requests,
+      active_request: active_request
+    })
+  end
+
+  defp refresh_request(list, fresh_request) when is_list(list) do
     Enum.map(list, fn request ->
-      if "#{request.id}" == request_id do
-        IO.inspect(priority?, label: "found #{request_id}")
-        %{request | priority: priority?}
-      else
-        request
-      end
+      if request.id == fresh_request.id, do: fresh_request, else: request
     end)
+  end
+
+  defp find_request(%{assigns: %{unbooked_requests: unbooked_requests, session_requests: session_requests}} = _socket, request_id) do
+    (unbooked_requests ++ session_requests)
+    |> Enum.find(fn request -> "#{request.id}" == request_id end)
   end
 
   defp active?(_request, nil), do: false
