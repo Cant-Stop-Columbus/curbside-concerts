@@ -146,7 +146,7 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
       ) do
     priority? = toggle_to == "on"
 
-    fresh_request = request_id
+    {:ok, fresh_request} = request_id
       |> Requests.find_request()
       |> Requests.update_request(%{priority: priority?})
 
