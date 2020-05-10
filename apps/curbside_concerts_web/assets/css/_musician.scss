@@ -12,3 +12,16 @@
   max-height: 200px;
   width: auto;
 }
+
+.musician-photo-form {
+  margin-top: 10px;
+
+  .photo-title {
+    border: 0px;
+    border-bottom-width: 1px;
+    border-color: black;
+    border-style: solid;
+    width: 45%;
+    margin-bottom: 10px;
+  }
+}

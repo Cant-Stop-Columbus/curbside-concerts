@@ -9,14 +9,17 @@
   website_url: website_url, 
   cash_app_url: cash_app_url, 
   venmo_url: venmo_url, 
-  paypal_url: paypal_url
+  paypal_url: paypal_url,
+  photo_url: photo_url
 } = @musician %>
 
 <div class="card musician-tip-card">
 	<h2><%= name %></h2>
-
-  <%= if photo do %>
-    <%= musician_image(name, photo) %>
+  
+  <%= cond do %>
+    <% photo -> %> <%= musician_image(name, photo) %>
+    <% photo_url -> %> <%= musician_image_link(name, photo_url) %>
+    <% true -> %> <%= "" %>
   <% end %>
 
 	<h3>About <%= name %></h3>

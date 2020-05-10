@@ -9,13 +9,15 @@
   url_pathname: url_pathname,
   default_session_title: default_session_title,
   default_session_description: default_session_description,
-  photo: photo
+  photo: photo,
+  photo_url: photo_url
 }  = musician <- @musicians do %>
   <div class="card">
-    <%= if photo do %>
-      <%= musician_image(name, photo) %>
-      <br>
-    <% end %>
+  <%= cond do %>
+    <% photo -> %> <%= musician_image(name, photo) %>
+    <% photo_url -> %> <%= musician_image_link(name, photo_url) %>
+    <% true -> %> <%= "" %>
+  <% end %>
     <div>Name: <%= name %></div>
     <div>Site Page Name: <%= url_pathname %> </div>
     <%= if default_session_title do %>

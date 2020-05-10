@@ -37,6 +37,12 @@ defmodule CurbsideConcertsWeb.MusicianView do
     """
   end
 
+  def musician_image_link(alt_text, src) do
+    ~E"""
+    <%= img_tag(src, class: "musician-img", alt: alt_text) %>
+    """
+  end
+
   def musician_textarea(form, field, placeholder \\ "") do
     class = class(form, field)
 
