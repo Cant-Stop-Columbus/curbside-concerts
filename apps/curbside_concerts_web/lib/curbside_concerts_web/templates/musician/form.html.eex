@@ -18,7 +18,12 @@
   <label>Cash App Link <%= musician_input f, :cash_app_url, "https://cash.app/$<username>", type: :url %></label>
   <label>Venmo Link <%= musician_input f, :venmo_url, "https://venmo.com/<username>", type: :url %></label>
   <label>Paypal Link <%= musician_input f, :paypal_url, "https://www.paypal.me/<username>", type: :url %></label>
-  <label>Photo<%= file_input f, :photo, accept: "image/*" %></label>
+  <div class="musician-photo-form">
+    <div class="photo-title">Photo</div>
+    <label>Link <%= musician_input f, :photo_url, "https://www.imagehost/image.png", type: :url %></label>
+    <div>Or</div>
+    <label><%= file_input f, :photo, accept: "image/*" %></label>  
+  </div>
 </div>
 
 <button type="submit">SUBMIT</button>

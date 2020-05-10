@@ -7,7 +7,7 @@ defmodule CurbsideConcerts.Musicians.Musician do
 
   import Ecto.Changeset
 
-  @allowed_attrs ~w|name bio url_pathname default_session_title default_session_description facebook_url twitter_url instagram_url website_url youtube_url cash_app_url venmo_url paypal_url|a
+  @allowed_attrs ~w|name bio url_pathname default_session_title default_session_description facebook_url twitter_url instagram_url website_url youtube_url cash_app_url venmo_url paypal_url photo_url|a
   @required_attrs ~w|name bio url_pathname|a
 
   schema "musicians" do
@@ -25,6 +25,7 @@ defmodule CurbsideConcerts.Musicians.Musician do
     field(:cash_app_url, :string)
     field(:venmo_url, :string)
     field(:paypal_url, :string)
+    field(:photo_url, :string)
 
     timestamps()
   end
@@ -44,7 +45,10 @@ defmodule CurbsideConcerts.Musicians.Musician do
       %Plug.Upload{path: path} -> 
         changeset
         |> put_change(:photo, :base64.encode(File.read!(path)))
-      _ -> 
+      nil -> 
+        changeset
+        |> put_change(:photo, nil)
+      _ ->
         changeset
     end
   end
