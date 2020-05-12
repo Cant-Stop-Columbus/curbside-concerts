@@ -19,6 +19,7 @@ import "phoenix_html";
 // import socket from "./socket"
 import Hooks from "./booker";
 import "./mask";
+import "./photo-input";
 
 
 import { Socket } from "phoenix";

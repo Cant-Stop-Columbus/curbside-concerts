@@ -43,6 +43,24 @@ defmodule CurbsideConcertsWeb.MusicianView do
     """
   end
 
+  def musician_file_preview(form) do
+    if(form.data.photo) do
+      ~E"""
+      <img class="musician-img-preview" src="data:image/png;base64, <%= form.data.photo %>"/>
+      <input id="hidden-musician-photo" type="hidden" name="musician[photo]" value="<%= form.data.photo %>" />
+      """
+    end
+  end
+
+  def musician_file_input(form) do
+    ~E"""
+    <div id="new-image" <%= hidden(form) %> >
+      <div>Or</div>
+      <label><%= file_input form, :photo, accept: "image/*" %></label>
+    </div>
+    """
+  end
+
   def musician_textarea(form, field, placeholder \\ "") do
     class = class(form, field)
 
@@ -53,6 +71,10 @@ defmodule CurbsideConcertsWeb.MusicianView do
 
   defp class(form, field) do
     if form.errors[field], do: "not-valid", else: ""
+  end
+
+  defp hidden(form) do
+    if form.data.photo, do: "hidden", else: ""
   end
 
 end

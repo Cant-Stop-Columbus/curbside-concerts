@@ -21,8 +21,16 @@
   <div class="musician-photo-form">
     <div class="photo-title">Photo</div>
     <label>Link <%= musician_input f, :photo_url, "https://www.imagehost/image.png", type: :url %></label>
-    <div>Or</div>
-    <label><%= file_input f, :photo, accept: "image/*" %></label>  
+    <%= if f.data.photo do %>
+      <div id="current-image">
+        <div>Current Image</div>
+        <%= musician_file_preview(f) %>
+      </div>
+    <% end %>
+    <%= musician_file_input(f) %>
+    <div>
+      <a id="remove-image" href="">Remove</a>
+    </div>
   </div>
 </div>
 
