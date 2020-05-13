@@ -180,8 +180,6 @@ defmodule CurbsideConcertsWeb.RequestView do
   def request_date(form, field, prompt \\ "Select a day") do
     today = Date.utc_today()
 
-    prompt = {prompt, ""}
-
     options =
       1..90
       |> Enum.map(fn n ->
@@ -190,6 +188,15 @@ defmodule CurbsideConcertsWeb.RequestView do
         display = "#{@weekdays[weekday]}, #{@months[date.month]} #{date.day}"
         {display, "#{date}"}
       end)
+
+    actual = "#{Phoenix.HTML.Form.input_value(form, field)}"
+
+
+    prompt = if actual == "" or Enum.any?(options, fn {_, date} -> date == actual end) do
+      {prompt, ""}
+    else
+      {actual, actual}
+    end
 
     ~E"""
     <%= select(form, field, [prompt | options]) %>

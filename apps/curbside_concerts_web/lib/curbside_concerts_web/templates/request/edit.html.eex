@@ -8,6 +8,9 @@
     <%= hidden_input f, :id %>
     <%= unless f.errors == [], do: inspect(f.errors) %>
 
+    <label class="field">Priority: <%= request_checkbox f, :priority %></label>
+    <label class="field">Admin Notes: <%= textarea f, :admin_notes %></label>
+
     <label class="field">Deprecated Address: <%= input_value(f, :nominee_address) %></label>
 
     <label class="field">Nominee Street Address: <%= text_input f, :nominee_street_address %></label>
@@ -15,6 +18,44 @@
     <label class="field">Nominee Zip Code: <%= text_input f, :nominee_zip_code %></label>
     <label class="field">Nominee Address Notes: <%= textarea f, :nominee_address_notes %></label>
 
+    <label class="field">Nominee Name: <%= request_input f, :nominee_name %></label>
+    <label class="field">Request Reason: <%= request_input f, :request_reason %></label>
+    <label class="field">Nominee Description: <%= request_input f, :nominee_description %></label>
+
+    <label class="field">Special Message: <%= request_input f, :special_message %></label>
+    <label class="field">Sender Name: <%= request_input f, :special_message_sender_name %></label>
+
+
+    <label class="field">Request Occasion: <%= request_input f, :request_occasion %></label>
+
+    <label class="field">Special Day: <%= request_date f, :preferred_date, "Select Special Day (optional)" %></label>
+
+
+    <label class="field">Genres:
+      <%= multiselect_checkboxes(
+          f,
+          :genres,
+          Enum.map(@genres, fn a -> { a.name, a.id } end),
+          selected: Enum.map(@changeset.data.genres,&(&1.id))
+      )%>
+    </label>
+
+
+    <label class="field">Favorite Music: <%= request_input f, :nominee_favorite_music_notes %></label>
+
+    <label class="field">Requester Name: <%= request_input f, :requester_name %></label>
+    <label class="field">Requester Relationship: <%= request_input f, :requester_relationship %></label>
+
+    <label class="field">Requester Email: <%= request_input f, :requester_email, type: :email %></label>
+    <label class="field">Newsletter Opt In: <%= request_checkbox f, :requester_newsletter_interest %></label>
+
+    <label class="field">Requester Phone: <%= request_input f, :requester_phone, type: :phone %></label>
+
+    <label class="field">Contact Preference: <%= contact_preference_radio f %></label>
+    <label class="field">Nominee Phone: <%= request_input f, :nominee_phone, type: :phone %></label>
+    <label class="field">Nominee Email: <%= request_input f, :nominee_email, type: :email %></label>
+
+    <label class="field">Special Instructions: <%= request_input f, :special_instructions %></label>
     <button type="submit">SUBMIT</button>
   <% end %>
 </div>

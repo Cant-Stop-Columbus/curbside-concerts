@@ -132,9 +132,10 @@ defmodule CurbsideConcertsWeb.RequestController do
 
   @spec edit(Plug.Conn.t(), map) :: Plug.Conn.t()
   def edit(conn, %{"id" => id}) do
+    genres = Musicians.all_active_genres()
     request = Requests.get_request(id, preloads: [:session, :genres])
     changeset = Requests.change_request(request)
-    render(conn, "edit.html", request: request, changeset: changeset)
+    render(conn, "edit.html", request: request, genres: genres, changeset: changeset)
   end
 
   @spec update(Plug.Conn.t(), map) :: Plug.Conn.t()
