@@ -9,6 +9,7 @@ defmodule CurbsideConcertsWeb.RequestView do
   alias CurbsideConcertsWeb.Helpers.RequestAddress
   alias CurbsideConcertsWeb.Helpers.TimeUtil
   alias CurbsideConcertsWeb.LayoutView
+  alias CurbsideConcertsWeb.TrackerCypher
 
   def required_star do
     ~E|<span class="required">*</span>|
@@ -94,6 +95,11 @@ defmodule CurbsideConcertsWeb.RequestView do
     ~E"""
     <%= render "request_card.html", request: request, conn: conn %>
     """
+  end
+
+  def requester_tracker_link(%Request{id: request_id}) do
+    path = Routes.request_path(CurbsideConcertsWeb.Endpoint, :tracker, TrackerCypher.encode(request_id))
+    link "Requester Tracker", to: path
   end
 
   def map_route_link(requests) do

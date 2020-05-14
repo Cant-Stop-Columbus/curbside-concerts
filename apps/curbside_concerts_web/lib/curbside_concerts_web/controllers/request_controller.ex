@@ -140,7 +140,7 @@ defmodule CurbsideConcertsWeb.RequestController do
 
   @spec update(Plug.Conn.t(), map) :: Plug.Conn.t()
   def update(conn, %{"id" => id, "request" => request_params}) do
-    request = Requests.get_request(id)
+    request = Requests.find_request(id)
 
     case Requests.update_request(request, request_params) do
       {:ok, request} ->
@@ -149,7 +149,8 @@ defmodule CurbsideConcertsWeb.RequestController do
         |> redirect(to: Routes.request_path(conn, :show, request))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", request: request, changeset: changeset)
+        genres = Musicians.all_active_genres()
+        render(conn, "edit.html", request: request, genres: genres, changeset: changeset)
     end
   end
 
