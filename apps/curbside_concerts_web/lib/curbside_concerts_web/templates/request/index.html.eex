@@ -116,6 +116,7 @@
       <div>
         <%= link "View", to: Routes.request_path(CurbsideConcertsWeb.Endpoint, :show, request) %>
         | <%= request_action_links(request, @route) %>
+        | <%= requester_tracker_link(request) %>
       </div>
     </div>
 

@@ -9,6 +9,7 @@ defmodule CurbsideConcertsWeb.RequestView do
   alias CurbsideConcertsWeb.Helpers.RequestAddress
   alias CurbsideConcertsWeb.Helpers.TimeUtil
   alias CurbsideConcertsWeb.LayoutView
+  alias CurbsideConcertsWeb.TrackerCypher
 
   def required_star do
     ~E|<span class="required">*</span>|
@@ -96,6 +97,11 @@ defmodule CurbsideConcertsWeb.RequestView do
     """
   end
 
+  def requester_tracker_link(%Request{id: request_id}) do
+    path = Routes.request_path(CurbsideConcertsWeb.Endpoint, :tracker, TrackerCypher.encode(request_id))
+    link "Requester Tracker", to: path
+  end
+
   def map_route_link(requests) do
     truck_location = "491 W Broad St., Columbus, OH 43215"
 
@@ -180,8 +186,6 @@ defmodule CurbsideConcertsWeb.RequestView do
   def request_date(form, field, prompt \\ "Select a day") do
     today = Date.utc_today()
 
-    prompt = {prompt, ""}
-
     options =
       1..90
       |> Enum.map(fn n ->
@@ -190,6 +194,15 @@ defmodule CurbsideConcertsWeb.RequestView do
         display = "#{@weekdays[weekday]}, #{@months[date.month]} #{date.day}"
         {display, "#{date}"}
       end)
+
+    actual = "#{Phoenix.HTML.Form.input_value(form, field)}"
+
+
+    prompt = if actual == "" or Enum.any?(options, fn {_, date} -> date == actual end) do
+      {prompt, ""}
+    else
+      {actual, actual}
+    end
 
     ~E"""
     <%= select(form, field, [prompt | options]) %>
