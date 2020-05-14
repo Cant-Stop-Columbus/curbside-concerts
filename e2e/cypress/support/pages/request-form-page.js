@@ -1,6 +1,8 @@
 import layout from "./layout";
 
 const heading = () => cy.get("h1");
+const priorityField = () => cy.get('input[type="checkbox"][name="request[priority]"]');
+const adminNotesField = () => cy.get('textarea[name="request[admin_notes]"]');
 const nomineeNameField = () => cy.get('input[name="request[nominee_name]"]');
 const nomineeContactPreferenceRadio = () =>
 	cy.get('input[name="request[contact_preference]"]');
@@ -37,6 +39,14 @@ class RequestFormPage {
 	assert() {
     heading().should("have.text", "Request a Curbside Concert");
     disclaimerText().should("have.text", "By requesting a concert, I agree to the following disclaimer.")
+	}
+
+	checkPriority() {
+		priorityField().check();
+	}
+
+	fillInAdminNotes(adminNotes) {
+		adminNotesField().clear().type(adminNotes);
 	}
 
 	fillInNomineeName(name) {

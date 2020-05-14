@@ -17,6 +17,8 @@ const genreData2 = {
 };
 
 const requestData = {
+	priority: true,
+	adminNotes: faker.lorem.paragraph(),
 	nomineeName: faker.name.findName(),
 	contactPreference: "call_nominee",
 	nomineePhone: faker.phone.phoneNumber('614-###-####'),
@@ -93,25 +95,36 @@ describe("Request", () => {
 			);
 		});
 
-		it("should be able to edit the legacy address of a request as an admin", () => {
+		it("should allow editing all request fields as an admin", () => {
 			gigsPage.visit();
 			gigsPage.clickRequestEditLink(requestData.specialMessage);
 
 			requestEditPage.assert();
 
-			const streetAddress = faker.address.streetAddress();
-			const city = faker.address.city();
-			const zipCode = faker.address.zipCode("#####");
+			requestFormPage.fillInAdminNotes(requestData.adminNotes);
+			requestFormPage.checkPriority();
 
-			requestEditPage.fillInNomineeStreetAddress(streetAddress);
-			requestEditPage.fillInNomineeCity(city);
-			requestEditPage.fillInNomineeZipCode(zipCode);
-			requestEditPage.fillInNomineeAddressNotes(faker.lorem.paragraph());
+			requestFormPage.fillInNomineeName(requestData.nomineeName);
+			requestFormPage.clickContactPreferenceOption(
+				requestData.contactPreference
+			);
+			requestFormPage.fillInNomineePhone(requestData.nomineePhone);
+			requestFormPage.fillInNomineeStreetAddress(requestData.nomineeStreetAddress);
+			requestFormPage.fillInNomineeCity(requestData.nomineeCity);
+			requestFormPage.fillInNomineeZipCode(requestData.nomineeZipCode);
+			requestFormPage.fillInNomineeAddressNotes(requestData.nomineeAddressNotes);
+			requestData.genres.forEach((genre) => {
+				requestFormPage.clickGenreCheckbox(genre);
+			});
+			requestFormPage.fillInSpecialMessage(requestData.specialMessage);
+			requestFormPage.fillInRequesterName(requestData.requesterName);
+			requestFormPage.fillInRequesterEmail(requestData.requesterEmail);
+			requestFormPage.fillInRequesterPhone(requestData.requesterPhone);
 
 			requestEditPage.clickSubmitButton();
 
 			requestShowPage.assert(requestData.specialMessage);
-			requestShowPage.assertAddress(`${streetAddress} ${city} ${zipCode}`);
+			requestShowPage.assertAddress(`${requestData.nomineeStreetAddress} ${requestData.nomineeCity} ${requestData.nomineeZipCode}`);
 		});
 
 		it("should be able to mark a request as off-mission, then back", () => {
