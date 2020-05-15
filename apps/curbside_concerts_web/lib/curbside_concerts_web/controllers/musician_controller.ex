@@ -67,4 +67,9 @@ defmodule CurbsideConcertsWeb.MusicianController do
         render(conn, "edit.html", musician: musician, changeset: changeset)
     end
   end
+
+  @spec artists(Plug.Conn.t(), any) :: Plug.Conn.t()
+  def artists(conn, _params) do
+    render(conn, "artists.html", musicians: Musicians.all_musicians())
+  end
 end

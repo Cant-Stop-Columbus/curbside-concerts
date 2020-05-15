@@ -144,4 +144,22 @@ defmodule CurbsideConcertsWeb.MusicianControllerTest do
       assert "Edit Musician" == html |> Floki.find("h1") |> Floki.text()
     end
   end
+
+  describe "artists/2" do
+    test "renders all of the musicians", %{conn: conn} do
+      %Musician{name: first_musician_name} = insert!(:musician)
+      %Musician{name: second_musician_name} = insert!(:musician)
+      
+      html =
+        conn
+        |> get(Routes.musician_path(conn, :artists))
+        |> html_response(200)
+        |> Floki.parse_document!()
+
+      assert "Tip your curbside musician" == html |> Floki.find("h1") |> Floki.text()
+      
+      assert html |> Floki.text() =~ first_musician_name
+      assert html |> Floki.text() =~ second_musician_name
+    end
+  end
 end

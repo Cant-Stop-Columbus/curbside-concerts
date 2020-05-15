@@ -2,6 +2,7 @@ defmodule CurbsideConcertsWeb.MusicianView do
   use CurbsideConcertsWeb, :view
 
   alias CurbsideConcerts.Musicians.Musician
+  alias CurbsideConcertsWeb.LayoutView
 
   def required_star do
     ~E|<span class="required">*</span>|

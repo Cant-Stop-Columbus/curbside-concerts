@@ -18,7 +18,7 @@ defmodule CurbsideConcertsWeb.LayoutViewTest do
           path: Routes.request_path(CurbsideConcertsWeb.Endpoint, :new),
           current: true
         },
-        %Link{label: "TIPS", path: Routes.tips_path(CurbsideConcertsWeb.Endpoint, :index)},
+        %Link{label: "TIPS", path: Routes.musician_path(CurbsideConcertsWeb.Endpoint, :artists)},
         %Link{label: "PERFORM", path: Routes.perform_path(CurbsideConcertsWeb.Endpoint, :index)}
       ]
 

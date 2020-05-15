@@ -1,0 +1,15 @@
+<div class="card card-with-nav">
+	<%= LayoutView.render_nav_links(LayoutView.get_nav_links("TIPS")) %>
+
+  <header class="landing">
+    <h1>Tip your curbside musician</h1>
+		<br/> 
+		<p>
+			Heard a curbside concert and want to contribute? Follow, subscribe and tip this weekend’s musicians using the information below.
+		</p>
+  </header>
+</div>
+
+<%= for %Musician{}  = musician <- @musicians do %>
+  <%= render "info.html", musician: musician, conn: @conn %>
+<% end %>

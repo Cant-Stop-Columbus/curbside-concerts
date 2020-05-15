@@ -27,7 +27,7 @@ defmodule CurbsideConcertsWeb.Router do
 
     # static home pages
     get "/", LandingController, :index
-    get "/tips", TipsController, :index
+    get "/tips", MusicianController, :artists
     get "/perform", PerformController, :index
 
     # status pages
