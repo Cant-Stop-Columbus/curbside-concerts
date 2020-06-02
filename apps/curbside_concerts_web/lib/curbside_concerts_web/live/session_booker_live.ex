@@ -548,7 +548,7 @@ defmodule CurbsideConcertsWeb.SessionBookerLive do
   end
 
   defp zip_score(assigns, request, comparing_requests) do
-    other_zips = ["43215" | Enum.map(comparing_requests, &zip/1)]
+    other_zips = [RequestView.truck_pickup_zip | Enum.map(comparing_requests, &zip/1)]
     score = ZipCodeSessionScorer.score(zip(request), other_zips)
 
     class =

@@ -11,7 +11,7 @@ defmodule CurbsideConcertsWeb.Helpers.RequestAddress do
   request = %Request{
    nominee_street_address: "80 E Rich St.",
    nominee_city: "Columbus",
-   moninee_zip_code: "43215"
+   nominee_zip_code: "43215"
   }
 
   full_address(request)
