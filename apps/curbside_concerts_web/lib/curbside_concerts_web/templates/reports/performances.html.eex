@@ -1,0 +1,11 @@
+<h2>Performances</h2>
+
+<div class="card">
+  Performances: <%= @sessions |> Enum.map(fn sess -> length(sess.requests) end) |> Enum.sum() %>
+  <br><br>
+  Sessions: <%= length(@sessions) %> <br><br>
+  <%= for sess <- @sessions do %>
+    <%= length(sess.requests) %> - <%= link sess.name, to: Routes.session_path(CurbsideConcertsWeb.Endpoint, :show, sess) %> <br>
+  <% end %>
+  <br>
+</div>

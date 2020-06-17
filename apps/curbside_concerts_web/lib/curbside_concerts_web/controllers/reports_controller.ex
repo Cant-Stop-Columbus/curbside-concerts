@@ -5,7 +5,16 @@ defmodule CurbsideConcertsWeb.ReportsController do
 
   use CurbsideConcertsWeb, :controller
 
+  alias CurbsideConcerts.Musicians
   alias CurbsideConcerts.Requests
+
+  def performances(conn, _params) do
+    sessions = Musicians.all_sessions_and_requests()
+
+    conn
+    |> assign(:sessions, sessions)
+    |> render("performances.html")
+  end
 
   def genres(conn, _params) do
     unbooked_requests = Requests.all_unbooked_requests()

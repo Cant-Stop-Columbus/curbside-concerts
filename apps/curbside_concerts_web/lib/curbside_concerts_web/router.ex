@@ -54,6 +54,7 @@ defmodule CurbsideConcertsWeb.Router do
     pipe_through [:browser, :requires_auth]
 
     # reports
+    get "/reports/performances", ReportsController, :performances
     get "/reports/genres", ReportsController, :genres
 
     # session booker

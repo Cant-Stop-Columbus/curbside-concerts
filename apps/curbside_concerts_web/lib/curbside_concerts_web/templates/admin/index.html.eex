@@ -18,7 +18,10 @@
       <li><%= link "View Sessions", to: Routes.session_path(@conn, :index) %></li>
       <li><%= link "Manage Genres", to: Routes.genre_path(@conn, :index) %></li>
       <li><%= link "Manage Muscians", to: Routes.musician_path(@conn, :index) %></li>
-      <li>Reports: <%= link "Genres", to: Routes.reports_path(@conn, :genres) %></li>
+      <li>Reports:
+        <%= link "Performances", to: Routes.reports_path(@conn, :performances) %> |
+        <%= link "Genres", to: Routes.reports_path(@conn, :genres) %>
+      </li>
     </ul>
   <% else %>
     You must be signed in to view this content.
