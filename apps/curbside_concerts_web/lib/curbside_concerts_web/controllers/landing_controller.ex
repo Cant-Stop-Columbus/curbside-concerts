@@ -10,4 +10,8 @@ defmodule CurbsideConcertsWeb.LandingController do
   def index(conn, _params) do
     render(conn, "index.html")
   end
+
+  def volunteer(conn, _params) do
+    render(conn, "volunteer.html")
+  end
 end

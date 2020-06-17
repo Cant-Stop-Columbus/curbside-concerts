@@ -29,6 +29,7 @@ defmodule CurbsideConcertsWeb.Router do
     get "/", LandingController, :index
     get "/tips", MusicianController, :artists
     get "/perform", PerformController, :index
+    get "/volunteer", LandingController, :volunteer
 
     # status pages
     get "/tracker/:tracker_id", RequestController, :tracker
@@ -73,8 +74,9 @@ defmodule CurbsideConcertsWeb.Router do
     put "/request/:id/state/:state", RequestController, :state
 
     # musician management
-    resources "/musician", MusicianController, only: [:create, :edit, :index, :new, :update, :show]
-    
+    resources "/musician", MusicianController,
+      only: [:create, :edit, :index, :new, :update, :show]
+
     # session management
     resources "/session", SessionController, only: [:create, :edit, :index, :new, :update, :show]
     get "/session/archived", SessionController, :index_archived

@@ -38,7 +38,11 @@ defmodule CurbsideConcertsWeb.LayoutView do
       %Link{label: "HOME", path: Routes.landing_path(CurbsideConcertsWeb.Endpoint, :index)},
       %Link{label: "REQUEST", path: Routes.request_path(CurbsideConcertsWeb.Endpoint, :new)},
       %Link{label: "TIPS", path: Routes.musician_path(CurbsideConcertsWeb.Endpoint, :artists)},
-      %Link{label: "PERFORM", path: Routes.perform_path(CurbsideConcertsWeb.Endpoint, :index)}
+      %Link{label: "PERFORM", path: Routes.perform_path(CurbsideConcertsWeb.Endpoint, :index)},
+      %Link{
+        label: "VOLUNTEER",
+        path: Routes.landing_path(CurbsideConcertsWeb.Endpoint, :volunteer)
+      }
     ]
 
     Enum.map(nav_links, fn %Link{label: label} = link ->

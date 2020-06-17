@@ -1,0 +1,38 @@
+<div class="card card-with-nav">
+	<%= LayoutView.render_nav_links(LayoutView.get_nav_links("VOLUNTEER")) %>
+  <header>
+    <h2>Do you want to be a part of the Curbside Concerts project but aren't a musician?  Help make this program possible by signing up as a volunteer driver for a four hour shift here:</h2>
+    <div class="signup-link">
+      <a href="https://www.signupgenius.com/go/9040B45ABAA22A4FB6-curbside" target="_blank"><img src="https://www.signupgenius.com/images/sign-up-now1.gif" alt="Sign Up!"></a>
+    </div>
+  </header>
+</div>
+
+<div class="card">
+  <h2>ROLE OVERVIEW</h2>
+
+  <p>
+    Your role as a driver will be to safely drive the musician to and from each Curbside Concert performance location, notify the concert receiver and/or requester that you are on the way, and take cell phone pictures and videos of the performance.  Each shift is approximately four hours and within that time frame the artist will typically perform 4-6 mini concerts.
+  </p>
+
+  <h2>REQUIREMENTS</h2>
+
+  <p>
+    By volunteering as a driver you will be asked to sign a waiver, similar to what you sign going on a test drive at a dealership.  You should have a valid drivers license and insurance.  You should plan to bring your own facemask.
+  </p>
+
+</div>
+
+<div class="card story">
+  <div class="image-wrapper">
+    <div class="image">
+      <img src="/images/volunteers.jpg">
+    </div>
+
+    <p>
+      "You get to explore the city, hear live music, and make a real difference...It really made their (the senior's) day beyond anything I have seen.”
+      <br> - Kyle Dineen
+      <br> Curbside Concert Volunteer Driver
+    </p>
+  </div>
+</div>
