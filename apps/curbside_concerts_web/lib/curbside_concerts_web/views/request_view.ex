@@ -102,11 +102,11 @@ defmodule CurbsideConcertsWeb.RequestView do
     link "Requester Tracker", to: path
   end
 
-  def truck_pickup_zip, do: "43125"
+  def truck_pickup_zip, do: "43235"
 
   # For safety the truck pickup/dropoff address has changed temporarily
   # original_location = "491 W Broad St., Columbus, OH 43215"
-  def truck_pickup_dropoff_address, do: "4241 Williams Road, Groveport, OH 43125"
+  def truck_pickup_dropoff_address, do: "7250 Sawmill Rd, Columbus OH 43235"
 
   def map_route_link(requests) do
     truck_location = truck_pickup_dropoff_address()
