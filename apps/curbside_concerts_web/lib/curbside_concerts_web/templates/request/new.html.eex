@@ -1,7 +1,7 @@
 <%= form_for @changeset, Routes.request_path(@conn, :create), fn f -> %>
 <div class="card card-with-nav">
 	<%= LayoutView.render_nav_links(LayoutView.get_nav_links("REQUEST")) %>
-	
+
   <header class="request-form">
     <h1>Request a Curbside Concert</h1>
 		<h2>Fill out the form below to make your request for a senior who may be feeling isolated at this time.</h2>
@@ -19,7 +19,7 @@
     <%= request_input f, :nominee_name %>
   </label>
   <label class="field">
-    <div>Why are you compelled to send a concert to this person? <%= required_star() %></div>
+    <div>Why are you compelled to send a concert to this person? Also, <b>please re-iterate that your nominee is elderly and/or immunocompromised</b>. If it isn't clear from your request, we'll be following up to check before booking your concert. <%= required_star() %></div>
     <%= request_input f, :request_reason %>
   </label>
   <label class="field">
@@ -52,7 +52,7 @@
     <%= request_input f, :request_occasion %>
   </label>
   <label class="field">
-    <div>Is having the concert on a specific date really important?</div>
+    <div>Is having the concert on a specific date really important? Please note: We are currently only booking concerts Friday-Sunday.</div>
     <p class="negative">(Note: if a specific day isn’t essential, do not not fill out this date as that will increase our ability to book your request. If you do select a date and we can’t book that date, we won’t book your request).</p>
     <%= request_date f, :preferred_date, "Select Special Day (optional)" %>
   </label>
@@ -80,7 +80,7 @@
     <p class="negative">Provide a specific address where we will play for your nominee (e.g. their home)</p>
     <%= request_input f, :nominee_street_address %>
   </label>
-  <div id="address_container">  
+  <div id="address_container">
     <label>
       <div>City  <%= required_star() %></div>
       <%= request_input f, :nominee_city %>

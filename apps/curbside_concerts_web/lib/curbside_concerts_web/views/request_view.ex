@@ -98,8 +98,14 @@ defmodule CurbsideConcertsWeb.RequestView do
   end
 
   def requester_tracker_link(%Request{id: request_id}) do
-    path = Routes.request_path(CurbsideConcertsWeb.Endpoint, :tracker, TrackerCypher.encode(request_id))
-    link "Requester Tracker", to: path
+    path =
+      Routes.request_path(
+        CurbsideConcertsWeb.Endpoint,
+        :tracker,
+        TrackerCypher.encode(request_id)
+      )
+
+    link("Requester Tracker", to: path)
   end
 
   def truck_pickup_zip, do: "43235"
@@ -200,15 +206,18 @@ defmodule CurbsideConcertsWeb.RequestView do
         display = "#{@weekdays[weekday]}, #{@months[date.month]} #{date.day}"
         {display, "#{date}"}
       end)
+      |> Enum.filter(fn {display, _date} ->
+        String.match?(display, ~r(Friday|Saturday|Sunday))
+      end)
 
     actual = "#{Phoenix.HTML.Form.input_value(form, field)}"
 
-
-    prompt = if actual == "" or Enum.any?(options, fn {_, date} -> date == actual end) do
-      {prompt, ""}
-    else
-      {actual, actual}
-    end
+    prompt =
+      if actual == "" or Enum.any?(options, fn {_, date} -> date == actual end) do
+        {prompt, ""}
+      else
+        {actual, actual}
+      end
 
     ~E"""
     <%= select(form, field, [prompt | options]) %>
@@ -261,7 +270,7 @@ defmodule CurbsideConcertsWeb.RequestView do
         song: song,
         session: %Session{
           musician: %Musician{
-            name: name,
+            name: name
           }
         }
       }) do
