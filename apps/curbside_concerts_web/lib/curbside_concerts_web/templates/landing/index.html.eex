@@ -2,10 +2,10 @@
 	<%= LayoutView.render_nav_links(LayoutView.get_nav_links("HOME")) %>
   <header class="landing">
     <p>Hey Columbus,</p>
-    <h1>Know an older person in need of some love and connection right now?</h1>
+    <h1>Who do you want to celebrate as a Hero in 2020?</h1>
     <div class="content-wrapper">
       <div class="description">
-        <h2>Send a <em>live curbside concert to</em> someone you care about.</h2>
+        <h2>Send a <em>live curbside concert</em> to someone who has made a big difference in getting us through 2020.</h2>
         <p>For free!</p>
 
         <%= link "REQUEST A CONCERT", to: Routes.request_path(@conn, :new), role: "button", class: "button" %>
@@ -23,13 +23,13 @@
   <h2>We get it. Being quarantined is hard...</h2>
 
   <p>
-		But that doesn't mean we have to miss out on all the joys in life. A lot of us are joining zoom concerts and Facebook Live events to be social on the internet. But our older and vulnerable populations – those who may not be as connected digitally – are both most at risk for this virus and most isolated, too.
+		But we’re getting through it because of extraordinary people who have gone above and beyond for others.  Who do you know that needs a big thank you?  Essential workers, healthcare professionals, first responders, small business owners, teachers, seniors in social isolation, community organizers, caretakers, or just an everyday person who's gone above and beyond for someone else…  we want to help you connect to the heroes in our community to make sure they know they are loved and appreciated!
   </p>
 
   <h2>That's where we come in.</h2>
 
   <p>
-		We’re here to help you safely reach out and connect with older friends or family members you care about. Through your request, we'll bring a musical performance to the curbside of their home in the Columbus area. It’s our experience that a little gesture from you combined with some great live music can really bring some joy... and help them temporarily forget about the grave state of the world.
+		We’re here to help you safely reach out and connect with those people who have helped us get through this difficult year.  Through your request, we'll bring a musical performance to the curbside of their home in the Columbus area. It’s our experience that a little gesture from you combined with some great live music can really bring some joy... and help celebrate and thank these special people for their contributions in such a critical time.
   </p>
 
   <%= link "REQUEST A CONCERT", to: Routes.request_path(@conn, :new), role: "button", class: "button inverted" %>
@@ -44,10 +44,7 @@
     </div>
 
     <p>
-      "This is from your daughter:
-      <br/>
-      <br/>
-      Mom, we know how hard it is to be alone but we wanted you to be safe. We hope this song brightens your day. We love you!"
+      “Nancy has spent this quarantine sewing countless masks and scrub caps for hospital workers, family members, neighbors and friends. She has been leading her church quilting group - organizing, picking up and dropping off materials and supplies, and then she delivers them to hospital workers. Nancy always has the energy to help others -she is selfless and one of our heroes without capes who is helping to combat COVID-19.”
     </p>
   </div>
 </div>
@@ -55,24 +52,24 @@
 <div class="card" style="align: center">
 	<h2>See a concert in action</h2>
   <div class="video-embed-container">
-    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/UsMiRSII19g" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/x3bLRGQTF2E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   </div>
 </div>
 
 <div class="card">
 	<h2>How curbside concerts work</h2>
 
-	<h3> Make a request</h3>
+	<h3>Make a request</h3>
 	<p>
-		Pick an older nominee in the Columbus area and write a heartfelt message that will be read to them during the show
+		Complete the nomination form for someone in the Columbus area that has made a big difference for others in 2020 and write a heartfelt message that will be read to them during the show.
 	</p>
 
-	<h3>We book a local artist</h3>
+	<h3>We schedule the concert and book a local artist</h3>
 	<p>
-		We organize requests together in short 3-4 hour routes and book one of Columbus’s best for a mini curbside-to-curbside tour
+		We review the nominations each week and will schedule concerts based on the message and geographical location that works for the musician’s route.  As the nominator you are notified if your request is scheduled for a concert 48 hours in advance.  Concerts occur on the weekends only.  Every concert is performed by a talented local musician pre-vetted by the Greater Columbus Arts Council, Dublin Arts Council, and Class Acts - you won’t get a bad musician - we promise!
 	</p>
 
-	<h3>They play for your loved ones</h3>
+	<h3>They play for your Nominee</h3>
 	<p>
 		Artists arrive ready to relay your kindness and good wishes with a personalized performance that can be enjoyed from the safety of their yard, porch or driveway
 	</p>

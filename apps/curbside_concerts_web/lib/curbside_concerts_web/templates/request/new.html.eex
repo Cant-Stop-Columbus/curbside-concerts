@@ -4,27 +4,23 @@
 
   <header class="request-form">
     <h1>Request a Curbside Concert</h1>
-		<h2>Fill out the form below to make your request for a senior who may be feeling isolated at this time.</h2>
+		<h2>Fill out the form below to make your request for a 2020 Hero.</h2>
     <p>
-			<strong>Note</strong>: Note: priority will be given to elderly and vulnerable populations based on the message you share and the requested location. We currently aren’t able to fulfill requests that are outside the Central Ohio area.
+			<strong>Note</strong>: priority will be given to heroes based on the message you share, the requested location, and schedule availability. We currently aren’t able to fulfill requests that are outside the Central Ohio area.
 		</p>
   </header>
 </div>
 
 <div class="request-form card">
   <h2>Your nominee</h2>
-  <p>Curbside Concerts isn’t just “live music on demand”... it's meant to be a medium for you to reach out and send a delightful experience to someone you care about. Our goal is to match your request with a local musician who can create a memorable, meaningful experience for your loved one. Our musicians do their best to tailor their performances to each nominee... help us get to know yours.</p>
+  <p>Curbside Concerts isn’t just “live music on demand”... it's meant to be a medium for you to reach out and send a delightful experience to someone who has done extraordinary things in a very difficult year.  Our musicians do their best to tailor their performances to each nominee... help us get to know yours.</p>
   <label class="field">
     <div>First and last name(s) of who you are sending this concert to. <%= required_star() %></div>
     <%= request_input f, :nominee_name %>
   </label>
   <label class="field">
-    <div>Why are you compelled to send a concert to this person? Also, <b>please re-iterate that your nominee is elderly and/or immunocompromised</b>. If it isn't clear from your request, we'll be following up to check before booking your concert. <%= required_star() %></div>
+    <div>Why are you compelled to send a concert to this person? Please explain how your nominee has been a Hero in 2020. <%= required_star() %></div>
     <%= request_input f, :request_reason %>
-  </label>
-  <label class="field">
-    <div>How would you describe your loved one(s) to those who have never met them? What makes them special? <%= required_star() %></div>
-    <%= request_input f, :nominee_description %>
   </label>
 </div>
 
@@ -45,9 +41,9 @@
 
 <div class="request-form card">
   <h2>The concert</h2>
-  <p class="field">While we can’t guarantee a specific time, date or musician, if you give us some details about what could make this performance extra special, we’ll do our best to make it happen. We have a long list of outstanding requests and we do not schedule in order of receipt but rather by location and musical preference. We take special consideration of important milestones and events.</p>
+  <p class="field">While we can’t guarantee a specific time, date or musician, if you give us some details about what could make this performance extra special, we’ll do our best to make it happen. We have a long list of outstanding requests and we do not schedule in order of receipt but rather by location.</p>
   <label class="field">
-    <div>Is there a specific purpose, situation or meaningful occasion we should attempt to schedule around?</div>
+    <div>Is there a specific purpose, situation or meaningful occasion we should attempt to schedule around?  Are there days or times that do not work?</div>
     <p class="negative">(e.g. birthday, wedding anniversary, recovering from an illness, etc.)</p>
     <%= request_input f, :request_occasion %>
   </label>
@@ -65,11 +61,6 @@
       Enum.map(@genres, fn a -> { a.name, a.id } end),
       selected: Enum.map(@changeset.data.genres,&(&1.id))
   )%>
-  <br/>
-  <label class="field">
-    <div>If you can, list your nominees top three favorite songs or artists:</div>
-    <%= request_input f, :nominee_favorite_music_notes %>
-  </label>
 </div>
 
 <div class="request-form card">
@@ -99,7 +90,7 @@
 
 <div class="request-form card">
   <h2>A little bit about you</h2>
-  <p class="field">Our goal is to keep you as up-to-date as possible about when the concert will happen, so you can choose how to let your loved one know (e.g. set it up as a surprise, ensure they’ll be at home, or tell some of the neighbors in advance).</p>
+  <p class="field">Our goal is to keep you as up-to-date as possible about when the concert will happen, so you can choose how to let your nominee know (e.g. set it up as a surprise, ensure they’ll be at home, or tell some of the neighbors in advance).</p>
   <label class="field">
     <div>Your first and last name <%= required_star() %></div>
     <%= request_input f, :requester_name %>
@@ -125,7 +116,7 @@
     <p class="negative">While on our route, we'll call or text ahead when we're on our way (about 15 to 45 minutes before we arrive).</p>
   <label class="field">
     <div>How do you want us to contact the nominee? <%= required_star() %></div>
-    <p class="negative">Given that some older folks can be skeptical of calls, you have the option for us to contact you, or the nominee – please choose an option below</p>
+    <p class="negative">Given that some folks can be skeptical of calls, you have the option for us to contact you, or the nominee – please choose an option below</p>
     <%= contact_preference_radio f %>
   </label>
   <label class="field">

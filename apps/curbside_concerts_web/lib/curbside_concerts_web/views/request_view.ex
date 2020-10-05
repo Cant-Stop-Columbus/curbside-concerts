@@ -199,16 +199,15 @@ defmodule CurbsideConcertsWeb.RequestView do
     today = Date.utc_today()
 
     options =
-      1..90
+      1..30
       |> Enum.map(fn n ->
         date = Date.add(today, n)
         weekday = Date.day_of_week(date)
         display = "#{@weekdays[weekday]}, #{@months[date.month]} #{date.day}"
         {display, "#{date}"}
       end)
-      |> Enum.filter(fn {display, _date} ->
-        String.match?(display, ~r(Friday|Saturday|Sunday))
-      end)
+      |> Enum.filter(fn {display, _date} -> String.match?(display, ~r(Friday|Saturday|Sunday)) end)
+      |> Enum.filter(fn {display, _date} -> String.match?(display, ~r(October)) end)
 
     actual = "#{Phoenix.HTML.Form.input_value(form, field)}"
 
