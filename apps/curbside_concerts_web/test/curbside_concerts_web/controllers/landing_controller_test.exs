@@ -15,7 +15,7 @@ defmodule CurbsideConcertsWeb.LandingControllerTest do
         |> Floki.text()
 
       assert header ==
-               "Know an older person in need of some love and connection right now?"
+               "Who do you want to celebrate as a Hero in 2020?"
     end
   end
 end

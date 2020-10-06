@@ -57,7 +57,8 @@ header.landing {
 
 			@include tablet {
 				flex: 0 0 250px;
-				font-size: 1.5em;
+				font-size: 1.0em;
+				font-weight: bold;
 				padding-left: 20px;
 			}
 		}
