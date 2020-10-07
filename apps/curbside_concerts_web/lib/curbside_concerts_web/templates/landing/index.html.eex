@@ -5,7 +5,7 @@
     <h1>Who do you want to celebrate as a Hero in 2020?</h1>
     <div class="content-wrapper">
       <div class="description">
-        <h2>Send a <em>live curbside concert</em> to someone who has made a big difference in getting us through 2020.</h2>
+        <h2><em><strong>From now until the end of October</strong></em>, send a <em>live curbside concert</em> to someone who has made a big difference in getting us through 2020.</h2>
         <p>For free!</p>
 
         <%= link "REQUEST A CONCERT", to: Routes.request_path(@conn, :new), role: "button", class: "button" %>
