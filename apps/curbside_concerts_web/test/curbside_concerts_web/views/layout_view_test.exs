@@ -13,12 +13,7 @@ defmodule CurbsideConcertsWeb.LayoutViewTest do
     test "given a list of links, renders them" do
       nav_links = [
         %Link{label: "HOME", path: Routes.landing_path(CurbsideConcertsWeb.Endpoint, :index)},
-        %Link{
-          label: "REQUEST",
-          path: Routes.request_path(CurbsideConcertsWeb.Endpoint, :new),
-          current: true
-        },
-        %Link{label: "TIPS", path: Routes.musician_path(CurbsideConcertsWeb.Endpoint, :artists)},
+        %Link{label: "TIPS", path: Routes.musician_path(CurbsideConcertsWeb.Endpoint, :artists), current: true},
         %Link{label: "PERFORM", path: Routes.perform_path(CurbsideConcertsWeb.Endpoint, :index)}
       ]
 
