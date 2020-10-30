@@ -7,8 +7,6 @@
       <div class="description">
         <h2><em><strong>From now until the end of October</strong></em>, send a <em>live curbside concert</em> to someone who has made a big difference in getting us through 2020.</h2>
         <p>For free!</p>
-
-        <%= link "REQUEST A CONCERT", to: Routes.request_path(@conn, :new), role: "button", class: "button" %>
       </div>
       <div class="images">
         <img src="/images/001-musician.svg" alt="Stylized drawing of a man with guitar." />
@@ -31,8 +29,6 @@
   <p>
 		We’re here to help you safely reach out and connect with those people who have helped us get through this difficult year.  Through your request, we'll bring a musical performance to the curbside of their home in the Columbus area. It’s our experience that a little gesture from you combined with some great live music can really bring some joy... and help celebrate and thank these special people for their contributions in such a critical time.
   </p>
-
-  <%= link "REQUEST A CONCERT", to: Routes.request_path(@conn, :new), role: "button", class: "button inverted" %>
 </div>
 
 <div class="card story">
@@ -85,8 +81,3 @@
   <strong>Can’t Stop Columbus Volunteers</strong> lead the coordination, communications and operations support to make this all possible with support from <strong>Streetlight Guild</strong>, the <strong>Columbus Music Commission</strong>, and <strong>What Productions</strong>.
 </div>
 
-<div class="card call-to-action" id="request">
-  <h2>Ready to send a song to a loved one?</h2>
-
-  <%= link "REQUEST A CONCERT", to: Routes.request_path(@conn, :new), role: "button", class: "button" %>
-</div>

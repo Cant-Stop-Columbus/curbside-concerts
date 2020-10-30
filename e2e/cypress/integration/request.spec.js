@@ -48,38 +48,6 @@ describe("Request", () => {
 		cy.logout();
 	});
 
-	describe("Submit a request for a concert as an unauthenticated user.", () => {
-		it("Should submit a new request", () => {
-			landingPage.visit();
-			landingPage.assert();
-
-			landingPage.clickRequestConcertButton();
-			requestFormPage.assert();
-
-			requestFormPage.fillInNomineeName(requestData.nomineeName);
-			requestFormPage.clickContactPreferenceOption(
-				requestData.contactPreference
-			);
-			requestFormPage.fillInNomineePhone(requestData.nomineePhone);
-			requestFormPage.fillInNomineeStreetAddress(requestData.nomineeStreetAddress);
-			requestFormPage.fillInNomineeCity(requestData.nomineeCity);
-			requestFormPage.fillInNomineeZipCode(requestData.nomineeZipCode);
-			requestFormPage.fillInNomineeAddressNotes(requestData.nomineeAddressNotes);
-			requestData.genres.forEach((genre) => {
-				requestFormPage.clickGenreCheckbox(genre);
-			});
-			requestFormPage.fillInSpecialMessage(requestData.specialMessage);
-			requestFormPage.fillInRequesterName(requestData.requesterName);
-			requestFormPage.fillInRequesterEmail(requestData.requesterEmail);
-			requestFormPage.fillInRequesterPhone(requestData.requesterPhone);
-
-			requestFormPage.clickSubmit();
-
-			requestTrackerPage.assert(requestData.requesterName);
-			requestTrackerPage.assertRequestSuccessAlert(requestData.nomineeName);
-		});
-	});
-
 	describe("Manage a submitted request as an authenticated admin user", () => {
 		beforeEach(() => {
 			cy.login();
@@ -157,38 +125,6 @@ describe("Request", () => {
 			gigsPage.clickRequestArchiveLink(requestData.specialMessage);
 
 			gigsPage.refuteRequest(requestData.specialMessage);
-		});
-	});
-
-	describe("Cancel a concert request as the requester.", () => {
-		it("should cancel an existing request", () => {
-			requestFormPage.visit();
-
-			requestFormPage.fillInNomineeName(requestData.nomineeName);
-			requestFormPage.clickContactPreferenceOption(
-				requestData.contactPreference
-			);
-			requestFormPage.fillInNomineePhone(requestData.nomineePhone);
-			requestFormPage.fillInNomineeStreetAddress(requestData.nomineeStreetAddress);
-			requestFormPage.fillInNomineeCity(requestData.nomineeCity);
-			requestFormPage.fillInNomineeZipCode(requestData.nomineeZipCode);
-			requestFormPage.fillInNomineeAddressNotes(requestData.nomineeAddressNotes);
-			requestData.genres.forEach((genre) => {
-				requestFormPage.clickGenreCheckbox(genre);
-			});
-			requestFormPage.fillInSpecialMessage(requestData.specialMessage);
-			requestFormPage.fillInRequesterName(requestData.requesterName);
-			requestFormPage.fillInRequesterEmail(requestData.requesterEmail);
-			requestFormPage.fillInRequesterPhone(requestData.requesterPhone);
-
-			requestFormPage.clickSubmit();
-
-			requestTrackerPage.assertCancelRequestLink();
-
-			requestTrackerPage.clickCancelRequest();
-			requestFormPage.assert();
-
-			requestFormPage.assertCancelRequestSuccessAlert(requestData.nomineeName);
 		});
 	});
 });
