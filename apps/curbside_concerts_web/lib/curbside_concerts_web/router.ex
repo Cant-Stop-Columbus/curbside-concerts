@@ -37,8 +37,6 @@ defmodule CurbsideConcertsWeb.Router do
     get "/session/artist/:artist_id", SessionController, :session_route_artist
 
     # request management
-    get "/request", RequestController, :new
-    post "/request", RequestController, :create
     put "/cancel_request/:tracker_id", RequestController, :cancel_request
     get "/request/disclaimer", RequestController, :disclaimer
     # admin landing page
